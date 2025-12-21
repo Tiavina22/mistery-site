@@ -19,17 +19,17 @@ const translations = {
 
     // Hero
     'hero.title': 'Plongez dans les mystères de Madagascar',
-    'hero.subtitle': 'Découvrez des histoires vraies issues de la culture malgache. Mystère, paranormal, drames — vivez des récits authentiques en streaming.',
+    'hero.subtitle': 'Découvrez des histoires vraies issues de la culture malgache. Mystère, paranormal, drames — vivez des vécus authentiques en streaming.',
     'hero.cta': 'Télécharger l\'application',
     'hero.badge': 'Disponible sur Android',
 
     // Concept
     'concept.title': 'Le streaming d\'histoires vraies',
-    'concept.subtitle': 'APPISTERY réinvente la façon de vivre les récits authentiques',
+    'concept.subtitle': 'APPISTERY réinvente la façon de vivre les vécus authentiques',
     'concept.streaming.title': 'Streaming immersif',
     'concept.streaming.desc': 'Des histoires vraies en streaming, organisées en séries et épisodes pour une expérience de lecture captivante.',
     'concept.culture.title': 'Culture malgache',
-    'concept.culture.desc': 'Des récits issus de la richesse culturelle, sociale et mystique de Madagascar.',
+    'concept.culture.desc': 'Des vécus issus de la richesse culturelle, sociale et mystique de Madagascar.',
     'concept.series.title': 'Séries & Épisodes',
     'concept.series.desc': 'Chaque histoire est structurée en chapitres pour vous tenir en haleine.',
     'concept.mobile.title': 'Lecture mobile',
@@ -37,7 +37,7 @@ const translations = {
 
     // Featured Stories
     'stories.title': 'Histoires en vedette',
-    'stories.subtitle': 'Explorez nos récits les plus captivants',
+    'stories.subtitle': 'Explorez nos vécus les plus captivants',
     'stories.discover': 'Découvrir',
     'stories.episodes': 'épisodes',
     'stories.series': 'Série',
@@ -63,7 +63,7 @@ const translations = {
     'features.title': 'Fonctionnalités',
     'features.subtitle': 'Tout ce dont vous avez besoin pour une expérience immersive',
     'features.streaming.title': 'Streaming d\'histoires vraies',
-    'features.streaming.desc': 'Accédez à des récits authentiques basés sur des faits réels de Madagascar.',
+    'features.streaming.desc': 'Accédez à des vécus authentiques basés sur des faits réels de Madagascar.',
     'features.series.title': 'Séries & Chapitres',
     'features.series.desc': 'Des histoires organisées pour une lecture progressive et captivante.',
     'features.theme.title': 'Mode clair / sombre',
@@ -102,7 +102,7 @@ const translations = {
     'creators.title': 'Créateurs de contenu',
     'creators.subtitle': 'La plateforme qui valorise les auteurs malgaches',
     'creators.publish.title': 'Publiez vos histoires',
-    'creators.publish.desc': 'Partagez vos récits avec une audience passionnée par la culture malgache.',
+    'creators.publish.desc': 'Partagez vos vécus avec une audience passionnée par la culture malgache.',
     'creators.earn.title': 'Générez des revenus',
     'creators.earn.desc': 'Chaque lecture de vos histoires vous rapporte. Plus vous êtes lu, plus vous gagnez.',
     'creators.community.title': 'Communauté engagée',
