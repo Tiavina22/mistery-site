@@ -22,9 +22,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-lg bg-primary flex items-center justify-center">
-              <span className="font-heading font-bold text-primary-foreground text-lg lg:text-xl">A</span>
-            </div>
+            <img 
+              src="/logo/logo-appistery-no.png" 
+              alt="APPISTERY" 
+              className="h-8 lg:h-10 w-auto object-contain"
+            />
             <span className="font-heading font-bold text-xl lg:text-2xl text-foreground group-hover:text-primary transition-colors">
               APPISTERY
             </span>

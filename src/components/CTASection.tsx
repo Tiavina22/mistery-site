@@ -18,9 +18,11 @@ export default function CTASection() {
         <div className="max-w-3xl mx-auto text-center">
           {/* Logo */}
           <div className="inline-flex items-center gap-3 mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center shadow-glow">
-              <span className="font-heading font-bold text-primary-foreground text-2xl">A</span>
-            </div>
+            <img 
+              src="/logo/logo-appistery-no.png" 
+              alt="APPISTERY" 
+              className="h-8 lg:h-10 w-auto object-contain"
+            />
           </div>
 
           {/* Title */}

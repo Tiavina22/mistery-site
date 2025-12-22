@@ -16,9 +16,11 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="text-center lg:text-left">
             <div className="flex items-center gap-3 justify-center lg:justify-start mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <span className="font-heading font-bold text-primary-foreground text-lg">A</span>
-              </div>
+              <img 
+              src="/logo/logo-appistery-no.png" 
+              alt="APPISTERY" 
+              className="h-8 lg:h-10 w-auto object-contain"
+            />
               <span className="font-heading font-bold text-xl">APPISTERY</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs mx-auto lg:mx-0">

@@ -31,9 +31,11 @@ export default function HeroSection() {
           <div className="text-center lg:text-left space-y-6 lg:space-y-8">
             {/* Logo Badge */}
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm shadow-card animate-fade-up opacity-0">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="font-heading font-bold text-primary-foreground">A</span>
-              </div>
+               <img 
+              src="/logo/logo-appistery-no.png" 
+              alt="APPISTERY" 
+              className="h-8 lg:h-10 w-auto object-contain"
+            />
               <span className="font-heading font-semibold text-lg">APPISTERY</span>
             </div>
 
@@ -77,9 +79,11 @@ export default function HeroSection() {
                   {/* App header */}
                   <div className="h-14 bg-card flex items-center justify-between px-4 border-b border-border">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded bg-primary flex items-center justify-center">
-                        <span className="text-xs font-bold text-primary-foreground">A</span>
-                      </div>
+                       <img 
+              src="/logo/logo-appistery-no.png" 
+              alt="APPISTERY" 
+              className="h-8 lg:h-10 w-auto object-contain"
+            />
                       <span className="font-heading font-semibold text-sm">APPISTERY</span>
                     </div>
                     <div className="w-6 h-6 rounded-full bg-muted" />
