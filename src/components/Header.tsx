@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import { Menu, X, Moon, Sun, Globe, User } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,6 +75,14 @@ export default function Header() {
             <Button className="hidden lg:flex" size="sm">
               {t('nav.download')}
             </Button>
+
+            {/* Creator Space Button */}
+            <Link to="/creator/login">
+              <Button variant="outline" size="sm" className="hidden md:flex">
+                <User className="w-4 h-4 mr-2" />
+                Espace Créateur
+              </Button>
+            </Link>
 
             {/* Mobile Menu Toggle */}
             <button
