@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { authorApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,18 +34,19 @@ interface Stats {
   followers: number;
 }
 
-const sidebarItems = [
-  { icon: LayoutDashboard, label: 'Tableau de bord', path: '/creator/dashboard' },
-  { icon: FileText, label: 'Mes histoires', path: '/creator/stories' },
-  { icon: BarChart3, label: 'Statistiques', path: '/creator/analytics' },
-  { icon: Bell, label: 'Notifications', path: '/creator/notifications' },
-  { icon: Settings, label: 'Paramètres', path: '/creator/settings' },
-];
-
 export default function CreatorDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
   const { author, logout, isAuthenticated } = useAuth();
+  const { t } = useLanguage();
+  
+  const sidebarItems = [
+    { icon: LayoutDashboard, label: t('creator.dashboard.menu.dashboard'), path: '/creator/dashboard' },
+    { icon: FileText, label: t('creator.dashboard.menu.stories'), path: '/creator/stories' },
+    { icon: BarChart3, label: t('creator.dashboard.menu.analytics'), path: '/creator/analytics' },
+    { icon: Bell, label: t('creator.dashboard.menu.notifications'), path: '/creator/notifications' },
+    { icon: Settings, label: t('creator.dashboard.menu.settings'), path: '/creator/settings' },
+  ];
   const [stats, setStats] = useState<Stats>({
     totalStories: 0,
     publishedStories: 0,
@@ -149,7 +151,7 @@ export default function CreatorDashboard() {
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium truncate">{author.email}</p>
               <p className="text-xs text-muted-foreground truncate">
-                {author.speciality || 'Créateur'}
+                {author.speciality || t('creator.dashboard.welcome')}
               </p>
             </div>
           </div>
@@ -160,7 +162,7 @@ export default function CreatorDashboard() {
             onClick={handleLogout}
           >
             <LogOut className="w-4 h-4 mr-2" />
-            Déconnexion
+            {t('creator.dashboard.logout')}
           </Button>
         </div>
       </aside>
@@ -172,19 +174,19 @@ export default function CreatorDashboard() {
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold">Tableau de bord</h1>
+                <h1 className="text-2xl font-bold">{t('creator.dashboard.title')}</h1>
                 <p className="text-sm text-muted-foreground">
-                  Bienvenue dans votre espace créateur
+                  {t('creator.dashboard.welcome')}
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 <Button variant="outline" onClick={() => navigate('/')}>
                   <Home className="w-4 h-4 mr-2" />
-                  Retour au site
+                  {t('creator.login.backHome')}
                 </Button>
                 <Button onClick={() => navigate('/creator/story/new')}>
                   <PlusCircle className="w-4 h-4 mr-2" />
-                  Nouvelle histoire
+                  {t('creator.dashboard.newStory')}
                 </Button>
               </div>
             </div>
@@ -198,14 +200,14 @@ export default function CreatorDashboard() {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Histoires totales
+                  {t('creator.dashboard.stats.totalStories')}
                 </CardTitle>
                 <BookOpen className="w-5 h-5 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">{stats.totalStories}</div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  {stats.publishedStories} publiées · {stats.draftStories} brouillons
+                  {stats.publishedStories} {t('creator.dashboard.recent.status.published').toLowerCase()} · {stats.draftStories} {t('creator.dashboard.recent.status.draft').toLowerCase()}
                 </p>
               </CardContent>
             </Card>
@@ -213,14 +215,14 @@ export default function CreatorDashboard() {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Vues totales
+                  {t('creator.dashboard.stats.totalViews')}
                 </CardTitle>
                 <Eye className="w-5 h-5 text-blue-500" />
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold">{stats.totalViews.toLocaleString()}</div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Lectures de vos histoires
+                  {t('creator.dashboard.recent.views')}
                 </p>
               </CardContent>
             </Card>
@@ -228,7 +230,7 @@ export default function CreatorDashboard() {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Réactions
+                  {t('creator.dashboard.stats.totalReactions')}
                 </CardTitle>
                 <Heart className="w-5 h-5 text-red-500" />
               </CardHeader>
@@ -243,7 +245,7 @@ export default function CreatorDashboard() {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Abonnés
+                  {t('creator.dashboard.stats.followers')}
                 </CardTitle>
                 <Users className="w-5 h-5 text-green-500" />
               </CardHeader>
@@ -261,7 +263,7 @@ export default function CreatorDashboard() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>Vos histoires récentes</CardTitle>
+                  <CardTitle>{t('creator.dashboard.recent.title')}</CardTitle>
                   <CardDescription>
                     Gérez et modifiez vos histoires publiées
                   </CardDescription>
@@ -280,9 +282,9 @@ export default function CreatorDashboard() {
               ) : stories.length === 0 ? (
                 <div className="text-center py-12">
                   <BookOpen className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">Aucune histoire</h3>
+                  <h3 className="text-lg font-medium mb-2">{t('creator.dashboard.recent.empty')}</h3>
                   <p className="text-muted-foreground mb-6">
-                    Commencez à partager vos histoires avec votre audience
+                    {t('creator.dashboard.recent.createFirst')}
                   </p>
                   <Button onClick={() => navigate('/creator/story/new')}>
                     <PlusCircle className="w-4 h-4 mr-2" />
@@ -315,7 +317,7 @@ export default function CreatorDashboard() {
                               ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                               : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
                           )}>
-                            {story.status === 'published' ? 'Publié' : 'Brouillon'}
+                            {story.status === 'published' ? t('creator.dashboard.recent.status.published') : t('creator.dashboard.recent.status.draft')}
                           </span>
                         </div>
                         <Button variant="ghost" size="sm">
@@ -335,10 +337,10 @@ export default function CreatorDashboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5" />
-                  Tendances
+                  {t('creator.dashboard.performance.growth')}
                 </CardTitle>
                 <CardDescription>
-                  Performance de vos histoires
+                  {t('creator.dashboard.performance.title')}
                 </CardDescription>
               </CardHeader>
               <CardContent>

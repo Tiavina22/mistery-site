@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import CreatorLogin from "./pages/CreatorLogin";
 import CreatorRegister from "./pages/CreatorRegister";
 import CreatorDashboard from "./pages/CreatorDashboard";
+import CreatorSettings from "./pages/CreatorSettings";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
                 <Route path="/creator/login" element={<CreatorLogin />} />
                 <Route path="/creator/register" element={<CreatorRegister />} />
                 <Route path="/creator/dashboard" element={<CreatorDashboard />} />
+                <Route path="/creator/settings" element={<CreatorSettings />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

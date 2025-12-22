@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +13,7 @@ import { Eye, EyeOff, Loader2 } from 'lucide-react';
 export default function CreatorRegister() {
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -37,12 +39,12 @@ export default function CreatorRegister() {
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
-      setError('Les mots de passe ne correspondent pas');
+      setError(t('creator.register.passwordMismatch'));
       return;
     }
 
     if (formData.password.length < 8) {
-      setError('Le mot de passe doit contenir au moins 8 caractères');
+      setError(t('creator.register.passwordTooShort'));
       return;
     }
 
@@ -53,7 +55,7 @@ export default function CreatorRegister() {
       await register(registerData);
       navigate('/creator/dashboard');
     } catch (err: any) {
-      setError(err.message || 'Erreur lors de l\'inscription');
+      setError(err.message || t('creator.register.error'));
     } finally {
       setIsLoading(false);
     }
@@ -63,9 +65,9 @@ export default function CreatorRegister() {
     <div className="min-h-screen flex items-center justify-center bg-background px-4 py-8">
       <Card className="w-full max-w-2xl">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Devenir Créateur</CardTitle>
+          <CardTitle className="text-2xl font-bold text-center">{t('creator.register.title')}</CardTitle>
           <CardDescription className="text-center">
-            Créez votre compte pour partager vos histoires
+            {t('creator.register.subtitle')}
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -78,7 +80,7 @@ export default function CreatorRegister() {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email *</Label>
+                <Label htmlFor="email">{t('creator.register.email')} *</Label>
                 <Input
                   id="email"
                   name="email"
@@ -92,7 +94,7 @@ export default function CreatorRegister() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone_number">Téléphone</Label>
+                <Label htmlFor="phone_number">{t('creator.register.phone')}</Label>
                 <Input
                   id="phone_number"
                   name="phone_number"
@@ -107,7 +109,7 @@ export default function CreatorRegister() {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="password">Mot de passe *</Label>
+                <Label htmlFor="password">{t('creator.register.password')} *</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -123,6 +125,7 @@ export default function CreatorRegister() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    title={showPassword ? t('creator.login.hide') : t('creator.login.show')}
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -130,7 +133,7 @@ export default function CreatorRegister() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirmer le mot de passe *</Label>
+                <Label htmlFor="confirmPassword">{t('creator.register.confirmPassword')} *</Label>
                 <Input
                   id="confirmPassword"
                   name="confirmPassword"
@@ -145,12 +148,12 @@ export default function CreatorRegister() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="speciality">Spécialité</Label>
+              <Label htmlFor="speciality">{t('creator.register.speciality')}</Label>
               <Input
                 id="speciality"
                 name="speciality"
                 type="text"
-                placeholder="Ex: Mystère, Paranormal, Drame..."
+                placeholder={t('creator.register.specialityPlaceholder')}
                 value={formData.speciality}
                 onChange={handleChange}
                 disabled={isLoading}
@@ -158,11 +161,11 @@ export default function CreatorRegister() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="biography">Biographie</Label>
+              <Label htmlFor="biography">{t('creator.register.biography')}</Label>
               <Textarea
                 id="biography"
                 name="biography"
-                placeholder="Parlez-nous de vous et de votre passion pour les histoires..."
+                placeholder={t('creator.register.biographyPlaceholder')}
                 value={formData.biography}
                 onChange={handleChange}
                 disabled={isLoading}
@@ -174,18 +177,18 @@ export default function CreatorRegister() {
           <CardFooter className="flex flex-col gap-4">
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-              Créer mon compte
+              {isLoading ? t('creator.register.loading') : t('creator.register.button')}
             </Button>
 
             <p className="text-sm text-center text-muted-foreground">
-              Déjà un compte ?{' '}
+              {t('creator.register.hasAccount')}{' '}
               <Link to="/creator/login" className="text-primary hover:underline font-medium">
-                Se connecter
+                {t('creator.register.login')}
               </Link>
             </p>
 
             <Link to="/" className="text-sm text-center text-muted-foreground hover:text-foreground">
-              ← Retour à l'accueil
+              ← {t('creator.register.backHome')}
             </Link>
           </CardFooter>
         </form>
