@@ -125,6 +125,27 @@ const translations = {
     'footer.made': 'Fait à Madagascar',
     'footer.rights': '© Appistery – Tous droits réservés',
 
+    // Common
+    'common.back': 'Retour',
+    'common.loading': 'Chargement...',
+
+    // About Page
+    'about.title': 'À propos d\'APPISTERY',
+    'about.subtitle': 'La plateforme de streaming d\'histoires vraies de Madagascar',
+    'about.mission': 'Notre Mission',
+    'about.authenticity': 'Authenticité',
+    'about.community': 'Communauté',
+    'about.culture': 'Culture Malgache',
+    'about.support': 'Soutien aux Créateurs',
+    'about.team': 'Rejoignez l\'aventure',
+
+    // Terms Page
+    'terms.title': 'Conditions Générales d\'Utilisation',
+
+    // Contact Page
+    'contact.title': 'Contactez-nous',
+    'contact.subtitle': 'Notre équipe est là pour répondre à vos questions et vous accompagner',
+
     // Creator Space
     'creator.login.title': 'Espace Créateur',
     'creator.login.subtitle': 'Connectez-vous pour gérer vos histoires',
@@ -315,6 +336,27 @@ const translations = {
     'footer.contact': 'Contact',
     'footer.made': 'Made in Madagascar',
     'footer.rights': '© Appistery – All rights reserved',
+
+    // Common
+    'common.back': 'Back',
+    'common.loading': 'Loading...',
+
+    // About Page
+    'about.title': 'About APPISTERY',
+    'about.subtitle': 'The streaming platform for true stories from Madagascar',
+    'about.mission': 'Our Mission',
+    'about.authenticity': 'Authenticity',
+    'about.community': 'Community',
+    'about.culture': 'Malagasy Culture',
+    'about.support': 'Support for Creators',
+    'about.team': 'Join the adventure',
+
+    // Terms Page
+    'terms.title': 'Terms of Service',
+
+    // Contact Page
+    'contact.title': 'Contact Us',
+    'contact.subtitle': 'Our team is here to answer your questions and support you',
 
     // Creator Space
     'creator.login.title': 'Creator Space',

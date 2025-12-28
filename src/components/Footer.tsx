@@ -1,12 +1,13 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const { t } = useLanguage();
 
   const footerLinks = [
-    { key: 'footer.about', href: '#' },
-    { key: 'footer.terms', href: '#' },
-    { key: 'footer.contact', href: '#' },
+    { key: 'footer.about', href: '/about' },
+    { key: 'footer.terms', href: '/terms' },
+    { key: 'footer.contact', href: '/contact' },
   ];
 
   return (
@@ -31,13 +32,13 @@ export default function Footer() {
           {/* Links */}
           <div className="flex items-center justify-center gap-6 lg:gap-8">
             {footerLinks.map((link) => (
-              <a
+              <Link
                 key={link.key}
-                href={link.href}
+                to={link.href}
                 className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 {t(link.key)}
-              </a>
+              </Link>
             ))}
           </div>
 
