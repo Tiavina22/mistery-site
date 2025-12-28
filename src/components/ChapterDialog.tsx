@@ -141,12 +141,12 @@ export default function ChapterDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#282828] border-none text-white">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-white text-2xl">
             {chapter ? 'Modifier le chapitre' : 'Nouveau chapitre'}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Gasy est la langue officielle, mais vous pouvez aussi ajouter du contenu en français et anglais (optionnel).
           </DialogDescription>
         </DialogHeader>
@@ -155,7 +155,7 @@ export default function ChapterDialog({
           <div className="space-y-4">
             {/* Numéro du chapitre */}
             <div>
-              <Label htmlFor="chapter_number">
+              <Label htmlFor="chapter_number" className="text-white">
                 Numéro du chapitre <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -166,19 +166,20 @@ export default function ChapterDialog({
                 onChange={(e) => setChapterNumber(e.target.value)}
                 placeholder="Ex: 1"
                 required
+                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
               />
             </div>
 
             {/* Tabs pour les langues */}
             <Tabs defaultValue="gasy" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="gasy">
+              <TabsList className="grid w-full grid-cols-3 bg-[#181818] border-none">
+                <TabsTrigger value="gasy" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">
                   🇲🇬 Gasy {titleGasy && '✓'}
                 </TabsTrigger>
-                <TabsTrigger value="fr">
+                <TabsTrigger value="fr" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">
                   🇫🇷 Français {titleFr && '✓'}
                 </TabsTrigger>
-                <TabsTrigger value="en">
+                <TabsTrigger value="en" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">
                   🇬🇧 English {titleEn && '✓'}
                 </TabsTrigger>
               </TabsList>
@@ -186,23 +187,24 @@ export default function ChapterDialog({
               {/* Contenu Gasy */}
               <TabsContent value="gasy" className="space-y-4">
                 <div>
-                  <Label htmlFor="title_gasy">Titre (Gasy)</Label>
+                  <Label htmlFor="title_gasy" className="text-white">Titre (Gasy)</Label>
                   <Input
                     id="title_gasy"
                     value={titleGasy}
                     onChange={(e) => setTitleGasy(e.target.value)}
                     placeholder="Ex: Toko 1: Fanombohana"
+                    className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="content_gasy">Contenu (Gasy)</Label>
+                  <Label htmlFor="content_gasy" className="text-white">Contenu (Gasy)</Label>
                   <Textarea
                     id="content_gasy"
                     value={contentGasy}
                     onChange={(e) => setContentGasy(e.target.value)}
                     placeholder="Soraty eto ny votoatin'ny toko..."
                     rows={10}
-                    className="resize-none"
+                    className="resize-none bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                   />
                 </div>
               </TabsContent>
@@ -210,23 +212,24 @@ export default function ChapterDialog({
               {/* Contenu Français */}
               <TabsContent value="fr" className="space-y-4">
                 <div>
-                  <Label htmlFor="title_fr">Titre (Français)</Label>
+                  <Label htmlFor="title_fr" className="text-white">Titre (Français)</Label>
                   <Input
                     id="title_fr"
                     value={titleFr}
                     onChange={(e) => setTitleFr(e.target.value)}
                     placeholder="Ex: Chapitre 1: Le début"
+                    className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="content_fr">Contenu (Français)</Label>
+                  <Label htmlFor="content_fr" className="text-white">Contenu (Français)</Label>
                   <Textarea
                     id="content_fr"
                     value={contentFr}
                     onChange={(e) => setContentFr(e.target.value)}
                     placeholder="Écrivez le contenu du chapitre ici..."
                     rows={10}
-                    className="resize-none"
+                    className="resize-none bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                   />
                 </div>
               </TabsContent>
@@ -234,23 +237,24 @@ export default function ChapterDialog({
               {/* Contenu English */}
               <TabsContent value="en" className="space-y-4">
                 <div>
-                  <Label htmlFor="title_en">Title (English)</Label>
+                  <Label htmlFor="title_en" className="text-white">Title (English)</Label>
                   <Input
                     id="title_en"
                     value={titleEn}
                     onChange={(e) => setTitleEn(e.target.value)}
                     placeholder="Ex: Chapter 1: The beginning"
+                    className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                   />
                 </div>
                 <div>
-                  <Label htmlFor="content_en">Content (English)</Label>
+                  <Label htmlFor="content_en" className="text-white">Content (English)</Label>
                   <Textarea
                     id="content_en"
                     value={contentEn}
                     onChange={(e) => setContentEn(e.target.value)}
                     placeholder="Write the chapter content here..."
                     rows={10}
-                    className="resize-none"
+                    className="resize-none bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                   />
                 </div>
               </TabsContent>
@@ -263,10 +267,15 @@ export default function ChapterDialog({
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={loading}
+              className="bg-transparent border-white/20 text-white hover:bg-white/10"
             >
               Annuler
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button 
+              type="submit" 
+              disabled={loading}
+              className="bg-[#1DB954] hover:bg-[#1ed760] text-black font-semibold"
+            >
               {loading ? 'Enregistrement...' : chapter ? 'Mettre à jour' : 'Créer'}
             </Button>
           </DialogFooter>

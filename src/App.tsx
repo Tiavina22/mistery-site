@@ -18,6 +18,8 @@ import CreatorStories from "./pages/CreatorStories";
 import CreatorStoriesNew from "./pages/CreatorStoriesNew";
 import ManageGenres from "./pages/ManageGenres";
 import ManageChapters from "./pages/ManageChapters";
+import CreatorAnalytics from "./pages/CreatorAnalytics";
+import CreatorNotifications from "./pages/CreatorNotifications";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
                 <Route path="/creator/stories" element={<CreatorStoriesNew />} />
                 <Route path="/creator/story/new" element={<CreateStory />} />
                 <Route path="/creator/genres" element={<ManageGenres />} />
+                <Route path="/creator/analytics" element={<CreatorAnalytics />} />
+                <Route path="/creator/notifications" element={<CreatorNotifications />} />
                 <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
