@@ -24,11 +24,11 @@ export default function CreatorsSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="creators" className="py-20 lg:py-32 relative overflow-hidden">
+    <section id="creators" className="py-20 lg:py-32 relative overflow-hidden bg-black">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#1DB954]/10 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative">
@@ -36,10 +36,10 @@ export default function CreatorsSection() {
           {/* Content */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6 text-white">
                 {t('creators.title')}
               </h2>
-              <p className="text-lg lg:text-xl text-muted-foreground">
+              <p className="text-lg lg:text-xl text-gray-400">
                 {t('creators.subtitle')}
               </p>
             </div>
@@ -50,17 +50,17 @@ export default function CreatorsSection() {
                 return (
                   <div
                     key={benefit.titleKey}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors group"
+                    className="flex items-start gap-4 p-4 rounded-xl bg-[#181818] border-none hover:bg-[#282828] transition-colors group"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className="w-12 h-12 rounded-xl bg-[#1DB954]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#1DB954]/20 transition-colors">
+                      <Icon className="w-6 h-6 text-[#1DB954]" />
                     </div>
                     <div>
-                      <h3 className="font-heading font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
+                      <h3 className="font-heading font-semibold text-lg mb-1 text-white group-hover:text-[#1DB954] transition-colors">
                         {t(benefit.titleKey)}
                       </h3>
-                      <p className="text-muted-foreground">
+                      <p className="text-gray-400">
                         {t(benefit.descKey)}
                       </p>
                     </div>
@@ -69,7 +69,7 @@ export default function CreatorsSection() {
               })}
             </div>
 
-            <Button size="lg" variant="outline" className="gap-2">
+            <Button size="lg" variant="outline" className="gap-2 border-white/20 text-white hover:bg-[#1DB954] hover:text-black hover:border-[#1DB954] font-bold">
               <PenTool className="w-5 h-5" />
               {t('creators.cta')}
             </Button>

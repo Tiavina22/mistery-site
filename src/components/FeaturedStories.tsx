@@ -66,14 +66,14 @@ export default function FeaturedStories() {
   ];
 
   return (
-    <section id="stories" className="py-20 lg:py-32 bg-secondary/30">
+    <section id="stories" className="py-20 lg:py-32 bg-black">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6 text-white">
             {t('stories.title')}
           </h2>
-          <p className="text-lg lg:text-xl text-muted-foreground">
+          <p className="text-lg lg:text-xl text-gray-400">
             {t('stories.subtitle')}
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function FeaturedStories() {
             stories.map((story, index) => (
               <div
                 key={story.id}
-                className="group relative rounded-2xl overflow-hidden hover-lift cursor-pointer"
+                className="group relative rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer bg-[#181818]"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Cover Image Background */}
@@ -124,11 +124,11 @@ export default function FeaturedStories() {
                   )}
 
                   {/* Content overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                   
                   {/* Genre badge */}
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-background/80 backdrop-blur-sm text-foreground">
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-black/80 backdrop-blur-sm text-white">
                       {story.genre?.title || 'Sans genre'}
                     </span>
                   </div>
@@ -136,20 +136,20 @@ export default function FeaturedStories() {
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs font-medium text-primary">{t('stories.series')}</span>
-                      <span className="text-xs text-muted-foreground">•</span>
-                      <span className="text-xs text-muted-foreground">{story.chapters_count} {t('stories.episodes')}</span>
+                      <span className="text-xs font-medium text-[#1DB954]">{t('stories.series')}</span>
+                      <span className="text-xs text-gray-400">•</span>
+                      <span className="text-xs text-gray-400">{story.chapters_count} {t('stories.episodes')}</span>
                     </div>
-                    <h3 className="text-lg font-heading font-semibold mb-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-lg font-heading font-semibold mb-2 text-white group-hover:text-[#1DB954] transition-colors">
                       {getTitle(story.title)}
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                    <p className="text-sm text-gray-400 line-clamp-2 mb-4">
                       {getSynopsis(story.synopsis) || 'Découvrez cette histoire captivante'}
                     </p>
                     <Button 
                       variant="secondary" 
                       size="sm"
-                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                      className="w-full bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold transition-colors"
                     >
                       {t('stories.listen')}
                       <ArrowRight className="ml-2 h-4 w-4" />

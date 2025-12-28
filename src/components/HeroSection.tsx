@@ -7,22 +7,22 @@ export default function HeroSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 lg:pt-0 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-20 lg:pt-0 overflow-hidden bg-black">
       {/* Background image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
         {/* Overlay for light mode */}
-        <div className="absolute inset-0 bg-background/85 dark:bg-background/75" />
+        <div className="absolute inset-0 bg-black/85" />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent dark:from-background dark:via-background/60 dark:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
       </div>
 
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-[#1DB954]/20 blur-3xl" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-[#1DB954]/10 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 py-12 lg:py-0 relative z-10">
@@ -30,35 +30,35 @@ export default function HeroSection() {
           {/* Content */}
           <div className="text-center lg:text-left space-y-6 lg:space-y-8">
             {/* Logo Badge */}
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-card/90 backdrop-blur-sm shadow-card animate-fade-up opacity-0">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#121212] backdrop-blur-sm shadow-xl animate-fade-up opacity-0 border border-white/10">
                <img 
               src="/logo/logo-appistery-no.png" 
               alt="APPISTERY" 
               className="h-8 lg:h-10 w-auto object-contain"
             />
-              <span className="font-heading font-semibold text-lg">APPISTERY</span>
+              <span className="font-heading font-semibold text-lg text-white">APPISTERY</span>
             </div>
 
             {/* Title */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold leading-tight animate-fade-up opacity-0 stagger-1">
-              <span className="text-foreground">{t('hero.title').split(' ').slice(0, -1).join(' ')}</span>{' '}
-              <span className="text-gradient-gold">{t('hero.title').split(' ').slice(-1)}</span>
+              <span className="text-white">{t('hero.title').split(' ').slice(0, -1).join(' ')}</span>{' '}
+              <span className="text-[#1DB954]">{t('hero.title').split(' ').slice(-1)}</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg lg:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 animate-fade-up opacity-0 stagger-2">
+            <p className="text-lg lg:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 animate-fade-up opacity-0 stagger-2">
               {t('hero.subtitle')}
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up opacity-0 stagger-3">
-              <Button size="lg" className="group gap-2 text-base">
+              <Button size="lg" className="group gap-2 text-base bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold rounded-full transition-all hover:scale-105">
                 <Download className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
                 {t('hero.cta')}
               </Button>
-              <div className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-card/90 backdrop-blur-sm border border-border">
-                <Smartphone className="w-5 h-5 text-muted-foreground" />
-                <span className="text-sm font-medium text-muted-foreground">{t('hero.badge')}</span>
+              <div className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] backdrop-blur-sm border border-white/10">
+                <Smartphone className="w-5 h-5 text-gray-400" />
+                <span className="text-sm font-medium text-gray-400">{t('hero.badge')}</span>
               </div>
             </div>
           </div>

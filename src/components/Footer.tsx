@@ -10,7 +10,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="py-12 lg:py-16 border-t border-border bg-card/50">
+    <footer className="py-12 lg:py-16 border-t border-white/10 bg-black">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
           {/* Logo & Description */}
@@ -21,9 +21,9 @@ export default function Footer() {
               alt="APPISTERY" 
               className="h-8 lg:h-10 w-auto object-contain"
             />
-              <span className="font-heading font-bold text-xl">APPISTERY</span>
+              <span className="font-heading font-bold text-xl text-white">APPISTERY</span>
             </div>
-            <p className="text-sm text-muted-foreground max-w-xs mx-auto lg:mx-0">
+            <p className="text-sm text-gray-400 max-w-xs mx-auto lg:mx-0">
               {t('footer.description')}
             </p>
           </div>
@@ -34,7 +34,7 @@ export default function Footer() {
               <a
                 key={link.key}
                 href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-gray-400 hover:text-white transition-colors"
               >
                 {t(link.key)}
               </a>
@@ -45,19 +45,19 @@ export default function Footer() {
           <div className="text-center lg:text-right space-y-2">
             <a 
               href="mailto:contact@appistery.mg" 
-              className="text-sm text-muted-foreground hover:text-primary transition-colors block"
+              className="text-sm text-gray-400 hover:text-[#1DB954] transition-colors block"
             >
               contact@appistery.mg
             </a>
-            <p className="text-sm text-muted-foreground flex items-center justify-center lg:justify-end gap-2">
+            <p className="text-sm text-gray-400 flex items-center justify-center lg:justify-end gap-2">
               {t('footer.made')} <span className="text-lg">🇲🇬</span>
             </p>
           </div>
         </div>
 
         {/* Copyright */}
-        <div className="mt-10 pt-6 border-t border-border text-center">
-          <p className="text-xs text-muted-foreground">
+        <div className="mt-10 pt-6 border-t border-white/10 text-center">
+          <p className="text-xs text-gray-400">
             {t('footer.rights')}
           </p>
         </div>
