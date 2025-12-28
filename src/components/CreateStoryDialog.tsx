@@ -87,11 +87,11 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
         return;
       }
 
-      // Vérifier la taille (max 2MB)
-      if (file.size > 2 * 1024 * 1024) {
+      // Vérifier la taille (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
         toast({
           title: 'Erreur',
-          description: 'L\'image ne doit pas dépasser 2MB',
+          description: 'L\'image ne doit pas dépasser 10MB',
           variant: 'destructive',
         });
         return;
