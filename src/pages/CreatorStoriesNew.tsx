@@ -219,20 +219,20 @@ export default function CreatorStoriesNew() {
       <div className="h-full overflow-auto bg-black">
         {/* Header */}
         <div className="sticky top-0 z-10 bg-gradient-to-b from-[#1a1a1a] to-black border-b border-white/5">
-          <div className="px-8 py-8">
-            <div className="flex items-center justify-between mb-8">
+          <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
               <div>
-                <h1 className="text-5xl font-bold mb-2 text-white">Mes Histoires</h1>
-                <p className="text-gray-400 text-lg">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white">Mes Histoires</h1>
+                <p className="text-gray-400 text-sm sm:text-base lg:text-lg">
                   {filteredStories.length} histoire{filteredStories.length !== 1 ? 's' : ''}
                 </p>
               </div>
               <Button 
                 onClick={() => setShowCreateDialog(true)} 
                 size="lg"
-                className="bg-[#1DB954] hover:bg-[#1ed760] text-white font-semibold px-8 py-6 text-base rounded-full shadow-xl hover:scale-105 transition-all"
+                className="bg-[#1DB954] hover:bg-[#1ed760] text-white font-semibold px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base rounded-full shadow-xl hover:scale-105 transition-all w-full sm:w-auto"
               >
-                <Plus className="w-5 h-5 mr-2" />
+                <Plus className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
                 Nouvelle histoire
               </Button>
             </div>
@@ -264,7 +264,7 @@ export default function CreatorStoriesNew() {
         </div>
 
         {/* Content */}
-        <div className="px-8 py-8">
+        <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           {filteredStories.length === 0 ? (
             <div className="py-16 text-center">
               <BookOpen className="h-20 w-20 mx-auto mb-4 text-gray-600" />
@@ -289,7 +289,7 @@ export default function CreatorStoriesNew() {
               )}
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
               {filteredStories.map((story) => (
                 <div 
                   key={story.id} 
@@ -330,15 +330,15 @@ export default function CreatorStoriesNew() {
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                       <Button 
                         size="icon" 
-                        className="rounded-full bg-[#1DB954] hover:bg-[#1ed760] hover:scale-110 transition-all shadow-xl w-14 h-14"
+                        className="rounded-full bg-[#1DB954] hover:bg-[#1ed760] hover:scale-110 transition-all shadow-xl w-12 h-12 sm:w-14 sm:h-14"
                         onClick={() => navigate(`/creator/stories/${story.id}/chapters`)}
                       >
-                        <FileText className="w-6 h-6" />
+                        <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
                       </Button>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button size="icon" variant="secondary" className="rounded-full bg-black/80 hover:bg-black w-10 h-10">
-                            <MoreVertical className="w-5 h-5" />
+                          <Button size="icon" variant="secondary" className="rounded-full bg-black/80 hover:bg-black w-9 h-9 sm:w-10 sm:h-10">
+                            <MoreVertical className="w-4 h-4 sm:w-5 sm:h-5" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="bg-[#282828] border-none text-white">
@@ -387,25 +387,25 @@ export default function CreatorStoriesNew() {
 
                   {/* Info */}
                   <div>
-                    <h3 className="font-bold text-white mb-1 line-clamp-1 group-hover:underline">
+                    <h3 className="font-bold text-white mb-1 text-sm sm:text-base line-clamp-1 group-hover:underline">
                       {getStoryTitle(story.title)}
                     </h3>
-                    <p className="text-sm text-gray-400 mb-3 line-clamp-1">
+                    <p className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-3 line-clamp-1">
                       {story.genre?.title}
                     </p>
 
                     {/* Stats */}
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                    <div className="flex items-center gap-3 sm:gap-4 text-xs text-gray-500">
                       <div className="flex items-center gap-1">
-                        <FileText className="w-3.5 h-3.5" />
+                        <FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         <span>{story.chapters_count}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Eye className="w-3.5 h-3.5" />
+                        <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         <span>{story.view_count || 0}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Heart className="w-3.5 h-3.5" />
+                        <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         <span>{story.reaction_count || 0}</span>
                       </div>
                     </div>

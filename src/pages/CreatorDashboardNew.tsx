@@ -125,78 +125,78 @@ export default function CreatorDashboardNew() {
     <CreatorLayout>
       <div className="h-full overflow-auto">
         {/* Header - Style Spotify */}
-        <div className="px-8 py-6 bg-gradient-to-b from-gray-800 to-transparent">
-          <div className="flex items-center justify-between mb-8">
+        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 bg-gradient-to-b from-gray-800 to-transparent">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
             <div>
-              <h1 className="text-5xl font-bold mb-2 text-white">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white">
                 Bonjour
               </h1>
-              <p className="text-gray-400 text-lg">
+              <p className="text-gray-400 text-sm sm:text-base lg:text-lg">
                 {author.email.split('@')[0]}
               </p>
             </div>
             <Button 
               onClick={() => setShowCreateDialog(true)} 
-              className="bg-green-500 hover:bg-green-400 text-black font-bold px-8 h-12 rounded-full"
+              className="bg-green-500 hover:bg-green-400 text-black font-bold px-6 sm:px-8 h-10 sm:h-12 rounded-full text-sm sm:text-base w-full sm:w-auto"
             >
-              <Plus className="w-5 h-5 mr-2" />
+              <Plus className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
               Nouvelle histoire
             </Button>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-4 gap-4">
-            <div className="bg-gray-800/50 p-4 rounded-lg backdrop-blur">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-green-500" />
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-white">{stats.totalStories}</p>
-                  <p className="text-sm text-gray-400">Histoires</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.totalStories}</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Histoires</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-4 rounded-lg backdrop-blur">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                  <Eye className="w-6 h-6 text-blue-500" />
+            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-white">{stats.totalViews.toLocaleString()}</p>
-                  <p className="text-sm text-gray-400">Vues</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.totalViews.toLocaleString()}</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Vues</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-4 rounded-lg backdrop-blur">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
-                  <Heart className="w-6 h-6 text-red-500" />
+            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                  <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-white">{stats.totalLikes.toLocaleString()}</p>
-                  <p className="text-sm text-gray-400">Likes</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.totalLikes.toLocaleString()}</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Likes</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-4 rounded-lg backdrop-blur">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <Users className="w-6 h-6 text-purple-500" />
+            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                  <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-500" />
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-white">{stats.followers.toLocaleString()}</p>
-                  <p className="text-sm text-gray-400">Abonnés</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.followers.toLocaleString()}</p>
+                  <p className="text-xs sm:text-sm text-gray-400">Abonnés</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="px-8 py-6 space-y-8">
+        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8">
           <Card className="bg-[#181818] border-none">
             <CardHeader>
               <CardTitle className="text-white">Histoires récentes</CardTitle>

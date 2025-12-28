@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,9 @@ import {
   Bell,
   Settings,
   LogOut,
-  Home
+  Home,
+  Menu,
+  X
 } from 'lucide-react';
 
 interface CreatorLayoutProps {
@@ -24,6 +26,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const { author, logout } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const sidebarItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/creator/dashboard' },
@@ -44,10 +47,40 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
 
   return (
     <div className="flex h-screen bg-black text-white overflow-hidden">
+      {/* Mobile Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/10 px-4 py-3 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-400 flex items-center justify-center">
+            <BookOpen className="w-5 h-5 text-black" />
+          </div>
+          <h1 className="font-bold text-lg text-white">APPISTERY</h1>
+        </Link>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-white"
+        >
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </Button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/80 z-40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar - Style Spotify */}
-      <aside className="w-64 bg-black flex flex-col p-6 gap-6">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 mb-2">
+      <aside className={cn(
+        "w-64 bg-black flex flex-col p-6 gap-6 transition-transform duration-300",
+        "lg:translate-x-0 fixed lg:static h-screen z-50",
+        isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
+        {/* Logo - Desktop only */}
+        <Link to="/" className="hidden lg:flex items-center gap-3 mb-2">
           <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-400 flex items-center justify-center">
             <BookOpen className="w-6 h-6 text-black" />
           </div>
@@ -59,6 +92,9 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
           </div>
         </Link>
 
+        {/* Mobile - Add spacing for close button */}
+        <div className="lg:hidden h-12" />
+
         {/* Navigation */}
         <nav className="flex-1 space-y-2">
           {sidebarItems.map((item) => {
@@ -68,6 +104,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
               <Link
                 key={item.path}
                 to={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
                   "flex items-center gap-4 px-4 py-3 rounded-md transition-colors",
                   isActive 
@@ -84,7 +121,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
 
         {/* User Section */}
         <div className="space-y-3 pt-4 border-t border-gray-800">
-          <Link to="/">
+          <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
             <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400 hover:text-white hover:bg-gray-900 h-12">
               <Home className="w-5 h-5" />
               <span className="font-semibold">Retour au site</span>
@@ -116,7 +153,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
       </aside>
 
       {/* Main Content - Style Spotify */}
-      <main className="flex-1 overflow-auto bg-gradient-to-b from-gray-900 to-black">
+      <main className="flex-1 overflow-auto bg-gradient-to-b from-gray-900 to-black lg:ml-0 pt-14 lg:pt-0">
         {children}
       </main>
     </div>
