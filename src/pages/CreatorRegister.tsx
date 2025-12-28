@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Eye, EyeOff, Loader2, BookOpen } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 
 function CreatorRegister() {
   const navigate = useNavigate();
@@ -66,9 +66,11 @@ function CreatorRegister() {
       <div className="w-full max-w-2xl">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-12">
-          <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1DB954] to-[#1ed760] flex items-center justify-center">
-            <BookOpen className="w-7 h-7 text-black" />
-          </div>
+          <img 
+            src="/logo/logo-appistery-no.png" 
+            alt="Appistery Logo" 
+            className="w-12 h-12 object-contain"
+          />
           <h1 className="font-bold text-3xl text-white">APPISTERY</h1>
         </div>
 

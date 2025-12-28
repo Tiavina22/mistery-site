@@ -21,9 +21,11 @@ export default function About() {
           {/* Hero Section */}
           <div className="text-center mb-16">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-[#1DB954] to-[#1ed760] flex items-center justify-center">
-                <BookOpen className="w-8 h-8 text-black" />
-              </div>
+              <img 
+                src="/logo/logo-appistery-no.png" 
+                alt="Appistery Logo" 
+                className="w-16 h-16 object-contain"
+              />
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold mb-6 text-white">
               {t('about.title') || 'À propos d\'APPISTERY'}
@@ -40,7 +42,7 @@ export default function About() {
                 {t('about.mission') || 'Notre Mission'}
               </h2>
               <p className="text-gray-400 text-lg leading-relaxed mb-4">
-                APPISTERY est née d'une passion pour les histoires authentiques de Madagascar. Notre mission est de donner une voix aux expériences vécues, aux témoignages paranormaux, aux récits mystérieux et aux vécus qui font la richesse de notre culture malgache.
+                APPISTERY est née d'une passion pour les histoires authentiques de Madagascar. Notre mission est de donner une voix aux expériences vécues, aux témoignages paranormaux, aux histoires mystérieux et aux vécus qui font la richesse de notre culture malgache.
               </p>
               <p className="text-gray-400 text-lg leading-relaxed">
                 Nous croyons que chaque histoire mérite d'être racontée et partagée. À travers notre plateforme, nous connectons les créateurs avec une audience passionnée par l'authenticité et le mystère.

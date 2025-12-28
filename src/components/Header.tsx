@@ -58,7 +58,7 @@ export default function Header() {
               <span className="uppercase">{language}</span>
             </button>
 
-            {/* Theme Toggle */}
+            {/* Theme Toggle
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full bg-[#282828] hover:bg-[#3e3e3e] transition-colors"
@@ -69,20 +69,12 @@ export default function Header() {
               ) : (
                 <Moon className="w-5 h-5 text-white" />
               )}
-            </button>
+            </button> */}
 
             {/* Download Button (Desktop) */}
             <Button className="hidden lg:flex bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold rounded-full transition-all hover:scale-105" size="sm">
               {t('nav.download')}
             </Button>
-
-            {/* Creator Space Button */}
-            <Link to="/creator/login">
-              <Button variant="outline" size="sm" className="hidden md:flex border-white/20 text-white hover:bg-[#282828] hover:text-white">
-                <User className="w-4 h-4 mr-2" />
-                Espace Créateur
-              </Button>
-            </Link>
 
             {/* Mobile Menu Toggle */}
             <button

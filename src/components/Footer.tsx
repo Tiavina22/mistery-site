@@ -45,14 +45,12 @@ export default function Footer() {
           {/* Contact & Made in */}
           <div className="text-center lg:text-right space-y-2">
             <a 
-              href="mailto:contact@appistery.mg" 
+              href="mailto:contact@mistery.pro" 
               className="text-sm text-gray-400 hover:text-[#1DB954] transition-colors block"
             >
-              contact@appistery.mg
+              contact@mistery.pro
             </a>
-            <p className="text-sm text-gray-400 flex items-center justify-center lg:justify-end gap-2">
-              {t('footer.made')} <span className="text-lg">🇲🇬</span>
-            </p>
+           
           </div>
         </div>
 
