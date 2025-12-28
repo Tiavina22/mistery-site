@@ -34,6 +34,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Plus, Edit, Trash2, Loader2, Tag } from 'lucide-react';
+import CreatorLayout from '@/components/CreatorLayout';
 
 interface Genre {
   id: number;
@@ -183,127 +184,127 @@ export default function ManageGenres() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <CreatorLayout>
+      <div className="h-full overflow-auto bg-black">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={() => navigate('/creator/dashboard')}
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Retour
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold">Gestion des Genres</h1>
-              <p className="text-muted-foreground">
-                Créez et gérez les genres d'histoires
-              </p>
+        <div className="sticky top-0 z-10 bg-gradient-to-b from-[#1a1a1a] to-black border-b border-white/5">
+          <div className="px-8 py-8">
+            <div className="flex items-center gap-3 mb-8">
+              <Tag className="w-10 h-10 text-[#1DB954]" />
+              <div>
+                <h1 className="text-5xl font-bold text-white">Genres</h1>
+                <p className="text-gray-400 text-lg">
+                  Créez et gérez les genres d'histoires
+                </p>
+              </div>
             </div>
-          </div>
 
-          <Button
-            onClick={() => setShowCreateDialog(true)}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Nouveau genre
-          </Button>
+            <Button
+              onClick={() => setShowCreateDialog(true)}
+              className="bg-[#1DB954] hover:bg-[#1ed760] text-black font-semibold px-8 py-6 text-base rounded-full shadow-xl hover:scale-105 transition-all"
+            >
+              <Plus className="mr-2 h-5 w-5" />
+              Nouveau genre
+            </Button>
+          </div>
         </div>
 
-        {/* Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Tag className="h-5 w-5" />
-              Liste des genres
-            </CardTitle>
-            <CardDescription>
-              {genres.length} genre{genres.length > 1 ? 's' : ''} disponible{genres.length > 1 ? 's' : ''}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {isLoading ? (
-              <div className="flex items-center justify-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
-              </div>
-            ) : genres.length === 0 ? (
-              <div className="text-center py-12">
-                <Tag className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Aucun genre</h3>
-                <p className="text-muted-foreground mb-4">
-                  Créez votre premier genre pour commencer
-                </p>
-                <Button
-                  onClick={() => setShowCreateDialog(true)}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600"
-                >
-                  <Plus className="mr-2 h-4 w-4" />
-                  Créer un genre
-                </Button>
-              </div>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Titre</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {genres.map((genre) => (
-                    <TableRow key={genre.id}>
-                      <TableCell className="font-mono text-sm">#{genre.id}</TableCell>
-                      <TableCell className="font-medium">{genre.title}</TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => openEditDialog(genre)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setGenreToDelete(genre)}
-                            className="text-destructive hover:text-destructive"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
+        {/* Content */}
+        <div className="px-8 py-8">
+          <Card className="bg-[#181818] border-none">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-white text-2xl">
+                <Tag className="h-5 w-5 text-[#1DB954]" />
+                Liste des genres
+              </CardTitle>
+              <CardDescription className="text-gray-400">
+                {genres.length} genre{genres.length > 1 ? 's' : ''} disponible{genres.length > 1 ? 's' : ''}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoading ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="h-8 w-8 animate-spin text-[#1DB954]" />
+                </div>
+              ) : genres.length === 0 ? (
+                <div className="text-center py-12">
+                  <Tag className="h-20 w-20 mx-auto text-gray-600 mb-4" />
+                  <h3 className="text-2xl font-bold mb-2 text-white">Aucun genre</h3>
+                  <p className="text-gray-400 mb-6 text-lg">
+                    Créez votre premier genre pour commencer
+                  </p>
+                  <Button
+                    onClick={() => setShowCreateDialog(true)}
+                    className="bg-[#1DB954] hover:bg-[#1ed760] text-black font-semibold px-8 py-6 text-base rounded-full"
+                  >
+                    <Plus className="mr-2 h-5 w-5" />
+                    Créer un genre
+                  </Button>
+                </div>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-white/10 hover:bg-transparent">
+                      <TableHead className="text-gray-400">ID</TableHead>
+                      <TableHead className="text-gray-400">Titre</TableHead>
+                      <TableHead className="text-right text-gray-400">Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
-        </Card>
+                  </TableHeader>
+                  <TableBody>
+                    {genres.map((genre) => (
+                      <TableRow key={genre.id} className="border-white/10 hover:bg-[#282828]">
+                        <TableCell className="font-mono text-sm text-gray-400">#{genre.id}</TableCell>
+                        <TableCell className="font-medium text-white">{genre.title}</TableCell>
+                        <TableCell className="text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => openEditDialog(genre)}
+                              className="text-gray-400 hover:text-white hover:bg-[#282828]"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => setGenreToDelete(genre)}
+                              className="text-gray-400 hover:text-red-500 hover:bg-[#282828]"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       {/* Create Dialog */}
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent>
+        <DialogContent className="bg-[#282828] border-none text-white">
           <DialogHeader>
-            <DialogTitle>Créer un nouveau genre</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-white text-2xl">Créer un nouveau genre</DialogTitle>
+            <DialogDescription className="text-gray-400">
               Ajoutez un nouveau genre pour vos histoires
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleCreate}>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="create-title">Titre du genre</Label>
+                <Label htmlFor="create-title" className="text-white">Titre du genre</Label>
                 <Input
                   id="create-title"
                   value={genreTitle}
                   onChange={(e) => setGenreTitle(e.target.value)}
                   placeholder="Ex: Science-Fiction, Romance..."
                   required
+                  className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </div>
             </div>
@@ -316,10 +317,15 @@ export default function ManageGenres() {
                   setGenreTitle('');
                 }}
                 disabled={isSubmitting}
+                className="bg-transparent border-white/20 text-white hover:bg-white/10"
               >
                 Annuler
               </Button>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="bg-[#1DB954] hover:bg-[#1ed760] text-black font-semibold"
+              >
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -336,23 +342,24 @@ export default function ManageGenres() {
 
       {/* Edit Dialog */}
       <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-        <DialogContent>
+        <DialogContent className="bg-[#282828] border-none text-white">
           <DialogHeader>
-            <DialogTitle>Modifier le genre</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-white text-2xl">Modifier le genre</DialogTitle>
+            <DialogDescription className="text-gray-400">
               Modifiez le titre du genre
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleEdit}>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="edit-title">Titre du genre</Label>
+                <Label htmlFor="edit-title" className="text-white">Titre du genre</Label>
                 <Input
                   id="edit-title"
                   value={genreTitle}
                   onChange={(e) => setGenreTitle(e.target.value)}
                   placeholder="Ex: Science-Fiction, Romance..."
                   required
+                  className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </div>
             </div>
@@ -366,10 +373,15 @@ export default function ManageGenres() {
                   setSelectedGenre(null);
                 }}
                 disabled={isSubmitting}
+                className="bg-transparent border-white/20 text-white hover:bg-white/10"
               >
                 Annuler
               </Button>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="bg-[#1DB954] hover:bg-[#1ed760] text-black font-semibold"
+              >
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -386,20 +398,25 @@ export default function ManageGenres() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={!!genreToDelete} onOpenChange={(open) => !open && setGenreToDelete(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-[#282828] border-none text-white">
           <AlertDialogHeader>
-            <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-white">Êtes-vous sûr ?</AlertDialogTitle>
+            <AlertDialogDescription className="text-gray-400">
               Cette action désactivera le genre "{genreToDelete?.title}". 
               Les histoires existantes ne seront pas affectées, mais ce genre ne sera plus disponible pour les nouvelles histoires.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>Annuler</AlertDialogCancel>
+            <AlertDialogCancel 
+              disabled={isDeleting}
+              className="bg-transparent border-white/20 text-white hover:bg-white/10"
+            >
+              Annuler
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               disabled={isDeleting}
-              className="bg-destructive hover:bg-destructive/90"
+              className="bg-red-600 hover:bg-red-700 text-white"
             >
               {isDeleting ? (
                 <>
@@ -413,6 +430,6 @@ export default function ManageGenres() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </CreatorLayout>
   );
 }
