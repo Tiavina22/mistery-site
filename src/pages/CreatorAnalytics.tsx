@@ -13,7 +13,8 @@ export default function CreatorAnalytics() {
     if (!isLoading && !isAuthenticated) {
       navigate('/creator/login');
     }
-  }, [isAuthenticated, isLoading, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isLoading]);
 
   if (isLoading) {
     return (

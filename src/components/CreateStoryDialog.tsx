@@ -23,13 +23,23 @@ interface Genre {
   title: string;
 }
 
+interface Story {
+  id: number;
+  title: any;
+  synopsis: any;
+  genre_id: number;
+  is_premium: boolean;
+  cover_image?: string;
+}
+
 interface CreateStoryDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSuccess: () => void;
+  storyToEdit?: Story | null;
 }
 
-export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: CreateStoryDialogProps) {
+export default function CreateStoryDialog({ open, onOpenChange, onSuccess, storyToEdit }: CreateStoryDialogProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -50,8 +60,38 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
   useEffect(() => {
     if (open) {
       loadGenres();
+      // Si on édite une histoire, pré-remplir le formulaire
+      if (storyToEdit) {
+        setFormData({
+          title_gasy: storyToEdit.title?.gasy || '',
+          title_fr: storyToEdit.title?.fr || '',
+          title_en: storyToEdit.title?.en || '',
+          synopsis_gasy: storyToEdit.synopsis?.gasy || '',
+          synopsis_fr: storyToEdit.synopsis?.fr || '',
+          synopsis_en: storyToEdit.synopsis?.en || '',
+          genre_id: storyToEdit.genre_id?.toString() || '',
+          is_premium: storyToEdit.is_premium || false,
+        });
+        if (storyToEdit.cover_image) {
+          setCoverImagePreview(storyToEdit.cover_image);
+        }
+      } else {
+        // Réinitialiser le formulaire pour une nouvelle histoire
+        setFormData({
+          title_gasy: '',
+          title_fr: '',
+          title_en: '',
+          synopsis_gasy: '',
+          synopsis_fr: '',
+          synopsis_en: '',
+          genre_id: '',
+          is_premium: false,
+        });
+        setCoverImageFile(null);
+        setCoverImagePreview('');
+      }
     }
-  }, [open]);
+  }, [open, storyToEdit]);
 
   const loadGenres = async () => {
     try {
@@ -150,18 +190,35 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
       if (formData.synopsis_fr) synopsis.fr = formData.synopsis_fr;
       if (formData.synopsis_en) synopsis.en = formData.synopsis_en;
 
-      await storyApi.createStory({
-        title,
-        synopsis: Object.keys(synopsis).length > 0 ? synopsis : null,
-        genre_id: parseInt(formData.genre_id),
-        is_premium: formData.is_premium,
-        cover_image: coverImagePreview || null
-      });
+      if (storyToEdit) {
+        // Mode édition
+        await storyApi.updateStory(storyToEdit.id, {
+          title,
+          synopsis: Object.keys(synopsis).length > 0 ? synopsis : null,
+          genre_id: parseInt(formData.genre_id),
+          is_premium: formData.is_premium,
+          cover_image: coverImagePreview || null
+        });
 
-      toast({
-        title: 'Succès',
-        description: 'Histoire créée avec succès',
-      });
+        toast({
+          title: 'Succès',
+          description: 'L\'histoire a été modifiée avec succès',
+        });
+      } else {
+        // Mode création
+        await storyApi.createStory({
+          title,
+          synopsis: Object.keys(synopsis).length > 0 ? synopsis : null,
+          genre_id: parseInt(formData.genre_id),
+          is_premium: formData.is_premium,
+          cover_image: coverImagePreview || null
+        });
+
+        toast({
+          title: 'Succès',
+          description: 'L\'histoire a été créée avec succès',
+        });
+      }
 
       // Réinitialiser le formulaire
       setFormData({
@@ -200,7 +257,9 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
               <BookOpen className="h-6 w-6 text-[#1DB954]" />
             </div>
             <div>
-              <DialogTitle className="text-2xl text-white">Créer une nouvelle histoire</DialogTitle>
+              <DialogTitle className="text-2xl text-white">
+                {storyToEdit ? 'Modifier l\'histoire' : 'Créer une nouvelle histoire'}
+              </DialogTitle>
               <DialogDescription className="text-gray-400">
                 Remplissez les informations dans les langues de votre choix
               </DialogDescription>

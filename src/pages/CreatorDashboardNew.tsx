@@ -68,7 +68,8 @@ export default function CreatorDashboardNew() {
     }
 
     loadDashboardData();
-  }, [isAuthenticated, isAuthLoading, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isAuthLoading]);
 
   const loadDashboardData = async () => {
     if (!author) return;

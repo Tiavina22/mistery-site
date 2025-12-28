@@ -54,6 +54,7 @@ interface Story {
   reaction_count: number;
   comment_count: number;
   view_count: number;
+  genre_id: number;
   genre: {
     id: number;
     title: string;
@@ -71,6 +72,7 @@ export default function CreatorStoriesNew() {
   const [filteredStories, setFilteredStories] = useState<Story[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [storyToEdit, setStoryToEdit] = useState<Story | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [storyToDelete, setStoryToDelete] = useState<Story | null>(null);
@@ -82,7 +84,8 @@ export default function CreatorStoriesNew() {
       return;
     }
     loadStories();
-  }, [isAuthenticated, author, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, author]);
 
   useEffect(() => {
     filterStories();
@@ -171,6 +174,11 @@ export default function CreatorStoriesNew() {
         variant: 'destructive',
       });
     }
+  };
+
+  const handleEditStory = (story: Story) => {
+    setStoryToEdit(story);
+    setShowCreateDialog(true);
   };
 
   const getStatusColor = (status: string) => {
@@ -341,7 +349,10 @@ export default function CreatorStoriesNew() {
                             <FileText className="w-4 h-4 mr-2" />
                             Gérer chapitres
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="focus:bg-[#3e3e3e] focus:text-white">
+                          <DropdownMenuItem 
+                            onClick={() => handleEditStory(story)}
+                            className="focus:bg-[#3e3e3e] focus:text-white"
+                          >
                             <Edit className="w-4 h-4 mr-2" />
                             Modifier
                           </DropdownMenuItem>
@@ -409,9 +420,14 @@ export default function CreatorStoriesNew() {
       {/* Create Dialog */}
       <CreateStoryDialog
         open={showCreateDialog}
-        onOpenChange={setShowCreateDialog}
+        onOpenChange={(open) => {
+          setShowCreateDialog(open);
+          if (!open) setStoryToEdit(null); // Réinitialiser quand on ferme
+        }}
+        storyToEdit={storyToEdit}
         onSuccess={() => {
           setShowCreateDialog(false);
+          setStoryToEdit(null);
           loadStories();
         }}
       />
