@@ -13,6 +13,7 @@ interface AuthContextType {
   author: Author | null;
   token: string | null;
   isAuthenticated: boolean;
+  isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
@@ -32,6 +33,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [author, setAuthor] = useState<Author | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Charger le token et l'auteur depuis le localStorage au démarrage
   useEffect(() => {
@@ -42,11 +44,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setToken(savedToken);
       setAuthor(JSON.parse(savedAuthor));
     }
+    setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5500/api';
-    const response = await fetch(`${apiUrl}/authors/login`, {
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const response = await fetch(`${apiUrl}/api/authors/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,8 +71,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const register = async (registerData: RegisterData) => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5500/api';
-    const response = await fetch(`${apiUrl}/authors/register`, {
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const response = await fetch(`${apiUrl}/api/authors/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,6 +111,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         author,
         token,
         isAuthenticated: !!token && !!author,
+        isLoading,
         login,
         register,
         logout,

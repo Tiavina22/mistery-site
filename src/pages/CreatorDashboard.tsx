@@ -6,6 +6,7 @@ import { authorApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import CreateStoryDialog from '@/components/CreateStoryDialog';
 import { 
   BookOpen, 
   Eye, 
@@ -20,7 +21,8 @@ import {
   FileText,
   BarChart3,
   Bell,
-  Home
+  Home,
+  Tag
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -37,12 +39,13 @@ interface Stats {
 export default function CreatorDashboard() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { author, logout, isAuthenticated } = useAuth();
+  const { author, logout, isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const { t } = useLanguage();
   
   const sidebarItems = [
     { icon: LayoutDashboard, label: t('creator.dashboard.menu.dashboard'), path: '/creator/dashboard' },
     { icon: FileText, label: t('creator.dashboard.menu.stories'), path: '/creator/stories' },
+    { icon: Tag, label: 'Genres', path: '/creator/genres' },
     { icon: BarChart3, label: t('creator.dashboard.menu.analytics'), path: '/creator/analytics' },
     { icon: Bell, label: t('creator.dashboard.menu.notifications'), path: '/creator/notifications' },
     { icon: Settings, label: t('creator.dashboard.menu.settings'), path: '/creator/settings' },
@@ -58,15 +61,18 @@ export default function CreatorDashboard() {
   });
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
 
   useEffect(() => {
+    if (isAuthLoading) return; // Attendre que le chargement soit terminé
+    
     if (!isAuthenticated) {
       navigate('/creator/login');
       return;
     }
 
     loadDashboardData();
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, isAuthLoading, navigate]);
 
   const loadDashboardData = async () => {
     if (!author) return;
@@ -91,6 +97,17 @@ export default function CreatorDashboard() {
     logout();
     navigate('/');
   };
+
+  if (isAuthLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <BookOpen className="h-12 w-12 animate-pulse mx-auto mb-4 text-primary" />
+          <p>Chargement...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!author) return null;
 
@@ -184,7 +201,7 @@ export default function CreatorDashboard() {
                   <Home className="w-4 h-4 mr-2" />
                   {t('creator.login.backHome')}
                 </Button>
-                <Button onClick={() => navigate('/creator/story/new')}>
+                <Button onClick={() => setShowCreateDialog(true)}>
                   <PlusCircle className="w-4 h-4 mr-2" />
                   {t('creator.dashboard.newStory')}
                 </Button>
@@ -286,7 +303,7 @@ export default function CreatorDashboard() {
                   <p className="text-muted-foreground mb-6">
                     {t('creator.dashboard.recent.createFirst')}
                   </p>
-                  <Button onClick={() => navigate('/creator/story/new')}>
+                  <Button onClick={() => setShowCreateDialog(true)}>
                     <PlusCircle className="w-4 h-4 mr-2" />
                     Créer votre première histoire
                   </Button>
@@ -299,11 +316,19 @@ export default function CreatorDashboard() {
                       className="flex items-center justify-between p-4 border rounded-lg hover:bg-secondary/50 transition-colors cursor-pointer"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-16 bg-muted rounded flex items-center justify-center">
-                          <BookOpen className="w-6 h-6 text-muted-foreground" />
+                        <div className="w-12 h-16 bg-muted rounded overflow-hidden flex items-center justify-center">
+                          {story.cover_image ? (
+                            <img 
+                              src={story.cover_image} 
+                              alt={story.title?.gasy || story.title?.fr || story.title?.en || 'Cover'} 
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <BookOpen className="w-6 h-6 text-muted-foreground" />
+                          )}
                         </div>
                         <div>
-                          <h4 className="font-medium">{story.title?.fr || 'Sans titre'}</h4>
+                          <h4 className="font-medium">{story.title?.gasy || story.title?.fr || story.title?.en || 'Sans titre'}</h4>
                           <p className="text-sm text-muted-foreground">
                             {story.genre?.title || 'Sans genre'} · {story.chapters_count || 0} chapitres
                           </p>
@@ -320,7 +345,11 @@ export default function CreatorDashboard() {
                             {story.status === 'published' ? t('creator.dashboard.recent.status.published') : t('creator.dashboard.recent.status.draft')}
                           </span>
                         </div>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => navigate(`/creator/stories/${story.id}/chapters`)}
+                        >
                           Modifier
                         </Button>
                       </div>
@@ -369,6 +398,13 @@ export default function CreatorDashboard() {
           </div>
         </main>
       </div>
+
+      {/* Create Story Dialog */}
+      <CreateStoryDialog 
+        open={showCreateDialog} 
+        onOpenChange={setShowCreateDialog}
+        onSuccess={loadDashboardData}
+      />
     </div>
   );
 }

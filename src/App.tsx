@@ -12,6 +12,10 @@ import CreatorLogin from "./pages/CreatorLogin";
 import CreatorRegister from "./pages/CreatorRegister";
 import CreatorDashboard from "./pages/CreatorDashboard";
 import CreatorSettings from "./pages/CreatorSettings";
+import CreateStory from "./pages/CreateStory";
+import CreatorStories from "./pages/CreatorStories";
+import ManageGenres from "./pages/ManageGenres";
+import ManageChapters from "./pages/ManageChapters";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +34,10 @@ const App = () => (
                 <Route path="/creator/register" element={<CreatorRegister />} />
                 <Route path="/creator/dashboard" element={<CreatorDashboard />} />
                 <Route path="/creator/settings" element={<CreatorSettings />} />
+                <Route path="/creator/stories" element={<CreatorStories />} />
+                <Route path="/creator/story/new" element={<CreateStory />} />
+                <Route path="/creator/genres" element={<ManageGenres />} />
+                <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

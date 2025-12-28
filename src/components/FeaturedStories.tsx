@@ -1,44 +1,69 @@
-import { ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
+import axios from 'axios';
 
-const stories = [
-  {
-    id: 1,
-    titleKey: 'story1.title',
-    descKey: 'story1.desc',
-    genreKey: 'genre.mystery',
-    episodes: 12,
-    gradient: 'from-amber-900/80 to-orange-950/80',
-  },
-  {
-    id: 2,
-    titleKey: 'story2.title',
-    descKey: 'story2.desc',
-    genreKey: 'genre.witchcraft',
-    episodes: 8,
-    gradient: 'from-emerald-900/80 to-teal-950/80',
-  },
-  {
-    id: 3,
-    titleKey: 'story3.title',
-    descKey: 'story3.desc',
-    genreKey: 'genre.paranormal',
-    episodes: 15,
-    gradient: 'from-indigo-900/80 to-violet-950/80',
-  },
-  {
-    id: 4,
-    titleKey: 'story4.title',
-    descKey: 'story4.desc',
-    genreKey: 'genre.horror',
-    episodes: 10,
-    gradient: 'from-rose-900/80 to-red-950/80',
-  },
-];
+interface Story {
+  id: number;
+  title: {
+    gasy?: string;
+    fr?: string;
+    en?: string;
+  };
+  synopsis: {
+    gasy?: string;
+    fr?: string;
+    en?: string;
+  };
+  cover_image: string;
+  genre: {
+    title: string;
+  };
+  chapters_count: number;
+  status: string;
+}
 
 export default function FeaturedStories() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [stories, setStories] = useState<Story[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadStories();
+  }, []);
+
+  const loadStories = async () => {
+    try {
+      setLoading(true);
+      // Charger les histoires publiées
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/stories/public`);
+      // Limiter à 4 histoires
+      setStories(response.data.data?.slice(0, 4) || []);
+    } catch (error) {
+      console.error('Erreur lors du chargement des histoires:', error);
+      setStories([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getTitle = (title: any) => {
+    if (typeof title === 'string') return title;
+    return title?.[language] || title?.gasy || title?.fr || title?.en || 'Sans titre';
+  };
+
+  const getSynopsis = (synopsis: any) => {
+    if (typeof synopsis === 'string') return synopsis;
+    return synopsis?.[language] || synopsis?.gasy || synopsis?.fr || synopsis?.en || '';
+  };
+
+  const gradients = [
+    'from-amber-900/80 to-orange-950/80',
+    'from-emerald-900/80 to-teal-950/80',
+    'from-indigo-900/80 to-violet-950/80',
+    'from-rose-900/80 to-red-950/80',
+  ];
 
   return (
     <section id="stories" className="py-20 lg:py-32 bg-secondary/30">
@@ -55,59 +80,85 @@ export default function FeaturedStories() {
 
         {/* Stories Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stories.map((story, index) => (
-            <div
-              key={story.id}
-              className="group relative rounded-2xl overflow-hidden hover-lift cursor-pointer"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Cover Image Background */}
-              <div className={`aspect-[3/4] bg-gradient-to-br ${story.gradient} relative`}>
-                {/* Mystical pattern overlay */}
-                <div className="absolute inset-0 opacity-20">
-                  <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <pattern id={`pattern-${story.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                      <circle cx="10" cy="10" r="1" fill="currentColor" />
-                    </pattern>
-                    <rect width="100%" height="100%" fill={`url(#pattern-${story.id})`} />
-                  </svg>
-                </div>
+          {loading ? (
+            // Loading skeleton
+            Array.from({ length: 4 }).map((_, index) => (
+              <div
+                key={index}
+                className="aspect-[3/4] rounded-2xl bg-secondary/50 animate-pulse"
+              />
+            ))
+          ) : stories.length === 0 ? (
+            // Empty state
+            <div className="col-span-full text-center py-12">
+              <BookOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-muted-foreground">Aucune histoire disponible pour le moment</p>
+            </div>
+          ) : (
+            stories.map((story, index) => (
+              <div
+                key={story.id}
+                className="group relative rounded-2xl overflow-hidden hover-lift cursor-pointer"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Cover Image Background */}
+                <div className="aspect-[3/4] relative">
+                  {story.cover_image ? (
+                    <img 
+                      src={story.cover_image} 
+                      alt={getTitle(story.title)}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index % gradients.length]}`}>
+                      {/* Mystical pattern overlay */}
+                      <div className="absolute inset-0 opacity-20">
+                        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                          <pattern id={`pattern-${story.id}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <circle cx="10" cy="10" r="1" fill="currentColor" />
+                          </pattern>
+                          <rect width="100%" height="100%" fill={`url(#pattern-${story.id})`} />
+                        </svg>
+                      </div>
+                    </div>
+                  )}
 
-                {/* Content overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                
-                {/* Genre badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-background/80 backdrop-blur-sm text-foreground">
-                    {t(story.genreKey)}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-medium text-primary">{t('stories.series')}</span>
-                    <span className="text-xs text-muted-foreground">•</span>
-                    <span className="text-xs text-muted-foreground">{story.episodes} {t('stories.episodes')}</span>
+                  {/* Content overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+                  
+                  {/* Genre badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-background/80 backdrop-blur-sm text-foreground">
+                      {story.genre?.title || 'Sans genre'}
+                    </span>
                   </div>
-                  <h3 className="text-lg font-heading font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {t(story.titleKey)}
-                  </h3>
-                  <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                    {t(story.descKey)}
-                  </p>
-                  <Button 
-                    variant="secondary" 
-                    size="sm" 
-                    className="w-full group/btn gap-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all"
-                  >
-                    {t('stories.discover')}
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                  </Button>
+
+                  {/* Content */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-xs font-medium text-primary">{t('stories.series')}</span>
+                      <span className="text-xs text-muted-foreground">•</span>
+                      <span className="text-xs text-muted-foreground">{story.chapters_count} {t('stories.episodes')}</span>
+                    </div>
+                    <h3 className="text-lg font-heading font-semibold mb-2 group-hover:text-primary transition-colors">
+                      {getTitle(story.title)}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                      {getSynopsis(story.synopsis) || 'Découvrez cette histoire captivante'}
+                    </p>
+                    <Button 
+                      variant="secondary" 
+                      size="sm"
+                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                    >
+                      {t('stories.listen')}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </section>
