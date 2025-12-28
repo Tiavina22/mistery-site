@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500';
 
 const api = axios.create({
-  baseURL: `${API_BASE_URL}`,
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -65,6 +65,9 @@ export const storyApi = {
   // Actions sur les histoires
   publishStory: (storyId: number) => api.post(`/stories/${storyId}/publish`),
   archiveStory: (storyId: number) => api.post(`/stories/${storyId}/archive`),
+  
+  // Histoires publiques
+  getPublicStories: () => api.get('/stories/public'),
   
   // Genres
   getGenres: () => api.get('/stories/genres'),

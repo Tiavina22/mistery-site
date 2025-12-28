@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import axios from 'axios';
+import { storyApi } from '@/lib/api';
 
 interface Story {
   id: number;
@@ -37,7 +37,7 @@ export default function FeaturedStories() {
     try {
       setLoading(true);
       // Charger les histoires publiées
-      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/api/stories/public`);
+      const response = await storyApi.getPublicStories();
       // Limiter à 4 histoires
       setStories(response.data.data?.slice(0, 4) || []);
     } catch (error) {
