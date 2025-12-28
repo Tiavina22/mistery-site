@@ -41,6 +41,8 @@ const translations = {
     'stories.discover': 'Découvrir',
     'stories.episodes': 'épisodes',
     'stories.series': 'Série',
+    'stories.listen': 'Écouter',
+    'stories.read': 'Lire',
 
     // Story titles and descriptions
     'story1.title': 'Les Ombres du Rova',
@@ -230,6 +232,8 @@ const translations = {
     'stories.discover': 'Discover',
     'stories.episodes': 'episodes',
     'stories.series': 'Series',
+    'stories.listen': 'Listen',
+    'stories.read': 'Read',
 
     // Story titles and descriptions
     'story1.title': 'Shadows of the Rova',
