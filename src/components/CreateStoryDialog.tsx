@@ -193,15 +193,15 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[#282828] border-none text-white">
         <DialogHeader>
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-              <BookOpen className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+            <div className="p-2 bg-[#1DB954]/20 rounded-lg">
+              <BookOpen className="h-6 w-6 text-[#1DB954]" />
             </div>
             <div>
-              <DialogTitle className="text-2xl">Créer une nouvelle histoire</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-2xl text-white">Créer une nouvelle histoire</DialogTitle>
+              <DialogDescription className="text-gray-400">
                 Remplissez les informations dans les langues de votre choix
               </DialogDescription>
             </div>
@@ -211,21 +211,22 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Titre multilingue */}
           <div className="space-y-2">
-            <Label>
+            <Label className="text-white">
               Titre <span className="text-red-500">*</span>
-              <span className="text-xs text-muted-foreground ml-2">(Au moins une langue)</span>
+              <span className="text-xs text-gray-400 ml-2">(Au moins une langue)</span>
             </Label>
             <Tabs defaultValue="gasy" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="gasy">🇲🇬 Gasy</TabsTrigger>
-                <TabsTrigger value="fr">🇫🇷 Français</TabsTrigger>
-                <TabsTrigger value="en">🇬🇧 English</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 bg-[#181818] border-none">
+                <TabsTrigger value="gasy" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">🇲🇬 Gasy</TabsTrigger>
+                <TabsTrigger value="fr" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">🇫🇷 Français</TabsTrigger>
+                <TabsTrigger value="en" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">🇬🇧 English</TabsTrigger>
               </TabsList>
               <TabsContent value="gasy" className="mt-3">
                 <Input
                   value={formData.title_gasy}
                   onChange={(e) => handleChange('title_gasy', e.target.value)}
                   placeholder="Ny lohateny amin'ny teny gasy"
+                  className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </TabsContent>
               <TabsContent value="fr" className="mt-3">
@@ -233,6 +234,7 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
                   value={formData.title_fr}
                   onChange={(e) => handleChange('title_fr', e.target.value)}
                   placeholder="Le titre en français"
+                  className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </TabsContent>
               <TabsContent value="en" className="mt-3">
@@ -240,6 +242,7 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
                   value={formData.title_en}
                   onChange={(e) => handleChange('title_en', e.target.value)}
                   placeholder="The title in English"
+                  className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </TabsContent>
             </Tabs>
@@ -247,12 +250,12 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
 
           {/* Synopsis multilingue */}
           <div className="space-y-2">
-            <Label>Synopsis <span className="text-xs text-muted-foreground">(Optionnel)</span></Label>
+            <Label className="text-white">Synopsis <span className="text-xs text-gray-400">(Optionnel)</span></Label>
             <Tabs defaultValue="gasy" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="gasy">🇲🇬 Gasy</TabsTrigger>
-                <TabsTrigger value="fr">🇫🇷 Français</TabsTrigger>
-                <TabsTrigger value="en">🇬🇧 English</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 bg-[#181818] border-none">
+                <TabsTrigger value="gasy" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">🇲🇬 Gasy</TabsTrigger>
+                <TabsTrigger value="fr" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">🇫🇷 Français</TabsTrigger>
+                <TabsTrigger value="en" className="data-[state=active]:bg-[#1DB954] data-[state=active]:text-black">🇬🇧 English</TabsTrigger>
               </TabsList>
               <TabsContent value="gasy" className="mt-3">
                 <Textarea
@@ -260,7 +263,7 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
                   onChange={(e) => handleChange('synopsis_gasy', e.target.value)}
                   placeholder="Famintinana fohy momba ny tantara..."
                   rows={4}
-                  className="resize-none"
+                  className="resize-none bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </TabsContent>
               <TabsContent value="fr" className="mt-3">
@@ -269,7 +272,7 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
                   onChange={(e) => handleChange('synopsis_fr', e.target.value)}
                   placeholder="Décrivez brièvement votre histoire..."
                   rows={4}
-                  className="resize-none"
+                  className="resize-none bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </TabsContent>
               <TabsContent value="en" className="mt-3">
@@ -278,7 +281,7 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
                   onChange={(e) => handleChange('synopsis_en', e.target.value)}
                   placeholder="Briefly describe your story..."
                   rows={4}
-                  className="resize-none"
+                  className="resize-none bg-[#3e3e3e] border-none text-white placeholder:text-gray-500"
                 />
               </TabsContent>
             </Tabs>
@@ -286,7 +289,7 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
 
           {/* Genre */}
           <div className="space-y-2">
-            <Label htmlFor="genre">
+            <Label htmlFor="genre" className="text-white">
               Genre <span className="text-red-500">*</span>
             </Label>
             <Select
@@ -294,12 +297,12 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
               onValueChange={(value) => handleChange('genre_id', value)}
               required
             >
-              <SelectTrigger>
+              <SelectTrigger className="bg-[#3e3e3e] border-none text-white">
                 <SelectValue placeholder="Sélectionnez un genre" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#282828] border-none text-white">
                 {genres.map((genre) => (
-                  <SelectItem key={genre.id} value={genre.id.toString()}>
+                  <SelectItem key={genre.id} value={genre.id.toString()} className="focus:bg-[#3e3e3e] focus:text-white">
                     {genre.title}
                   </SelectItem>
                 ))}
@@ -309,10 +312,10 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
 
           {/* Image de couverture */}
           <div className="space-y-2">
-            <Label htmlFor="cover_image">Image de couverture</Label>
+            <Label htmlFor="cover_image" className="text-white">Image de couverture</Label>
             {coverImagePreview ? (
               <div className="space-y-3">
-                <div className="relative w-full h-48 rounded-lg overflow-hidden border">
+                <div className="relative w-full h-48 rounded-lg overflow-hidden border border-[#3e3e3e]">
                   <img 
                     src={coverImagePreview} 
                     alt="Aperçu" 
@@ -334,14 +337,14 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
                 <div className="flex items-center justify-center w-full">
                   <label 
                     htmlFor="cover_image"
-                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-secondary/50 transition-colors"
+                    className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-[#3e3e3e] rounded-lg cursor-pointer hover:bg-[#3e3e3e]/50 transition-colors"
                   >
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <BookOpen className="w-8 h-8 mb-2 text-muted-foreground" />
-                      <p className="mb-2 text-sm text-muted-foreground">
+                      <BookOpen className="w-8 h-8 mb-2 text-gray-500" />
+                      <p className="mb-2 text-sm text-gray-400">
                         <span className="font-semibold">Cliquez pour sélectionner</span> ou glissez une image
                       </p>
-                      <p className="text-xs text-muted-foreground">PNG, JPG, WEBP (MAX. 2MB)</p>
+                      <p className="text-xs text-gray-500">PNG, JPG, WEBP (MAX. 2MB)</p>
                     </div>
                     <input 
                       id="cover_image" 
@@ -354,18 +357,18 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
                 </div>
               </div>
             )}
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-gray-500">
               Vous pourrez ajouter une image plus tard si vous n'en avez pas maintenant.
             </p>
           </div>
 
           {/* Histoire premium */}
-          <div className="flex items-center justify-between p-4 border rounded-lg">
+          <div className="flex items-center justify-between p-4 border border-[#3e3e3e] rounded-lg bg-[#181818]">
             <div className="space-y-0.5">
-              <Label htmlFor="is_premium" className="text-base">
+              <Label htmlFor="is_premium" className="text-base text-white">
                 Histoire Premium
               </Label>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-400">
                 Les histoires premium sont réservées aux abonnés
               </p>
             </div>
@@ -382,13 +385,14 @@ export default function CreateStoryDialog({ open, onOpenChange, onSuccess }: Cre
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={isLoading}
+              className="bg-transparent border-white/20 text-white hover:bg-white/10"
             >
               Annuler
             </Button>
             <Button
               type="submit"
               disabled={isLoading}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              className="bg-[#1DB954] hover:bg-[#1ed760] text-black font-semibold"
             >
               {isLoading ? (
                 <>

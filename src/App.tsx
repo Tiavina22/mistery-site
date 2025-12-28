@@ -11,9 +11,11 @@ import NotFound from "./pages/NotFound";
 import CreatorLogin from "./pages/CreatorLogin";
 import CreatorRegister from "./pages/CreatorRegister";
 import CreatorDashboard from "./pages/CreatorDashboard";
+import CreatorDashboardNew from "./pages/CreatorDashboardNew";
 import CreatorSettings from "./pages/CreatorSettings";
 import CreateStory from "./pages/CreateStory";
 import CreatorStories from "./pages/CreatorStories";
+import CreatorStoriesNew from "./pages/CreatorStoriesNew";
 import ManageGenres from "./pages/ManageGenres";
 import ManageChapters from "./pages/ManageChapters";
 
@@ -32,9 +34,9 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/creator/login" element={<CreatorLogin />} />
                 <Route path="/creator/register" element={<CreatorRegister />} />
-                <Route path="/creator/dashboard" element={<CreatorDashboard />} />
+                <Route path="/creator/dashboard" element={<CreatorDashboardNew />} />
                 <Route path="/creator/settings" element={<CreatorSettings />} />
-                <Route path="/creator/stories" element={<CreatorStories />} />
+                <Route path="/creator/stories" element={<CreatorStoriesNew />} />
                 <Route path="/creator/story/new" element={<CreateStory />} />
                 <Route path="/creator/genres" element={<ManageGenres />} />
                 <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />
