@@ -8,15 +8,15 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Eye, EyeOff, Loader2, Upload, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useRef } from 'react';
+import { Eye, EyeOff, Loader2, Upload, X, ChevronLeft, ChevronRight, Camera } from 'lucide-react';
+import { useRef, useEffect } from 'react';
 
 function CreatorRegister() {
   const navigate = useNavigate();
   const { register } = useAuth();
   const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 5;
+  const totalSteps = 6; // Augmenté de 5 à 6 pour inclure l'étape KYC
   const [otpCode, setOtpCode] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [canResendOtp, setCanResendOtp] = useState(false);
@@ -31,12 +31,22 @@ function CreatorRegister() {
     biography: '',
     speciality: '',
     avatar: '',
+    cin_number: '',
+    cin_recto: '',
+    cin_verso: '',
+    cin_selfie: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [cinRectoPreview, setCinRectoPreview] = useState<string | null>(null);
+  const [cinVersoPreview, setCinVersoPreview] = useState<string | null>(null);
+  const [cinSelfiePreview, setCinSelfiePreview] = useState<string | null>(null);
   const canSubmitRef = useRef(false);
+  const [showCamera, setShowCamera] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -145,6 +155,97 @@ function CreatorRegister() {
     setAvatarPreview(null);
   };
 
+  // Gestion des images CIN
+  const handleCinImageUpload = (e: React.ChangeEvent<HTMLInputElement>, type: 'recto' | 'verso' | 'selfie') => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Vérifier la taille (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('L\'image ne doit pas dépasser 5MB');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        if (type === 'recto') {
+          setFormData(prev => ({ ...prev, cin_recto: base64String }));
+          setCinRectoPreview(base64String);
+        } else if (type === 'verso') {
+          setFormData(prev => ({ ...prev, cin_verso: base64String }));
+          setCinVersoPreview(base64String);
+        } else {
+          setFormData(prev => ({ ...prev, cin_selfie: base64String }));
+          setCinSelfiePreview(base64String);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeCinImage = (type: 'recto' | 'verso' | 'selfie') => {
+    if (type === 'recto') {
+      setFormData(prev => ({ ...prev, cin_recto: '' }));
+      setCinRectoPreview(null);
+    } else if (type === 'verso') {
+      setFormData(prev => ({ ...prev, cin_verso: '' }));
+      setCinVersoPreview(null);
+    } else {
+      setFormData(prev => ({ ...prev, cin_selfie: '' }));
+      setCinSelfiePreview(null);
+    }
+  };
+
+  // Gestion de la caméra pour le selfie
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: 'user' } 
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        streamRef.current = stream;
+      }
+      setShowCamera(true);
+    } catch (err) {
+      setError('Impossible d\'accéder à la caméra. Veuillez autoriser l\'accès.');
+      console.error('Erreur caméra:', err);
+    }
+  };
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    setShowCamera(false);
+  };
+
+  const takeSelfie = () => {
+    if (videoRef.current) {
+      const canvas = document.createElement('canvas');
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(videoRef.current, 0, 0);
+        const base64String = canvas.toDataURL('image/jpeg', 0.8);
+        setFormData(prev => ({ ...prev, cin_selfie: base64String }));
+        setCinSelfiePreview(base64String);
+        stopCamera();
+      }
+    }
+  };
+
+  // Nettoyer la caméra au démontage
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
+
   const validateStep = (step: number): boolean => {
     setError('');
     
@@ -190,6 +291,26 @@ function CreatorRegister() {
         return true;
 
       case 5:
+        // Validation KYC
+        if (!formData.cin_number || formData.cin_number.length < 5) {
+          setError('Veuillez entrer un numéro de CIN valide');
+          return false;
+        }
+        if (!formData.cin_recto) {
+          setError('Veuillez uploader le recto de votre CIN');
+          return false;
+        }
+        if (!formData.cin_verso) {
+          setError('Veuillez uploader le verso de votre CIN');
+          return false;
+        }
+        if (!formData.cin_selfie) {
+          setError('Veuillez uploader votre selfie avec la CIN');
+          return false;
+        }
+        return true;
+
+      case 6:
         return true;
 
       default:
@@ -478,7 +599,182 @@ function CreatorRegister() {
           </div>
         );
 
+      // Étape 5: Documents KYC
       case 5:
+        return (
+          <div className="space-y-5">
+            <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-4 mb-4">
+              <p className="text-blue-400 text-sm">
+                📋 Pour créer votre compte créateur, nous devons vérifier votre identité. Vos documents seront traités de manière confidentielle.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="cin_number" className="text-white font-semibold">
+                Numéro de CIN <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="cin_number"
+                name="cin_number"
+                type="text"
+                placeholder="Numéro de votre carte d'identité"
+                value={formData.cin_number}
+                onChange={handleChange}
+                autoFocus
+                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-white font-semibold">
+                Photo CIN Recto <span className="text-red-500">*</span>
+              </Label>
+              {cinRectoPreview ? (
+                <div className="relative">
+                  <img 
+                    src={cinRectoPreview} 
+                    alt="CIN Recto" 
+                    className="w-full h-48 object-cover rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeCinImage('recto')}
+                    className="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 rounded-full text-white transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:border-[#1DB954] transition-colors bg-[#3e3e3e]">
+                  <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                  <span className="text-sm text-gray-400">Cliquez pour uploader (max 5MB)</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleCinImageUpload(e, 'recto')}
+                    className="hidden"
+                  />
+                </label>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-white font-semibold">
+                Photo CIN Verso <span className="text-red-500">*</span>
+              </Label>
+              {cinVersoPreview ? (
+                <div className="relative">
+                  <img 
+                    src={cinVersoPreview} 
+                    alt="CIN Verso" 
+                    className="w-full h-48 object-cover rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeCinImage('verso')}
+                    className="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 rounded-full text-white transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:border-[#1DB954] transition-colors bg-[#3e3e3e]">
+                  <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                  <span className="text-sm text-gray-400">Cliquez pour uploader (max 5MB)</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => handleCinImageUpload(e, 'verso')}
+                    className="hidden"
+                  />
+                </label>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-white font-semibold">
+                Selfie avec CIN <span className="text-red-500">*</span>
+              </Label>
+              <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-3 mb-2">
+                <p className="text-blue-400 text-xs">
+                  📸 Prenez un selfie en tenant votre CIN dans votre main droite, visage et CIN bien visibles
+                </p>
+              </div>
+              
+              {showCamera ? (
+                <div className="space-y-3">
+                  <div className="relative w-full h-64 bg-black rounded-lg overflow-hidden">
+                    <video
+                      ref={videoRef}
+                      autoPlay
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex gap-3">
+                    <Button
+                      type="button"
+                      onClick={takeSelfie}
+                      className="flex-1 bg-[#1DB954] hover:bg-[#1ed760] text-white font-semibold h-12"
+                    >
+                      <Camera className="w-5 h-5 mr-2" />
+                      Prendre la photo
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={stopCamera}
+                      variant="outline"
+                      className="px-6 border-gray-700 text-gray-400 hover:text-white hover:border-gray-600 h-12"
+                    >
+                      Annuler
+                    </Button>
+                  </div>
+                </div>
+              ) : cinSelfiePreview ? (
+                <div className="relative">
+                  <img 
+                    src={cinSelfiePreview} 
+                    alt="Selfie avec CIN" 
+                    className="w-full h-64 object-cover rounded-lg"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeCinImage('selfie')}
+                    className="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 rounded-full text-white transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={startCamera}
+                    className="absolute bottom-2 right-2 px-4 py-2 bg-[#1DB954] hover:bg-[#1ed760] rounded-lg text-white text-sm font-semibold transition-colors"
+                  >
+                    Reprendre
+                  </button>
+                </div>
+              ) : (
+                <Button
+                  type="button"
+                  onClick={startCamera}
+                  className="w-full h-64 border-2 border-dashed border-gray-700 rounded-lg hover:border-[#1DB954] transition-colors bg-[#3e3e3e] text-gray-400 hover:text-white flex flex-col items-center justify-center gap-3"
+                >
+                  <Camera className="w-10 h-10" />
+                  <span className="text-base font-semibold">Ouvrir la caméra</span>
+                  <span className="text-xs">Pour prendre votre selfie avec CIN</span>
+                </Button>
+              )}
+            </div>
+
+            <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-3">
+              <p className="text-yellow-400 text-xs">
+                ⚠️ Vos documents seront vérifiés sous 24-48h. Vous serez notifié par email du résultat.
+              </p>
+            </div>
+          </div>
+        );
+
+      // Étape 6: Informations optionnelles
+      case 6:
         return (
           <div className="space-y-5">
             <div className="space-y-2">
@@ -545,6 +841,8 @@ function CreatorRegister() {
       case 4:
         return "Ajoutez votre photo de profil";
       case 5:
+        return "Vérification d'identité (KYC)";
+      case 6:
         return "Complétez votre profil";
       default:
         return "";
@@ -562,6 +860,8 @@ function CreatorRegister() {
       case 4:
         return "Ajoutez une photo pour personnaliser votre profil";
       case 5:
+        return "Documents nécessaires pour vérifier votre identité";
+      case 6:
         return "Ces informations aideront les lecteurs à mieux vous connaître";
       default:
         return "";
