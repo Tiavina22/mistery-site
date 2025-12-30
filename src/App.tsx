@@ -13,6 +13,7 @@ import Terms from "./pages/Terms";
 import Contact from "./pages/Contact";
 import CreatorLogin from "./pages/CreatorLogin";
 import CreatorRegister from "./pages/CreatorRegister";
+import ForgotPassword from "./pages/ForgotPassword";
 import CreatorDashboard from "./pages/CreatorDashboard";
 import CreatorDashboardNew from "./pages/CreatorDashboardNew";
 import CreatorSettings from "./pages/CreatorSettings";
@@ -41,6 +42,7 @@ const App = () => (
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/creator/login" element={<CreatorLogin />} />
                 <Route path="/creator/register" element={<CreatorRegister />} />
+                <Route path="/creator/forgot-password" element={<ForgotPassword />} />
                 <Route path="/creator/dashboard" element={<CreatorDashboardNew />} />
                 <Route path="/creator/settings" element={<CreatorSettings />} />
                 <Route path="/creator/stories" element={<CreatorStoriesNew />} />

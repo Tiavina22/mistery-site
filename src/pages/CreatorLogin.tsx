@@ -105,6 +105,15 @@ export default function CreatorLogin() {
                   </button>
                 </div>
               </div>
+
+              <div className="flex justify-end">
+                <Link 
+                  to="/creator/forgot-password" 
+                  className="text-sm text-gray-400 hover:text-[#1DB954] transition-colors"
+                >
+                  Mot de passe oublié ?
+                </Link>
+              </div>
             </CardContent>
 
             <CardFooter className="flex flex-col gap-4 px-8 pb-8 pt-6">

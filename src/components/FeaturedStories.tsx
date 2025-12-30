@@ -17,6 +17,11 @@ interface Story {
     en?: string;
   };
   cover_image: string;
+  author: {
+    id: number;
+    pseudo: string;
+    avatar?: string;
+  };
   genre: {
     title: string;
   };
@@ -143,6 +148,11 @@ export default function FeaturedStories() {
                     <h3 className="text-lg font-heading font-semibold mb-2 text-white group-hover:text-[#1DB954] transition-colors">
                       {getTitle(story.title)}
                     </h3>
+                    {story.author && (
+                      <p className="text-xs text-gray-400 mb-2">
+                        Par <span className="text-[#1DB954] font-medium">{story.author.pseudo}</span>
+                      </p>
+                    )}
                     <p className="text-sm text-gray-400 line-clamp-2 mb-4">
                       {getSynopsis(story.synopsis) || 'Découvrez cette histoire captivante'}
                     </p>
