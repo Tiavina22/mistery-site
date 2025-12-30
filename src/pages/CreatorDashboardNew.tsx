@@ -152,7 +152,7 @@ export default function CreatorDashboardNew() {
                   <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.totalStories}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats?.totalStories || 0}</p>
                   <p className="text-xs sm:text-sm text-gray-400">Histoires</p>
                 </div>
               </div>
@@ -164,7 +164,7 @@ export default function CreatorDashboardNew() {
                   <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.totalViews.toLocaleString()}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{(stats?.totalViews || 0).toLocaleString()}</p>
                   <p className="text-xs sm:text-sm text-gray-400">Vues</p>
                 </div>
               </div>
@@ -176,7 +176,7 @@ export default function CreatorDashboardNew() {
                   <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.totalLikes.toLocaleString()}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{(stats?.totalLikes || 0).toLocaleString()}</p>
                   <p className="text-xs sm:text-sm text-gray-400">Likes</p>
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function CreatorDashboardNew() {
                   <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats.followers.toLocaleString()}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">{(stats?.followers || 0).toLocaleString()}</p>
                   <p className="text-xs sm:text-sm text-gray-400">Abonnés</p>
                 </div>
               </div>
