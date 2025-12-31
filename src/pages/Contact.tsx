@@ -49,11 +49,11 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-background">
       {/* Header with back button */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4 lg:px-8 py-4">
-          <Link to="/" className="flex items-center gap-2 text-white hover:text-[#1DB954] transition-colors">
+          <Link to="/" className="flex items-center gap-2 text-foreground hover:text-[#1DB954] transition-colors">
             ← {t('common.back') || 'Retour'}
           </Link>
         </div>
@@ -68,41 +68,41 @@ export default function Contact() {
                 <Mail className="w-8 h-8 text-black" />
               </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold mb-6 text-white">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground">
               {t('contact.title') || 'Contactez-nous'}
             </h1>
-            <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
               {t('contact.subtitle') || 'Notre équipe est là pour répondre à vos questions et vous accompagner'}
             </p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             {/* Contact Info Cards */}
-            <div className="bg-[#181818] rounded-2xl p-6 hover:bg-[#282828] transition-colors">
+            <div className="bg-card rounded-2xl p-6 hover:bg-secondary transition-colors">
               <div className="w-12 h-12 rounded-xl bg-[#1DB954]/10 flex items-center justify-center mb-4">
                 <Mail className="w-6 h-6 text-[#1DB954]" />
               </div>
-              <h3 className="text-lg font-heading font-semibold mb-2 text-white">Email</h3>
-              <a href="mailto:contact@appistery.mg" className="text-gray-400 hover:text-[#1DB954] transition-colors">
+              <h3 className="text-lg font-heading font-semibold mb-2 text-foreground">Email</h3>
+              <a href="mailto:contact@appistery.mg" className="text-muted-foreground hover:text-[#1DB954] transition-colors">
                 contact@appistery.mg
               </a>
             </div>
 
-            <div className="bg-[#181818] rounded-2xl p-6 hover:bg-[#282828] transition-colors">
+            <div className="bg-card rounded-2xl p-6 hover:bg-secondary transition-colors">
               <div className="w-12 h-12 rounded-xl bg-[#1DB954]/10 flex items-center justify-center mb-4">
                 <Phone className="w-6 h-6 text-[#1DB954]" />
               </div>
-              <h3 className="text-lg font-heading font-semibold mb-2 text-white">Téléphone</h3>
-              <a href="tel:+261340000000" className="text-gray-400 hover:text-[#1DB954] transition-colors">
+              <h3 className="text-lg font-heading font-semibold mb-2 text-foreground">Téléphone</h3>
+              <a href="tel:+261340000000" className="text-muted-foreground hover:text-[#1DB954] transition-colors">
                 +261 34 00 000 00
               </a>
             </div>
 
-            <div className="bg-[#181818] rounded-2xl p-6 hover:bg-[#282828] transition-colors">
+            <div className="bg-card rounded-2xl p-6 hover:bg-secondary transition-colors">
               <div className="w-12 h-12 rounded-xl bg-[#1DB954]/10 flex items-center justify-center mb-4">
                 <MapPin className="w-6 h-6 text-[#1DB954]" />
               </div>
-              <h3 className="text-lg font-heading font-semibold mb-2 text-white">Adresse</h3>
+              <h3 className="text-lg font-heading font-semibold mb-2 text-foreground">Adresse</h3>
               <p className="text-gray-400">
                 Antananarivo, Madagascar
               </p>
@@ -112,7 +112,7 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Form */}
-            <div className="bg-[#181818] rounded-2xl p-8">
+            <div className="bg-card rounded-2xl p-8">
               <h2 className="text-2xl font-heading font-bold mb-6 text-white">
                 Envoyez-nous un message
               </h2>
@@ -129,7 +129,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-white font-semibold">
+                    <Label htmlFor="name" className="text-foreground font-semibold">
                       Nom complet *
                     </Label>
                     <Input
@@ -141,12 +141,12 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       disabled={isSubmitting}
-                      className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                      className="bg-secondary border-none text-foreground placeholder:text-muted-foreground/60 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-white font-semibold">
+                    <Label htmlFor="email" className="text-foreground font-semibold">
                       Email *
                     </Label>
                     <Input
@@ -158,13 +158,13 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       disabled={isSubmitting}
-                      className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                      className="bg-secondary border-none text-foreground placeholder:text-muted-foreground/60 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-white font-semibold">
+                  <Label htmlFor="subject" className="text-foreground font-semibold">
                     Sujet *
                   </Label>
                   <Input
@@ -176,12 +176,12 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     disabled={isSubmitting}
-                    className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                    className="bg-secondary border-none text-foreground placeholder:text-muted-foreground/60 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message" className="text-white font-semibold">
+                  <Label htmlFor="message" className="text-foreground font-semibold">
                     Message *
                   </Label>
                   <Textarea
@@ -193,7 +193,7 @@ export default function Contact() {
                     required
                     disabled={isSubmitting}
                     rows={6}
-                    className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 focus-visible:ring-2 focus-visible:ring-[#1DB954] resize-none"
+                    className="bg-secondary border-none text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-2 focus-visible:ring-[#1DB954] resize-none"
                   />
                 </div>
 
@@ -216,26 +216,26 @@ export default function Contact() {
 
             {/* FAQ Section */}
             <div className="space-y-6">
-              <div className="bg-[#181818] rounded-2xl p-6">
-                <h3 className="text-lg font-heading font-semibold mb-3 text-white">
+              <div className="bg-card rounded-2xl p-6">
+                <h3 className="text-lg font-heading font-semibold mb-3 text-foreground">
                   Questions fréquentes
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-white mb-1">Comment devenir créateur ?</h4>
-                    <p className="text-sm text-gray-400">
+                    <h4 className="font-semibold text-foreground mb-1">Comment devenir créateur ?</h4>
+                    <p className="text-sm text-muted-foreground">
                       Inscrivez-vous via l'espace créateur et soumettez votre profil. Notre équipe validera votre compte sous 48h.
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">Comment fonctionne l'abonnement Premium ?</h4>
-                    <p className="text-sm text-gray-400">
+                    <h4 className="font-semibold text-foreground mb-1">Comment fonctionne l'abonnement Premium ?</h4>
+                    <p className="text-sm text-muted-foreground">
                       L'abonnement Premium vous donne un accès illimité à toutes les histoires pour un tarif mensuel fixe.
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-1">Puis-je annuler mon abonnement ?</h4>
-                    <p className="text-sm text-gray-400">
+                    <h4 className="font-semibold text-foreground mb-1">Puis-je annuler mon abonnement ?</h4>
+                    <p className="text-sm text-muted-foreground">
                       Oui, vous pouvez annuler à tout moment depuis vos paramètres. L'annulation prend effet à la fin du mois en cours.
                     </p>
                   </div>
@@ -243,10 +243,10 @@ export default function Contact() {
               </div>
 
               <div className="bg-gradient-to-br from-[#1DB954]/20 to-[#1DB954]/10 border-2 border-[#1DB954] rounded-2xl p-6">
-                <h3 className="text-lg font-heading font-semibold mb-3 text-white">
+                <h3 className="text-lg font-heading font-semibold mb-3 text-foreground">
                   Support Créateurs
                 </h3>
-                <p className="text-gray-400 mb-4">
+                <p className="text-muted-foreground mb-4">
                   Vous êtes créateur et avez besoin d'aide ? Contactez notre équipe dédiée pour un support prioritaire.
                 </p>
                 <Link
@@ -257,22 +257,22 @@ export default function Contact() {
                 </Link>
               </div>
 
-              <div className="bg-[#181818] rounded-2xl p-6">
-                <h3 className="text-lg font-heading font-semibold mb-3 text-white">
+              <div className="bg-card rounded-2xl p-6">
+                <h3 className="text-lg font-heading font-semibold mb-3 text-foreground">
                   Réseaux sociaux
                 </h3>
-                <p className="text-gray-400 mb-4">
+                <p className="text-muted-foreground mb-4">
                   Suivez-nous sur nos réseaux pour ne rien manquer de nos actualités et nouvelles histoires.
                 </p>
                 <div className="flex gap-3">
-                  <a href="#" className="w-10 h-10 bg-[#3e3e3e] hover:bg-[#1DB954] rounded-full flex items-center justify-center transition-colors">
-                    <span className="text-white">f</span>
+                  <a href="#" className="w-10 h-10 bg-secondary hover:bg-[#1DB954] rounded-full flex items-center justify-center transition-colors">
+                    <span className="text-foreground">f</span>
                   </a>
-                  <a href="#" className="w-10 h-10 bg-[#3e3e3e] hover:bg-[#1DB954] rounded-full flex items-center justify-center transition-colors">
-                    <span className="text-white">𝕏</span>
+                  <a href="#" className="w-10 h-10 bg-secondary hover:bg-[#1DB954] rounded-full flex items-center justify-center transition-colors">
+                    <span className="text-foreground">𝕏</span>
                   </a>
-                  <a href="#" className="w-10 h-10 bg-[#3e3e3e] hover:bg-[#1DB954] rounded-full flex items-center justify-center transition-colors">
-                    <span className="text-white">in</span>
+                  <a href="#" className="w-10 h-10 bg-secondary hover:bg-[#1DB954] rounded-full flex items-center justify-center transition-colors">
+                    <span className="text-foreground">in</span>
                   </a>
                 </div>
               </div>

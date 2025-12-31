@@ -11,7 +11,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="py-12 lg:py-16 border-t border-white/10 bg-black">
+    <footer className="py-12 lg:py-16 border-t border-border bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 items-center">
           {/* Logo & Description */}
@@ -22,9 +22,9 @@ export default function Footer() {
               alt="APPISTERY" 
               className="h-8 lg:h-10 w-auto object-contain"
             />
-              <span className="font-heading font-bold text-xl text-white">APPISTERY</span>
+              <span className="font-heading font-bold text-xl text-foreground">APPISTERY</span>
             </div>
-            <p className="text-sm text-gray-400 max-w-xs mx-auto lg:mx-0">
+            <p className="text-sm text-muted-foreground max-w-xs mx-auto lg:mx-0">
               {t('footer.description')}
             </p>
           </div>
@@ -35,7 +35,7 @@ export default function Footer() {
               <Link
                 key={link.key}
                 to={link.href}
-                className="text-sm text-gray-400 hover:text-white transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 {t(link.key)}
               </Link>
@@ -46,7 +46,7 @@ export default function Footer() {
           <div className="text-center lg:text-right space-y-2">
             <a 
               href="mailto:contact@mistery.pro" 
-              className="text-sm text-gray-400 hover:text-[#1DB954] transition-colors block"
+              className="text-sm text-muted-foreground hover:text-[#1DB954] transition-colors block"
             >
               contact@mistery.pro
             </a>
@@ -55,8 +55,8 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-10 pt-6 border-t border-white/10 text-center">
-          <p className="text-xs text-gray-400">
+        <div className="mt-10 pt-6 border-t border-border text-center">
+          <p className="text-xs text-muted-foreground">
             {t('footer.rights')}
           </p>
         </div>

@@ -125,13 +125,13 @@ export default function CreatorDashboardNew() {
     <CreatorLayout>
       <div className="h-full overflow-auto">
         {/* Header - Style Spotify */}
-        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 bg-gradient-to-b from-gray-800 to-transparent">
+        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 bg-gradient-to-b from-secondary to-background">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
             <div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-foreground">
                 Bonjour
               </h1>
-              <p className="text-gray-400 text-sm sm:text-base lg:text-lg">
+              <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">
                 {author.email.split('@')[0]}
               </p>
             </div>
@@ -146,68 +146,68 @@ export default function CreatorDashboardNew() {
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+            <div className="bg-secondary/50 p-3 sm:p-4 rounded-lg backdrop-blur">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-500/20 flex items-center justify-center">
                   <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{stats?.totalStories || 0}</p>
-                  <p className="text-xs sm:text-sm text-gray-400">Histoires</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground">{stats?.totalStories || 0}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Histoires</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+            <div className="bg-secondary/50 p-3 sm:p-4 rounded-lg backdrop-blur">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
                   <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-blue-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{(stats?.totalViews || 0).toLocaleString()}</p>
-                  <p className="text-xs sm:text-sm text-gray-400">Vues</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground">{(stats?.totalViews || 0).toLocaleString()}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Vues</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+            <div className="bg-secondary/50 p-3 sm:p-4 rounded-lg backdrop-blur">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-red-500/20 flex items-center justify-center">
                   <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{(stats?.totalLikes || 0).toLocaleString()}</p>
-                  <p className="text-xs sm:text-sm text-gray-400">Likes</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground">{(stats?.totalLikes || 0).toLocaleString()}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Likes</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gray-800/50 p-3 sm:p-4 rounded-lg backdrop-blur">
+            <div className="bg-secondary/50 p-3 sm:p-4 rounded-lg backdrop-blur">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
                   <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-500" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-bold text-white">{(stats?.followers || 0).toLocaleString()}</p>
-                  <p className="text-xs sm:text-sm text-gray-400">Abonnés</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-foreground">{(stats?.followers || 0).toLocaleString()}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Abonnés</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8">
-          <Card className="bg-[#181818] border-none">
+        <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8 bg-background">
+          <Card className="bg-card border-none">
             <CardHeader>
-              <CardTitle className="text-white">Histoires récentes</CardTitle>
-              <CardDescription className="text-gray-400">Vos dernières créations</CardDescription>
+              <CardTitle className="text-foreground">Histoires récentes</CardTitle>
+              <CardDescription className="text-muted-foreground">Vos dernières créations</CardDescription>
             </CardHeader>
             <CardContent>
               {stories.length === 0 ? (
                 <div className="text-center py-12">
-                  <BookOpen className="w-16 h-16 mx-auto text-gray-600 mb-4" />
-                  <h3 className="text-lg font-semibold mb-2 text-white">Aucune histoire</h3>
-                  <p className="text-gray-400 mb-6">
+                  <BookOpen className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2 text-foreground">Aucune histoire</h3>
+                  <p className="text-muted-foreground mb-6">
                     Commencez par créer votre première histoire
                   </p>
                   <Button onClick={() => setShowCreateDialog(true)}>
@@ -220,7 +220,7 @@ export default function CreatorDashboardNew() {
                   {stories.map((story) => (
                     <div
                       key={story.id}
-                      className="flex items-center gap-4 p-4 rounded-lg hover:bg-[#282828] transition-colors cursor-pointer group"
+                      className="flex items-center gap-4 p-4 rounded-lg hover:bg-secondary transition-colors cursor-pointer group"
                       onClick={() => navigate(`/creator/stories/${story.id}/chapters`)}
                     >
                       <div className="w-16 h-20 rounded-lg overflow-hidden bg-muted flex-shrink-0">
@@ -239,17 +239,17 @@ export default function CreatorDashboardNew() {
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold truncate text-white group-hover:text-[#1DB954] transition-colors">
+                          <h3 className="font-semibold truncate text-foreground group-hover:text-[#1DB954] transition-colors">
                             {getStoryTitle(story.title)}
                           </h3>
                           {getStatusBadge(story.status)}
                         </div>
-                        <p className="text-sm text-gray-400">
+                        <p className="text-sm text-muted-foreground">
                           {story.genre?.title} · {story.chapters_count} chapitre{story.chapters_count > 1 ? 's' : ''}
                         </p>
                       </div>
 
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Eye className="w-4 h-4" />
                           <span>{story.view_count || 0}</span>
@@ -268,31 +268,31 @@ export default function CreatorDashboardNew() {
 
           {/* Performance */}
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="bg-[#181818] border-none">
+            <Card className="bg-card border-none">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-white">
+                <CardTitle className="flex items-center gap-2 text-foreground">
                   <TrendingUp className="w-5 h-5 text-green-500" />
                   Performance
                 </CardTitle>
-                <CardDescription className="text-gray-400">Vos tendances cette semaine</CardDescription>
+                <CardDescription className="text-muted-foreground">Vos tendances cette semaine</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-48 flex items-center justify-center text-gray-500">
+                <div className="h-48 flex items-center justify-center text-muted-foreground">
                   <p>Graphiques à venir</p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#181818] border-none">
+            <Card className="bg-card border-none">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-white">
+                <CardTitle className="flex items-center gap-2 text-foreground">
                   <Clock className="w-5 h-5 text-blue-500" />
                   Activité récente
                 </CardTitle>
-                <CardDescription className="text-gray-400">Dernières actions</CardDescription>
+                <CardDescription className="text-muted-foreground">Dernières actions</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="h-48 flex items-center justify-center text-gray-500">
+                <div className="h-48 flex items-center justify-center text-muted-foreground">
                   <p>Activités à venir</p>
                 </div>
               </CardContent>

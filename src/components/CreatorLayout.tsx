@@ -46,20 +46,20 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
   };
 
   return (
-    <div className="flex h-screen bg-black text-white overflow-hidden">
+    <div className="flex h-screen bg-background text-foreground overflow-hidden">
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/10 px-4 py-3 flex items-center justify-between">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background border-b border-border px-4 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-400 flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-black" />
           </div>
-          <h1 className="font-bold text-lg text-white">APPISTERY</h1>
+          <h1 className="font-bold text-lg text-foreground">APPISTERY</h1>
         </Link>
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-white"
+          className="text-foreground"
         >
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </Button>
@@ -68,14 +68,14 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black/80 z-40"
+          className="lg:hidden fixed inset-0 bg-background/80 z-40"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
       {/* Sidebar - Style Spotify */}
       <aside className={cn(
-        "w-64 bg-black flex flex-col p-6 gap-6 transition-transform duration-300",
+        "w-64 bg-background flex flex-col p-6 gap-6 transition-transform duration-300",
         "lg:translate-x-0 fixed lg:static h-screen z-50",
         isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
       )}>
@@ -85,10 +85,10 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
             <BookOpen className="w-6 h-6 text-black" />
           </div>
           <div>
-            <h1 className="font-bold text-xl text-white">
+            <h1 className="font-bold text-xl text-foreground">
               APPISTERY
             </h1>
-            <p className="text-xs text-gray-400">Creator Studio</p>
+            <p className="text-xs text-muted-foreground">Creator Studio</p>
           </div>
         </Link>
 
@@ -108,8 +108,8 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
                 className={cn(
                   "flex items-center gap-4 px-4 py-3 rounded-md transition-colors",
                   isActive 
-                    ? "bg-gray-800 text-white" 
-                    : "text-gray-400 hover:text-white hover:bg-gray-900"
+                    ? "bg-secondary text-foreground" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
                 )}
               >
                 <Icon className="w-5 h-5" />
@@ -120,15 +120,15 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
         </nav>
 
         {/* User Section */}
-        <div className="space-y-3 pt-4 border-t border-gray-800">
+        <div className="space-y-3 pt-4 border-t border-border">
           <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400 hover:text-white hover:bg-gray-900 h-12">
+            <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50 h-12">
               <Home className="w-5 h-5" />
               <span className="font-semibold">Retour au site</span>
             </Button>
           </Link>
           
-          <div className="flex items-center gap-3 px-2 py-2 rounded-md bg-gray-900">
+          <div className="flex items-center gap-3 px-2 py-2 rounded-md bg-secondary">
             <Avatar className="w-9 h-9">
               <AvatarImage src={author?.avatar} />
               <AvatarFallback className="bg-green-500 text-black font-bold text-sm">
@@ -136,14 +136,14 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-sm truncate text-white">{author?.email.split('@')[0]}</p>
-              <p className="text-xs text-gray-400">Creator</p>
+              <p className="font-semibold text-sm truncate text-foreground">{author?.email.split('@')[0]}</p>
+              <p className="text-xs text-muted-foreground">Creator</p>
             </div>
           </div>
           
           <Button 
             variant="ghost" 
-            className="w-full justify-start gap-3 text-gray-400 hover:text-white hover:bg-gray-900 h-12"
+            className="w-full justify-start gap-3 text-muted-foreground hover:text-foreground hover:bg-secondary/50 h-12"
             onClick={handleLogout}
           >
             <LogOut className="w-5 h-5" />
@@ -153,7 +153,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
       </aside>
 
       {/* Main Content - Style Spotify */}
-      <main className="flex-1 overflow-auto bg-gradient-to-b from-gray-900 to-black lg:ml-0 pt-14 lg:pt-0">
+      <main className="flex-1 overflow-auto bg-gradient-to-b from-secondary to-background lg:ml-0 pt-14 lg:pt-0">
         {children}
       </main>
     </div>

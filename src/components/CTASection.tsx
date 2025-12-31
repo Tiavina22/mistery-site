@@ -6,9 +6,9 @@ export default function CTASection() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-20 lg:py-32 relative overflow-hidden bg-black">
+    <section className="py-20 lg:py-32 relative overflow-hidden bg-background">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 via-black to-[#1DB954]/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1DB954]/5 via-background to-[#1DB954]/5" />
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-[#1DB954]/20 blur-3xl" />
         <div className="absolute bottom-1/4 -right-32 w-64 h-64 rounded-full bg-[#1DB954]/10 blur-3xl" />
@@ -26,12 +26,12 @@ export default function CTASection() {
           </div>
 
           {/* Title */}
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6 text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6 text-foreground">
             {t('cta.title')}
           </h2>
           
           {/* Subtitle */}
-          <p className="text-lg lg:text-xl text-gray-400 mb-8 lg:mb-10 max-w-2xl mx-auto">
+          <p className="text-lg lg:text-xl text-muted-foreground mb-8 lg:mb-10 max-w-2xl mx-auto">
             {t('cta.subtitle')}
           </p>
 
@@ -41,9 +41,9 @@ export default function CTASection() {
               <Download className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
               {t('cta.button')}
             </Button>
-            <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] border border-white/10">
-              <Smartphone className="w-5 h-5 text-gray-400" />
-              <span className="text-sm font-medium text-gray-400">{t('cta.android')}</span>
+            <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary/50 border border-border">
+              <Smartphone className="w-5 h-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">{t('cta.android')}</span>
             </div>
           </div>
         </div>

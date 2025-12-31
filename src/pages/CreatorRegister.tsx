@@ -412,7 +412,7 @@ function CreatorRegister() {
         return (
           <div className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white font-semibold">
+              <Label htmlFor="email" className="text-foreground font-semibold">
                 Email *
               </Label>
               <Input
@@ -424,12 +424,12 @@ function CreatorRegister() {
                 onChange={handleChange}
                 required
                 autoFocus
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="pseudo" className="text-white font-semibold">
+              <Label htmlFor="pseudo" className="text-foreground font-semibold">
                 Pseudo *
               </Label>
               <Input
@@ -440,9 +440,9 @@ function CreatorRegister() {
                 value={formData.pseudo}
                 onChange={handleChange}
                 required
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
-              <p className="text-xs text-gray-500">Minimum 3 caractères, ce sera votre identifiant unique</p>
+              <p className="text-xs text-muted-foreground">Minimum 3 caractères, ce sera votre identifiant unique</p>
             </div>
           </div>
         );
@@ -451,14 +451,14 @@ function CreatorRegister() {
         return (
           <div className="space-y-5">
             <div className="text-center mb-6">
-              <p className="text-gray-400 text-sm mb-2">
+              <p className="text-muted-foreground text-sm mb-2">
                 Un code de vérification a été envoyé à
               </p>
-              <p className="text-white font-semibold">{formData.email}</p>
+              <p className="text-foreground font-semibold">{formData.email}</p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="otpCode" className="text-white font-semibold">
+              <Label htmlFor="otpCode" className="text-foreground font-semibold">
                 Code de vérification *
               </Label>
               <Input
@@ -477,9 +477,9 @@ function CreatorRegister() {
                 required
                 autoFocus
                 maxLength={6}
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 text-center text-2xl font-bold tracking-widest focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 text-center text-2xl font-bold tracking-widest focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
-              <p className="text-xs text-gray-500 text-center">Entrez le code à 6 chiffres</p>
+              <p className="text-xs text-muted-foreground text-center">Entrez le code à 6 chiffres</p>
             </div>
 
             <div className="text-center">
@@ -494,7 +494,7 @@ function CreatorRegister() {
                   Renvoyer le code
                 </Button>
               ) : (
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-muted-foreground">
                   Renvoyer le code dans {countdown}s
                 </p>
               )}
@@ -506,7 +506,7 @@ function CreatorRegister() {
         return (
           <div className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white font-semibold">
+              <Label htmlFor="password" className="text-foreground font-semibold">
                 Mot de passe *
               </Label>
               <div className="relative">
@@ -525,12 +525,12 @@ function CreatorRegister() {
                   }}
                   required
                   autoFocus
-                  className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 pr-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                  className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 pr-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -538,7 +538,7 @@ function CreatorRegister() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-white font-semibold">
+              <Label htmlFor="confirmPassword" className="text-foreground font-semibold">
                 Confirmer le mot de passe *
               </Label>
               <Input
@@ -549,7 +549,7 @@ function CreatorRegister() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
             </div>
           </div>
@@ -559,7 +559,7 @@ function CreatorRegister() {
         return (
           <div className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="avatar" className="text-white font-semibold">
+              <Label htmlFor="avatar" className="text-foreground font-semibold">
                 Avatar *
               </Label>
               <div className="flex flex-col items-center gap-6 py-4">
@@ -579,8 +579,8 @@ function CreatorRegister() {
                     </button>
                   </div>
                 ) : (
-                  <div className="w-32 h-32 rounded-full bg-[#3e3e3e] flex items-center justify-center border-4 border-dashed border-gray-600">
-                    <Upload className="w-12 h-12 text-gray-500" />
+                  <div className="w-32 h-32 rounded-full bg-secondary flex items-center justify-center border-4 border-dashed border-border">
+                    <Upload className="w-12 h-12 text-muted-foreground" />
                   </div>
                 )}
                 <div className="w-full">
@@ -590,9 +590,9 @@ function CreatorRegister() {
                     type="file"
                     accept="image/*"
                     onChange={handleAvatarChange}
-                    className="bg-[#3e3e3e] border-none text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#1DB954] file:text-black hover:file:bg-[#1ed760] file:cursor-pointer cursor-pointer"
+                    className="bg-secondary border-none text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#1DB954] file:text-black hover:file:bg-[#1ed760] file:cursor-pointer cursor-pointer"
                   />
-                  <p className="text-xs text-gray-500 mt-2 text-center">PNG, JPG, GIF jusqu'à 5MB</p>
+                  <p className="text-xs text-muted-foreground mt-2 text-center">PNG, JPG, GIF jusqu'à 5MB</p>
                 </div>
               </div>
             </div>
@@ -610,7 +610,7 @@ function CreatorRegister() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="cin_number" className="text-white font-semibold">
+              <Label htmlFor="cin_number" className="text-foreground font-semibold">
                 Numéro de CIN <span className="text-red-500">*</span>
               </Label>
               <Input
@@ -621,12 +621,12 @@ function CreatorRegister() {
                 value={formData.cin_number}
                 onChange={handleChange}
                 autoFocus
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white font-semibold">
+              <Label className="text-foreground font-semibold">
                 Photo CIN Recto <span className="text-red-500">*</span>
               </Label>
               {cinRectoPreview ? (
@@ -645,9 +645,9 @@ function CreatorRegister() {
                   </button>
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:border-[#1DB954] transition-colors bg-[#3e3e3e]">
-                  <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                  <span className="text-sm text-gray-400">Cliquez pour uploader (max 5MB)</span>
+                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-[#1DB954] transition-colors bg-secondary">
+                  <Upload className="w-8 h-8 text-muted-foreground mb-2" />
+                  <span className="text-sm text-muted-foreground">Cliquez pour uploader (max 5MB)</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -659,7 +659,7 @@ function CreatorRegister() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white font-semibold">
+              <Label className="text-foreground font-semibold">
                 Photo CIN Verso <span className="text-red-500">*</span>
               </Label>
               {cinVersoPreview ? (
@@ -678,9 +678,9 @@ function CreatorRegister() {
                   </button>
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-700 rounded-lg cursor-pointer hover:border-[#1DB954] transition-colors bg-[#3e3e3e]">
-                  <Upload className="w-8 h-8 text-gray-400 mb-2" />
-                  <span className="text-sm text-gray-400">Cliquez pour uploader (max 5MB)</span>
+                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-[#1DB954] transition-colors bg-secondary">
+                  <Upload className="w-8 h-8 text-muted-foreground mb-2" />
+                  <span className="text-sm text-muted-foreground">Cliquez pour uploader (max 5MB)</span>
                   <input
                     type="file"
                     accept="image/*"
@@ -692,7 +692,7 @@ function CreatorRegister() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-white font-semibold">
+              <Label className="text-foreground font-semibold">
                 Selfie avec CIN <span className="text-red-500">*</span>
               </Label>
               <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-3 mb-2">
@@ -703,7 +703,7 @@ function CreatorRegister() {
               
               {showCamera ? (
                 <div className="space-y-3">
-                  <div className="relative w-full h-64 bg-black rounded-lg overflow-hidden">
+                  <div className="relative w-full h-64 bg-secondary rounded-lg overflow-hidden">
                     <video
                       ref={videoRef}
                       autoPlay
@@ -724,7 +724,7 @@ function CreatorRegister() {
                       type="button"
                       onClick={stopCamera}
                       variant="outline"
-                      className="px-6 border-gray-700 text-gray-400 hover:text-white hover:border-gray-600 h-12"
+                      className="px-6 border-border text-muted-foreground hover:text-foreground hover:border-border h-12"
                     >
                       Annuler
                     </Button>
@@ -756,7 +756,7 @@ function CreatorRegister() {
                 <Button
                   type="button"
                   onClick={startCamera}
-                  className="w-full h-64 border-2 border-dashed border-gray-700 rounded-lg hover:border-[#1DB954] transition-colors bg-[#3e3e3e] text-gray-400 hover:text-white flex flex-col items-center justify-center gap-3"
+                  className="w-full h-64 border-2 border-dashed border-border rounded-lg hover:border-[#1DB954] transition-colors bg-secondary text-muted-foreground hover:text-foreground flex flex-col items-center justify-center gap-3"
                 >
                   <Camera className="w-10 h-10" />
                   <span className="text-base font-semibold">Ouvrir la caméra</span>
@@ -778,7 +778,7 @@ function CreatorRegister() {
         return (
           <div className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="phone_number" className="text-white font-semibold">
+              <Label htmlFor="phone_number" className="text-foreground font-semibold">
                 Téléphone
               </Label>
               <Input
@@ -789,12 +789,12 @@ function CreatorRegister() {
                 value={formData.phone_number}
                 onChange={handleChange}
                 autoFocus
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="speciality" className="text-white font-semibold">
+              <Label htmlFor="speciality" className="text-foreground font-semibold">
                 Spécialité
               </Label>
               <Input
@@ -804,12 +804,12 @@ function CreatorRegister() {
                 placeholder="Ex: Romans fantastiques, Science-fiction..."
                 value={formData.speciality}
                 onChange={handleChange}
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="biography" className="text-white font-semibold">
+              <Label htmlFor="biography" className="text-foreground font-semibold">
                 Biographie
               </Label>
               <Textarea
@@ -819,7 +819,7 @@ function CreatorRegister() {
                 value={formData.biography}
                 onChange={handleChange}
                 rows={4}
-                className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 focus-visible:ring-2 focus-visible:ring-[#1DB954] resize-none"
+                className="bg-secondary border-none text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#1DB954] resize-none"
               />
             </div>
           </div>
@@ -869,7 +869,7 @@ function CreatorRegister() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 py-8">
       <div className="w-full max-w-2xl">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-8">
@@ -878,10 +878,10 @@ function CreatorRegister() {
             alt="Appistery Logo" 
             className="w-12 h-12 object-contain"
           />
-          <h1 className="font-bold text-3xl text-white">APPISTERY</h1>
+          <h1 className="font-bold text-3xl text-foreground">APPISTERY</h1>
         </div>
 
-        <Card className="bg-[#121212] border-none shadow-2xl">
+        <Card className="bg-card border-border shadow-2xl">
           <CardHeader className="space-y-4 text-center pb-6">
             {/* Progress Bar */}
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -891,19 +891,19 @@ function CreatorRegister() {
                   className={`h-1 rounded-full transition-all duration-300 ${
                     index + 1 <= currentStep
                       ? 'bg-[#1DB954] w-12'
-                      : 'bg-gray-700 w-8'
+                      : 'bg-border w-8'
                   }`}
                 />
               ))}
             </div>
-            <div className="text-xs text-gray-500 font-medium">
+            <div className="text-xs text-muted-foreground font-medium">
               Étape {currentStep} sur {totalSteps}
             </div>
             
-            <CardTitle className="text-2xl font-bold text-white">
+            <CardTitle className="text-2xl font-bold text-foreground">
               {getStepTitle()}
             </CardTitle>
-            <CardDescription className="text-gray-400 text-sm">
+            <CardDescription className="text-muted-foreground text-sm">
               {getStepDescription()}
             </CardDescription>
           </CardHeader>
@@ -937,7 +937,7 @@ function CreatorRegister() {
                     type="button"
                     onClick={handlePrevious}
                     variant="outline"
-                    className="flex-1 bg-transparent border-gray-700 text-white hover:bg-gray-800 h-12 text-base rounded-full transition-all"
+                    className="flex-1 bg-transparent border-border text-foreground hover:bg-gray-800 h-12 text-base rounded-full transition-all"
                   >
                     <ChevronLeft className="w-5 h-5 mr-2" />
                     Retour
@@ -985,14 +985,14 @@ function CreatorRegister() {
 
               <div className="w-full h-px bg-gray-800 my-2"></div>
 
-              <p className="text-sm text-center text-gray-400">
+              <p className="text-sm text-center text-muted-foreground">
                 {t('creator.register.hasAccount')}{' '}
                 <Link to="/creator/login" className="text-[#1DB954] hover:text-[#1ed760] font-semibold hover:underline">
                   {t('creator.register.login')}
                 </Link>
               </p>
 
-              <Link to="/" className="text-sm text-center text-gray-400 hover:text-white transition-colors">
+              <Link to="/" className="text-sm text-center text-muted-foreground hover:text-foreground transition-colors">
                 ← {t('creator.register.backHome')}
               </Link>
             </CardFooter>

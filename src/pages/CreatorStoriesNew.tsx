@@ -216,14 +216,14 @@ export default function CreatorStoriesNew() {
 
   return (
     <CreatorLayout>
-      <div className="h-full overflow-auto bg-black">
+      <div className="h-full overflow-auto bg-background">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-gradient-to-b from-[#1a1a1a] to-black border-b border-white/5">
+        <div className="sticky top-0 z-10 bg-gradient-to-b from-secondary to-background border-b border-border">
           <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8">
               <div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-white">Mes Histoires</h1>
-                <p className="text-gray-400 text-sm sm:text-base lg:text-lg">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 text-foreground">Mes Histoires</h1>
+                <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">
                   {filteredStories.length} histoire{filteredStories.length !== 1 ? 's' : ''}
                 </p>
               </div>
@@ -240,19 +240,19 @@ export default function CreatorStoriesNew() {
             {/* Filters */}
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   placeholder="Rechercher une histoire..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 bg-[#242424] border-none text-white placeholder:text-gray-500 h-12 rounded-full focus-visible:ring-2 focus-visible:ring-white/20"
+                  className="pl-12 bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 rounded-full focus-visible:ring-2 focus-visible:ring-ring"
                 />
               </div>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-full sm:w-48 bg-[#242424] border-none text-white h-12 rounded-full">
+                <SelectTrigger className="w-full sm:w-48 bg-secondary border-none text-foreground h-12 rounded-full">
                   <SelectValue placeholder="Statut" />
                 </SelectTrigger>
-                <SelectContent className="bg-[#282828] border-none text-white">
+                <SelectContent className="bg-popover border-none text-popover-foreground">
                   <SelectItem value="all">Tous les statuts</SelectItem>
                   <SelectItem value="published">Publié</SelectItem>
                   <SelectItem value="draft">Brouillon</SelectItem>
@@ -267,13 +267,13 @@ export default function CreatorStoriesNew() {
         <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           {filteredStories.length === 0 ? (
             <div className="py-16 text-center">
-              <BookOpen className="h-20 w-20 mx-auto mb-4 text-gray-600" />
-              <h3 className="text-2xl font-bold mb-2 text-white">
+              <BookOpen className="h-20 w-20 mx-auto mb-4 text-muted-foreground" />
+              <h3 className="text-2xl font-bold mb-2 text-foreground">
                 {searchQuery || statusFilter !== 'all' 
                   ? 'Aucune histoire trouvée' 
                   : 'Aucune histoire'}
               </h3>
-              <p className="text-gray-400 mb-6 text-lg">
+              <p className="text-muted-foreground mb-6 text-lg">
                 {searchQuery || statusFilter !== 'all'
                   ? 'Essayez de modifier vos filtres'
                   : 'Commencez par créer votre première histoire'}
@@ -293,10 +293,10 @@ export default function CreatorStoriesNew() {
               {filteredStories.map((story) => (
                 <div 
                   key={story.id} 
-                  className="group bg-[#181818] hover:bg-[#282828] rounded-lg p-4 transition-all cursor-pointer"
+                  className="group bg-card hover:bg-secondary rounded-lg p-4 transition-all cursor-pointer"
                 >
                   {/* Cover Image */}
-                  <div className="relative aspect-square overflow-hidden rounded-md mb-4 bg-[#282828] shadow-2xl">
+                  <div className="relative aspect-square overflow-hidden rounded-md mb-4 bg-secondary shadow-2xl">
                     {story.cover_image ? (
                       <img
                         src={story.cover_image}
@@ -327,7 +327,7 @@ export default function CreatorStoriesNew() {
                     )}
 
                     {/* Play/Actions Overlay */}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                       <Button 
                         size="icon" 
                         className="rounded-full bg-[#1DB954] hover:bg-[#1ed760] hover:scale-110 transition-all shadow-xl w-12 h-12 sm:w-14 sm:h-14"
@@ -337,26 +337,26 @@ export default function CreatorStoriesNew() {
                       </Button>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button size="icon" variant="secondary" className="rounded-full bg-black/80 hover:bg-black w-9 h-9 sm:w-10 sm:h-10">
+                          <Button size="icon" variant="secondary" className="rounded-full bg-background/80 hover:bg-background w-9 h-9 sm:w-10 sm:h-10">
                             <MoreVertical className="w-4 h-4 sm:w-5 sm:h-5" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-[#282828] border-none text-white">
+                        <DropdownMenuContent align="end" className="bg-popover border-none text-popover-foreground">
                           <DropdownMenuItem 
                             onClick={() => navigate(`/creator/stories/${story.id}/chapters`)}
-                            className="focus:bg-[#3e3e3e] focus:text-white"
+                            className="focus:bg-accent focus:text-white"
                           >
                             <FileText className="w-4 h-4 mr-2" />
                             Gérer chapitres
                           </DropdownMenuItem>
                           <DropdownMenuItem 
                             onClick={() => handleEditStory(story)}
-                            className="focus:bg-[#3e3e3e] focus:text-white"
+                            className="focus:bg-accent focus:text-white"
                           >
                             <Edit className="w-4 h-4 mr-2" />
                             Modifier
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="focus:bg-[#3e3e3e] focus:text-white">
+                          <DropdownMenuItem className="focus:bg-accent focus:text-white">
                             <Eye className="w-4 h-4 mr-2" />
                             Voir
                           </DropdownMenuItem>
@@ -365,7 +365,7 @@ export default function CreatorStoriesNew() {
                             <>
                               <DropdownMenuItem 
                                 onClick={() => handlePublish(story)}
-                                className="focus:bg-[#3e3e3e] focus:text-white"
+                                className="focus:bg-accent focus:text-white"
                               >
                                 <Check className="w-4 h-4 mr-2" />
                                 Publier
@@ -374,7 +374,7 @@ export default function CreatorStoriesNew() {
                             </>
                           )}
                           <DropdownMenuItem
-                            className="text-red-400 focus:bg-[#3e3e3e] focus:text-red-400"
+                            className="text-red-400 focus:bg-accent focus:text-red-400"
                             onClick={() => setStoryToDelete(story)}
                           >
                             <Trash2 className="w-4 h-4 mr-2" />
@@ -387,15 +387,15 @@ export default function CreatorStoriesNew() {
 
                   {/* Info */}
                   <div>
-                    <h3 className="font-bold text-white mb-1 text-sm sm:text-base line-clamp-1 group-hover:underline">
+                    <h3 className="font-bold text-foreground mb-1 text-sm sm:text-base line-clamp-1 group-hover:underline">
                       {getStoryTitle(story.title)}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-400 mb-2 sm:mb-3 line-clamp-1">
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3 line-clamp-1">
                       {story.genre?.title}
                     </p>
 
                     {/* Stats */}
-                    <div className="flex items-center gap-3 sm:gap-4 text-xs text-gray-500">
+                    <div className="flex items-center gap-3 sm:gap-4 text-xs text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         <span>{story.chapters_count}</span>
@@ -434,10 +434,10 @@ export default function CreatorStoriesNew() {
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!storyToDelete} onOpenChange={(open) => !open && setStoryToDelete(null)}>
-        <AlertDialogContent className="bg-[#282828] border-none text-white">
+        <AlertDialogContent className="bg-popover border-none text-popover-foreground">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">Confirmer la suppression</AlertDialogTitle>
-            <AlertDialogDescription className="text-gray-400">
+            <AlertDialogTitle className="text-foreground">Confirmer la suppression</AlertDialogTitle>
+            <AlertDialogDescription className="text-muted-foreground">
               Êtes-vous sûr de vouloir supprimer "{storyToDelete && getStoryTitle(storyToDelete.title)}" ?
               Cette action est irréversible.
             </AlertDialogDescription>
@@ -445,7 +445,7 @@ export default function CreatorStoriesNew() {
           <AlertDialogFooter>
             <AlertDialogCancel 
               disabled={isDeleting}
-              className="bg-transparent border-white/20 text-white hover:bg-white/10"
+              className="bg-transparent border-border text-foreground hover:bg-accent"
             >
               Annuler
             </AlertDialogCancel>

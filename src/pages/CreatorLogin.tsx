@@ -35,7 +35,7 @@ export default function CreatorLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex items-center justify-center gap-3 mb-12">
@@ -44,15 +44,15 @@ export default function CreatorLogin() {
             alt="Appistery Logo" 
             className="w-12 h-12 object-contain"
           />
-          <h1 className="font-bold text-3xl text-white">APPISTERY</h1>
+          <h1 className="font-bold text-3xl text-foreground">APPISTERY</h1>
         </div>
 
-        <Card className="bg-[#121212] border-none shadow-2xl">
+        <Card className="bg-secondary/50 border-none shadow-2xl">
           <CardHeader className="space-y-1 text-center pb-8">
-            <CardTitle className="text-3xl font-bold text-white mb-2">
+            <CardTitle className="text-3xl font-bold text-foreground mb-2">
               {t('creator.login.title')}
             </CardTitle>
-            <CardDescription className="text-gray-400 text-base">
+            <CardDescription className="text-muted-foreground text-base">
               {t('creator.login.subtitle')}
             </CardDescription>
           </CardHeader>
@@ -65,7 +65,7 @@ export default function CreatorLogin() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white font-semibold">
+                <Label htmlFor="email" className="text-foreground font-semibold">
                   {t('creator.login.email')}
                 </Label>
                 <Input
@@ -76,12 +76,12 @@ export default function CreatorLogin() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   disabled={isLoading}
-                  className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                  className="bg-secondary border-none text-foreground placeholder:text-muted-foreground/60 h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white font-semibold">
+                <Label htmlFor="password" className="text-foreground font-semibold">
                   {t('creator.login.password')}
                 </Label>
                 <div className="relative">
@@ -93,12 +93,12 @@ export default function CreatorLogin() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     disabled={isLoading}
-                    className="bg-[#3e3e3e] border-none text-white placeholder:text-gray-500 h-12 pr-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
+                    className="bg-secondary border-none text-foreground placeholder:text-muted-foreground/60 h-12 pr-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                     title={showPassword ? t('creator.login.hide') : t('creator.login.show')}
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
@@ -109,7 +109,7 @@ export default function CreatorLogin() {
               <div className="flex justify-end">
                 <Link 
                   to="/creator/forgot-password" 
-                  className="text-sm text-gray-400 hover:text-[#1DB954] transition-colors"
+                  className="text-sm text-muted-foreground hover:text-[#1DB954] transition-colors"
                 >
                   Mot de passe oublié ?
                 </Link>
@@ -126,16 +126,16 @@ export default function CreatorLogin() {
                 {isLoading ? t('creator.login.loading') : t('creator.login.button')}
               </Button>
 
-              <div className="w-full h-px bg-gray-800 my-2"></div>
+              <div className="w-full h-px bg-border my-2"></div>
 
-              <p className="text-sm text-center text-gray-400">
+              <p className="text-sm text-center text-muted-foreground">
                 {t('creator.login.noAccount')}{' '}
                 <Link to="/creator/register" className="text-[#1DB954] hover:text-[#1ed760] font-semibold hover:underline">
                   {t('creator.login.register')}
                 </Link>
               </p>
 
-              <Link to="/" className="text-sm text-center text-gray-400 hover:text-white transition-colors">
+              <Link to="/" className="text-sm text-center text-muted-foreground hover:text-foreground transition-colors">
                 ← {t('creator.login.backHome')}
               </Link>
             </CardFooter>

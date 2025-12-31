@@ -18,7 +18,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -28,7 +28,7 @@ export default function Header() {
               alt="APPISTERY" 
               className="h-8 lg:h-10 w-auto object-contain"
             />
-            <span className="font-heading font-bold text-xl lg:text-2xl text-white group-hover:text-[#1DB954] transition-colors">
+            <span className="font-heading font-bold text-xl lg:text-2xl text-foreground group-hover:text-[#1DB954] transition-colors">
               APPISTERY
             </span>
           </a>
@@ -39,7 +39,7 @@ export default function Header() {
               <a
                 key={item.key}
                 href={item.href}
-                className="text-gray-300 hover:text-white transition-colors font-medium"
+                className="text-muted-foreground hover:text-foreground transition-colors font-medium"
               >
                 {t(item.key)}
               </a>
@@ -51,25 +51,25 @@ export default function Header() {
             {/* Language Toggle */}
             <button
               onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#282828] hover:bg-[#3e3e3e] transition-colors text-sm font-medium text-white"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-sm font-medium text-foreground"
               aria-label="Toggle language"
             >
               <Globe className="w-4 h-4" />
               <span className="uppercase">{language}</span>
             </button>
 
-            {/* Theme Toggle
+            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-[#282828] hover:bg-[#3e3e3e] transition-colors"
+              className="p-2 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
                 <Sun className="w-5 h-5 text-[#1DB954]" />
               ) : (
-                <Moon className="w-5 h-5 text-white" />
+                <Moon className="w-5 h-5 text-foreground" />
               )}
-            </button> */}
+            </button>
 
             {/* Download Button (Desktop) */}
             <Button className="hidden lg:flex bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold rounded-full transition-all hover:scale-105" size="sm">
@@ -78,7 +78,7 @@ export default function Header() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="lg:hidden p-2 rounded-lg hover:bg-[#282828] transition-colors text-white"
+              className="lg:hidden p-2 rounded-lg hover:bg-secondary transition-colors text-foreground"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -89,13 +89,13 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-white/10 animate-fade-in bg-black">
+          <div className="lg:hidden py-4 border-t border-border animate-fade-in bg-background">
             <nav className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <a
                   key={item.key}
                   href={item.href}
-                  className="text-gray-300 hover:text-white transition-colors font-medium py-2"
+                  className="text-muted-foreground hover:text-foreground transition-colors font-medium py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {t(item.key)}

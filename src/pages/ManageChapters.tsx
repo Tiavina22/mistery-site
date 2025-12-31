@@ -172,7 +172,7 @@ export default function ManageChapters() {
         <div className="flex items-center justify-center h-full">
           <div className="text-center">
             <BookOpen className="h-12 w-12 animate-pulse mx-auto mb-4 text-[#1DB954]" />
-            <p className="text-gray-400">Chargement...</p>
+            <p className="text-muted-foreground">Chargement...</p>
           </div>
         </div>
       </CreatorLayout>
@@ -181,14 +181,14 @@ export default function ManageChapters() {
 
   return (
     <CreatorLayout>
-      <div className="h-full overflow-auto bg-black">
+      <div className="h-full overflow-auto bg-background">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-gradient-to-b from-[#1a1a1a] to-black border-b border-white/5">
+        <div className="sticky top-0 z-10 bg-gradient-to-b from-secondary to-background border-b border-border">
           <div className="px-8 py-8">
             <Button 
               variant="ghost" 
               onClick={() => navigate('/creator/stories')}
-              className="mb-6 text-gray-400 hover:text-white hover:bg-[#282828] -ml-2"
+              className="mb-6 text-muted-foreground hover:text-foreground hover:bg-secondary -ml-2"
             >
               <ArrowLeft className="mr-2 h-5 w-5" />
               Retour aux histoires
@@ -196,10 +196,10 @@ export default function ManageChapters() {
             
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
-                <h1 className="text-5xl font-bold mb-2 text-white">
+                <h1 className="text-5xl font-bold mb-2 text-foreground">
                   {story ? getChapterTitle(story.title) : 'Gestion des chapitres'}
                 </h1>
-                <p className="text-gray-400 text-lg">
+                <p className="text-muted-foreground text-lg">
                   {chapters.length} chapitre{chapters.length !== 1 ? 's' : ''}
                 </p>
               </div>
@@ -219,9 +219,9 @@ export default function ManageChapters() {
         <div className="px-8 py-8">
           {chapters.length === 0 ? (
             <div className="py-16 text-center">
-              <FileText className="h-20 w-20 mx-auto mb-4 text-gray-600" />
-              <h3 className="text-2xl font-bold mb-2 text-white">Aucun chapitre</h3>
-              <p className="text-gray-400 mb-6 text-lg">
+              <FileText className="h-20 w-20 mx-auto mb-4 text-muted-foreground" />
+              <h3 className="text-2xl font-bold mb-2 text-foreground">Aucun chapitre</h3>
+              <p className="text-muted-foreground mb-6 text-lg">
                 Commencez par créer votre premier chapitre
               </p>
               <Button 
@@ -233,10 +233,10 @@ export default function ManageChapters() {
               </Button>
             </div>
           ) : (
-            <Card className="bg-[#181818] border-none">
+            <Card className="bg-card border-none">
               <CardHeader>
-                <CardTitle className="text-white text-2xl">Chapitres</CardTitle>
-                <CardDescription className="text-gray-400">
+                <CardTitle className="text-foreground text-2xl">Chapitres</CardTitle>
+                <CardDescription className="text-muted-foreground">
                   Gérez les chapitres de votre histoire
                 </CardDescription>
               </CardHeader>
@@ -244,19 +244,19 @@ export default function ManageChapters() {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-white/10 hover:bg-transparent">
-                      <TableHead className="w-20 text-gray-400">N°</TableHead>
-                      <TableHead className="text-gray-400">Titre</TableHead>
-                      <TableHead className="w-32 text-gray-400">Statut</TableHead>
-                      <TableHead className="w-48 text-gray-400">Actions</TableHead>
+                      <TableHead className="w-20 text-muted-foreground">N°</TableHead>
+                      <TableHead className="text-muted-foreground">Titre</TableHead>
+                      <TableHead className="w-32 text-muted-foreground">Statut</TableHead>
+                      <TableHead className="w-48 text-muted-foreground">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {chapters.map((chapter) => (
-                      <TableRow key={chapter.id} className="border-white/10 hover:bg-[#282828]">
-                        <TableCell className="font-medium text-white">
+                      <TableRow key={chapter.id} className="border-border hover:bg-secondary">
+                        <TableCell className="font-medium text-foreground">
                           {chapter.chapter_number}
                         </TableCell>
-                        <TableCell className="text-white">
+                        <TableCell className="text-foreground">
                           {getChapterTitle(chapter.title)}
                         </TableCell>
                         <TableCell>
@@ -269,7 +269,7 @@ export default function ManageChapters() {
                               size="icon"
                               onClick={() => handleEditChapter(chapter)}
                               title="Modifier"
-                              className="text-gray-400 hover:text-white hover:bg-[#282828]"
+                              className="text-muted-foreground hover:text-foreground hover:bg-secondary"
                             >
                               <Pencil className="h-4 w-4" />
                             </Button>
@@ -280,7 +280,7 @@ export default function ManageChapters() {
                                 size="icon"
                                 onClick={() => handlePublishChapter(chapter.id)}
                                 title="Publier"
-                                className="text-gray-400 hover:text-[#1DB954] hover:bg-[#282828]"
+                                className="text-muted-foreground hover:text-[#1DB954] hover:bg-secondary"
                               >
                                 <Eye className="h-4 w-4" />
                               </Button>
@@ -291,7 +291,7 @@ export default function ManageChapters() {
                               size="icon"
                               onClick={() => handleDeleteClick(chapter.id)}
                               title="Supprimer"
-                              className="text-gray-400 hover:text-red-500 hover:bg-[#282828]"
+                              className="text-muted-foreground hover:text-red-500 hover:bg-secondary"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -321,15 +321,15 @@ export default function ManageChapters() {
 
       {/* Dialog de confirmation de suppression */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="bg-[#282828] border-none text-white">
+        <AlertDialogContent className="bg-popover border-none text-popover-foreground">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">Confirmer la suppression</AlertDialogTitle>
-            <AlertDialogDescription className="text-gray-400">
+            <AlertDialogTitle className="text-foreground">Confirmer la suppression</AlertDialogTitle>
+            <AlertDialogDescription className="text-muted-foreground">
               Êtes-vous sûr de vouloir supprimer ce chapitre ? Cette action est irréversible.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="bg-transparent border-white/20 text-white hover:bg-white/10">
+            <AlertDialogCancel className="bg-transparent border-border text-foreground hover:bg-accent">
               Annuler
             </AlertDialogCancel>
             <AlertDialogAction 

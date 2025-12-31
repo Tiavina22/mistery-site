@@ -28,7 +28,7 @@ export default function ConceptSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="concept" className="py-20 lg:py-32 relative overflow-hidden bg-black">
+    <section id="concept" className="py-20 lg:py-32 relative overflow-hidden bg-background">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -37,9 +37,9 @@ export default function ConceptSection() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6">
-            <span className="text-white">{t('concept.title')}</span>
+            <span className="text-foreground">{t('concept.title')}</span>
           </h2>
-          <p className="text-lg lg:text-xl text-gray-400">
+          <p className="text-lg lg:text-xl text-muted-foreground">
             {t('concept.subtitle')}
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function ConceptSection() {
             return (
               <div
                 key={concept.titleKey}
-                className="group relative p-6 lg:p-8 rounded-2xl bg-[#181818] border-none hover:bg-[#282828] transition-all duration-300 hover:scale-105"
+                className="group relative p-6 lg:p-8 rounded-2xl bg-card border-none hover:bg-secondary transition-all duration-300 hover:scale-105"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Icon */}
@@ -60,10 +60,10 @@ export default function ConceptSection() {
                 </div>
                 
                 {/* Content */}
-                <h3 className="text-lg lg:text-xl font-heading font-semibold mb-2 text-white group-hover:text-[#1DB954] transition-colors">
+                <h3 className="text-lg lg:text-xl font-heading font-semibold mb-2 text-foreground group-hover:text-[#1DB954] transition-colors">
                   {t(concept.titleKey)}
                 </h3>
-                <p className="text-gray-400 text-sm lg:text-base">
+                <p className="text-muted-foreground text-sm lg:text-base">
                   {t(concept.descKey)}
                 </p>
 

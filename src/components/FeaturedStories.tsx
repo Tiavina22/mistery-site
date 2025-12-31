@@ -71,14 +71,14 @@ export default function FeaturedStories() {
   ];
 
   return (
-    <section id="stories" className="py-20 lg:py-32 bg-black">
+    <section id="stories" className="py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6 text-white">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-4 lg:mb-6 text-foreground">
             {t('stories.title')}
           </h2>
-          <p className="text-lg lg:text-xl text-gray-400">
+          <p className="text-lg lg:text-xl text-muted-foreground">
             {t('stories.subtitle')}
           </p>
         </div>
@@ -103,7 +103,7 @@ export default function FeaturedStories() {
             stories.map((story, index) => (
               <div
                 key={story.id}
-                className="group relative rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer bg-[#181818]"
+                className="group relative rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer bg-card"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Cover Image Background */}
@@ -142,18 +142,18 @@ export default function FeaturedStories() {
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-xs font-medium text-[#1DB954]">{t('stories.series')}</span>
-                      <span className="text-xs text-gray-400">•</span>
-                      <span className="text-xs text-gray-400">{story.chapters_count} {t('stories.episodes')}</span>
+                      <span className="text-xs text-muted-foreground">•</span>
+                      <span className="text-xs text-muted-foreground">{story.chapters_count} {t('stories.episodes')}</span>
                     </div>
-                    <h3 className="text-lg font-heading font-semibold mb-2 text-white group-hover:text-[#1DB954] transition-colors">
+                    <h3 className="text-lg font-heading font-semibold mb-2 text-foreground group-hover:text-[#1DB954] transition-colors">
                       {getTitle(story.title)}
                     </h3>
                     {story.author && (
-                      <p className="text-xs text-gray-400 mb-2">
+                      <p className="text-xs text-muted-foreground mb-2">
                         Par <span className="text-[#1DB954] font-medium">{story.author.pseudo}</span>
                       </p>
                     )}
-                    <p className="text-sm text-gray-400 line-clamp-2 mb-4">
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
                       {getSynopsis(story.synopsis) || 'Découvrez cette histoire captivante'}
                     </p>
                     <Button 

@@ -7,16 +7,16 @@ export default function HeroSection() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 lg:pt-0 overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center pt-20 lg:pt-0 overflow-hidden bg-background">
       {/* Background image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})` }}
       >
         {/* Overlay for light mode */}
-        <div className="absolute inset-0 bg-black/85" />
+        <div className="absolute inset-0 bg-background/85" />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
       </div>
 
       {/* Background decorations */}
@@ -30,23 +30,23 @@ export default function HeroSection() {
           {/* Content */}
           <div className="text-center lg:text-left space-y-6 lg:space-y-8">
             {/* Logo Badge */}
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#121212] backdrop-blur-sm shadow-xl animate-fade-up opacity-0 border border-white/10">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-secondary/50 backdrop-blur-sm shadow-xl animate-fade-up opacity-0 border border-border">
                <img 
               src="/logo/logo-appistery-no.png" 
               alt="APPISTERY" 
               className="h-8 lg:h-10 w-auto object-contain"
             />
-              <span className="font-heading font-semibold text-lg text-white">APPISTERY</span>
+              <span className="font-heading font-semibold text-lg text-foreground">APPISTERY</span>
             </div>
 
             {/* Title */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold leading-tight animate-fade-up opacity-0 stagger-1">
-              <span className="text-white">{t('hero.title').split(' ').slice(0, -1).join(' ')}</span>{' '}
+              <span className="text-foreground">{t('hero.title').split(' ').slice(0, -1).join(' ')}</span>{' '}
               <span className="text-[#1DB954]">{t('hero.title').split(' ').slice(-1)}</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg lg:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 animate-fade-up opacity-0 stagger-2">
+            <p className="text-lg lg:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0 animate-fade-up opacity-0 stagger-2">
               {t('hero.subtitle')}
             </p>
 
@@ -56,9 +56,9 @@ export default function HeroSection() {
                 <Download className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
                 {t('hero.cta')}
               </Button>
-              <div className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#121212] backdrop-blur-sm border border-white/10">
-                <Smartphone className="w-5 h-5 text-gray-400" />
-                <span className="text-sm font-medium text-gray-400">{t('hero.badge')}</span>
+              <div className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-secondary/50 backdrop-blur-sm border border-border">
+                <Smartphone className="w-5 h-5 text-muted-foreground" />
+                <span className="text-sm font-medium text-muted-foreground">{t('hero.badge')}</span>
               </div>
             </div>
           </div>
