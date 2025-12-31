@@ -973,6 +973,57 @@ export default function CreatorProfile() {
               </CardHeader>
               <CardContent>
                 <form onSubmit={handlePaymentFormSubmit} className="space-y-4">
+                  {/* Afficher le provider rejeté */}
+                  {showPaymentForm !== 'new' && (
+                    <div className="p-3 bg-secondary rounded-lg border border-border">
+                      {paymentMethods.find(m => m.id === showPaymentForm)?.provider && (
+                        <div className="flex items-center gap-2">
+                          {paymentMethods.find(m => m.id === showPaymentForm)?.provider.logo && (
+                            <img 
+                              src={paymentMethods.find(m => m.id === showPaymentForm)?.provider.logo} 
+                              alt={paymentMethods.find(m => m.id === showPaymentForm)?.provider.name}
+                              className="w-8 h-8 object-contain rounded"
+                            />
+                          )}
+                          <div>
+                            <p className="text-xs text-muted-foreground">Provider</p>
+                            <p className="font-semibold text-foreground">
+                              {paymentMethods.find(m => m.id === showPaymentForm)?.provider.name}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Sélectionner provider pour nouveau */}
+                  {showPaymentForm === 'new' && (
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-3">
+                        Sélectionner un provider
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {providers.map((provider) => (
+                          <button
+                            key={provider.id}
+                            type="button"
+                            onClick={() => setSelectedProviderId(provider.id)}
+                            className={`p-2 rounded-lg border-2 transition-all flex flex-col items-center gap-1 ${
+                              selectedProviderId === provider.id
+                                ? 'border-blue-500 bg-blue-500/10'
+                                : 'border-border hover:border-blue-300'
+                            }`}
+                          >
+                            {provider.logo && (
+                              <img src={provider.logo} alt={provider.name} className="w-6 h-6 object-contain" />
+                            )}
+                            <span className="text-xs font-medium text-foreground text-center">{provider.name}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div>
                     <Label className="text-foreground">Numéro de téléphone</Label>
                     <Input 
