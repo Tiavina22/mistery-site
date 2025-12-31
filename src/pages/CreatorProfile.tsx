@@ -11,11 +11,11 @@ import CreatorLayout from '@/components/CreatorLayout';
 import { Mail, User, Phone, BookOpen, FileText, CheckCircle, Clock, XCircle, CreditCard, Wallet, Shield, Upload, X, Camera } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500';
 
 export default function CreatorProfile() {
   const navigate = useNavigate();
-  const { author } = useAuth();
+  const { author, updateProfile } = useAuth();
   const { t } = useLanguage();
   const [kycInfo, setKycInfo] = useState<any>(null);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
@@ -27,6 +27,15 @@ export default function CreatorProfile() {
   const [showKycForm, setShowKycForm] = useState(false);
   const [showPaymentForm, setShowPaymentForm] = useState<number | null | 'new'>(null);
   const [selectedProviderId, setSelectedProviderId] = useState<number | null>(null);
+  const [showEditProfile, setShowEditProfile] = useState(false);
+  const [editProfileData, setEditProfileData] = useState({
+    pseudo: '',
+    speciality: '',
+    biography: '',
+    avatar: null as string | null
+  });
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [submittingProfile, setSubmittingProfile] = useState(false);
   const [kycFormData, setKycFormData] = useState({ 
     cin_number: '', 
     cin_front: null as File | null,
@@ -107,6 +116,115 @@ export default function CreatorProfile() {
       }
     } catch (error) {
       console.error('Erreur lors du chargement des providers:', error);
+    }
+  };
+
+  const openEditProfileDialog = () => {
+    if (author) {
+      setEditProfileData({
+        pseudo: author.pseudo || '',
+        speciality: author.speciality || '',
+        biography: author.biography || '',
+        avatar: author.avatar || null
+      });
+      setAvatarPreview(author.avatar || null);
+      setShowEditProfile(true);
+    }
+  };
+
+  const closeEditProfileDialog = () => {
+    setShowEditProfile(false);
+    setAvatarPreview(null);
+  };
+
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Veuillez sélectionner une image');
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      alert('L\'image ne doit pas dépasser 2MB');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const base64 = event.target?.result as string;
+      setEditProfileData({ ...editProfileData, avatar: base64 });
+      setAvatarPreview(base64);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleEditProfileSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!editProfileData.pseudo.trim()) {
+      alert('❌ Le pseudo est obligatoire');
+      return;
+    }
+
+    setSubmittingProfile(true);
+
+    try {
+      const token = localStorage.getItem('author_token');
+      const url = `${API_BASE_URL}/api/authors/${author?.id}/profile`;
+      const body = {
+        pseudo: editProfileData.pseudo,
+        speciality: editProfileData.speciality,
+        biography: editProfileData.biography,
+        avatar: editProfileData.avatar
+      };
+
+      console.log('📤 Envoi de la requête PUT');
+      console.log('URL:', url);
+      console.log('Token:', token ? 'Présent' : 'ABSENT');
+      console.log('Body:', body);
+
+      const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      console.log('📥 Réponse reçue');
+      console.log('Status:', response.status);
+      console.log('StatusText:', response.statusText);
+
+      const data = await response.json();
+      console.log('Données réponse:', data);
+
+      if (!response.ok) {
+        console.error('❌ Erreur de la réponse:', data);
+        alert('❌ Erreur: ' + (data.message || 'Impossible de mettre à jour le profil'));
+        setSubmittingProfile(false);
+        return;
+      }
+
+      console.log('✅ Profil mis à jour avec succès');
+      
+      // Mettre à jour le contexte avec les nouvelles données
+      updateProfile({
+        pseudo: editProfileData.pseudo,
+        speciality: editProfileData.speciality || undefined,
+        biography: editProfileData.biography || undefined,
+        avatar: editProfileData.avatar || undefined
+      });
+
+      alert('✅ Profil mis à jour avec succès!');
+      closeEditProfileDialog();
+    } catch (error) {
+      console.error('❌ Erreur réseau:', error);
+      alert('❌ Erreur lors de la mise à jour du profil: ' + (error as Error).message);
+    } finally {
+      setSubmittingProfile(false);
     }
   };
 
@@ -415,11 +533,19 @@ export default function CreatorProfile() {
         <div className="space-y-6">
           {/* Avatar et informations principales */}
           <Card className="bg-card border-border">
-            <CardHeader>
-              <CardTitle className="text-foreground">Informations du compte</CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Vos informations personnelles
-              </CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="text-foreground">Informations du compte</CardTitle>
+                <CardDescription className="text-muted-foreground">
+                  Vos informations personnelles
+                </CardDescription>
+              </div>
+              <Button
+                onClick={openEditProfileDialog}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                Éditer profil
+              </Button>
             </CardHeader>
             <CardContent>
               <div className="flex items-start gap-6">
@@ -1049,6 +1175,116 @@ export default function CreatorProfile() {
                   <Button type="submit" disabled={submittingPayment === showPaymentForm} className="w-full bg-blue-600 hover:bg-blue-700">
                     {submittingPayment === showPaymentForm ? 'Envoi...' : 'Resoumettere'}
                   </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Modal Édition du Profil */}
+        {showEditProfile && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <Card className="bg-card border-border w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-foreground">Éditer votre profil</CardTitle>
+                  <CardDescription className="text-muted-foreground">Modifiez vos informations personnelles</CardDescription>
+                </div>
+                <Button variant="ghost" size="sm" onClick={closeEditProfileDialog}>
+                  <X className="w-4 h-4" />
+                </Button>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleEditProfileSubmit} className="space-y-6">
+                  {/* Avatar */}
+                  <div>
+                    <Label className="text-sm font-medium text-foreground mb-3 block">Avatar</Label>
+                    {avatarPreview && (
+                      <div className="mb-4 flex items-center justify-between p-4 bg-secondary rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <img src={avatarPreview} alt="Preview" className="w-16 h-16 rounded-lg object-cover" />
+                          <div>
+                            <p className="text-sm font-medium text-foreground">Avatar actuel</p>
+                            <p className="text-xs text-muted-foreground">Max 2MB</p>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditProfileData({ ...editProfileData, avatar: null });
+                            setAvatarPreview(null);
+                          }}
+                          className="text-red-500 hover:text-red-600"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
+                    <label className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-secondary/50 transition-colors">
+                      <Upload className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">Sélectionner une image</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleAvatarChange}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+
+                  {/* Pseudo */}
+                  <div>
+                    <Label className="text-foreground mb-2 block">Pseudo *</Label>
+                    <Input
+                      value={editProfileData.pseudo}
+                      onChange={(e) => setEditProfileData({ ...editProfileData, pseudo: e.target.value })}
+                      placeholder="Votre pseudo"
+                      className="bg-secondary border-none text-foreground placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  {/* Spécialité */}
+                  <div>
+                    <Label className="text-foreground mb-2 block">Spécialité</Label>
+                    <Input
+                      value={editProfileData.speciality}
+                      onChange={(e) => setEditProfileData({ ...editProfileData, speciality: e.target.value })}
+                      placeholder="Ex: Science-Fiction, Romance, Thriller..."
+                      className="bg-secondary border-none text-foreground placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  {/* Biographie */}
+                  <div>
+                    <Label className="text-foreground mb-2 block">Biographie</Label>
+                    <textarea
+                      value={editProfileData.biography}
+                      onChange={(e) => setEditProfileData({ ...editProfileData, biography: e.target.value })}
+                      placeholder="Parlez de vous, vos influences, vos œuvres..."
+                      rows={5}
+                      className="w-full px-3 py-2 rounded-lg bg-secondary border-none text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    />
+                  </div>
+
+                  {/* Boutons */}
+                  <div className="flex gap-2 justify-end pt-4 border-t border-border">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="border-border"
+                      onClick={closeEditProfileDialog}
+                      disabled={submittingProfile}
+                    >
+                      Annuler
+                    </Button>
+                    <Button
+                      type="submit"
+                      className="bg-blue-600 hover:bg-blue-700"
+                      disabled={submittingProfile}
+                    >
+                      {submittingProfile ? 'Enregistrement...' : 'Enregistrer'}
+                    </Button>
+                  </div>
                 </form>
               </CardContent>
             </Card>
