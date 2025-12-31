@@ -27,6 +27,7 @@ import CreatorAnalytics from "./pages/CreatorAnalytics";
 import CreatorNotifications from "./pages/CreatorNotifications";
 import AdminLogin from "./pages/AdminLogin";
 import AdminUsers from "./pages/AdminUsers";
+import AdminAuthors from "./pages/AdminAuthors";
 import AdminKYC from "./pages/AdminKYC";
 import AdminPaymentMethods from "./pages/AdminPaymentMethods";
 import AdminNotifications from "./pages/AdminNotifications";
@@ -64,6 +65,7 @@ const App = () => (
                   <Route path="/admin/login" element={<AdminLogin />} />
                   <Route path="/admin/dashboard" element={<AdminUsers />} />
                   <Route path="/admin/users" element={<AdminUsers />} />
+                  <Route path="/admin/authors" element={<AdminAuthors />} />
                   <Route path="/admin/kyc" element={<AdminKYC />} />
                   <Route path="/admin/payment-methods" element={<AdminPaymentMethods />} />
                   <Route path="/admin/notifications" element={<AdminNotifications />} />
