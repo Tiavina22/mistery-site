@@ -16,11 +16,19 @@ function CreatorRegister() {
   const { register } = useAuth();
   const { t } = useLanguage();
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 6; // Augmenté de 5 à 6 pour inclure l'étape KYC
+  const totalSteps = 10; // Augmenté pour diviser le KYC en 4 étapes
   const [otpCode, setOtpCode] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [canResendOtp, setCanResendOtp] = useState(false);
   const [countdown, setCountdown] = useState(60);
+  
+  // Providers mobile money et méthodes de paiement
+  const [providers, setProviders] = useState<any[]>([]);
+  const [paymentMethods, setPaymentMethods] = useState<Array<{
+    providerId: number;
+    phoneNumber: string;
+    accountHolderName: string;
+  }>>([]);
   
   const [formData, setFormData] = useState({
     email: '',
@@ -47,6 +55,22 @@ function CreatorRegister() {
   const [showCamera, setShowCamera] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+
+  // Charger les providers mobile money
+  useEffect(() => {
+    const loadProviders = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/payment-methods/providers`);
+        const data = await response.json();
+        if (data.success) {
+          setProviders(data.data);
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des providers:', error);
+      }
+    };
+    loadProviders();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -199,17 +223,24 @@ function CreatorRegister() {
   // Gestion de la caméra pour le selfie
   const startCamera = async () => {
     try {
+      setShowCamera(true); // Afficher d'abord le conteneur
       const stream = await navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: 'user' } 
+        video: { 
+          facingMode: 'user',
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        } 
       });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         streamRef.current = stream;
+        // Attendre que la vidéo soit prête
+        await videoRef.current.play();
       }
-      setShowCamera(true);
     } catch (err) {
       setError('Impossible d\'accéder à la caméra. Veuillez autoriser l\'accès.');
       console.error('Erreur caméra:', err);
+      setShowCamera(false);
     }
   };
 
@@ -291,26 +322,52 @@ function CreatorRegister() {
         return true;
 
       case 5:
-        // Validation KYC
+        // Validation numéro CIN
         if (!formData.cin_number || formData.cin_number.length < 5) {
           setError('Veuillez entrer un numéro de CIN valide');
           return false;
         }
+        return true;
+
+      case 6:
+        // Validation recto CIN
         if (!formData.cin_recto) {
           setError('Veuillez uploader le recto de votre CIN');
           return false;
         }
+        return true;
+
+      case 7:
+        // Validation verso CIN
         if (!formData.cin_verso) {
           setError('Veuillez uploader le verso de votre CIN');
           return false;
         }
+        return true;
+
+      case 8:
+        // Validation selfie avec CIN
         if (!formData.cin_selfie) {
           setError('Veuillez uploader votre selfie avec la CIN');
           return false;
         }
         return true;
 
-      case 6:
+      case 9:
+        // Validation méthodes de paiement
+        if (paymentMethods.length === 0) {
+          setError('Au moins une méthode de paiement est requise');
+          return false;
+        }
+        for (const method of paymentMethods) {
+          if (!method.phoneNumber || !method.accountHolderName) {
+            setError('Veuillez remplir tous les champs des méthodes de paiement');
+            return false;
+          }
+        }
+        return true;
+
+      case 10:
         return true;
 
       default:
@@ -384,8 +441,8 @@ function CreatorRegister() {
       return;
     }
     
-    if (!validateStep(5)) {
-      console.log('❌ Validation de l\'étape 5 échouée');
+    if (!validateStep(9)) {
+      console.log('❌ Validation de l\'étape 9 échouée');
       return;
     }
 
@@ -394,8 +451,12 @@ function CreatorRegister() {
 
     try {
       const { confirmPassword, ...registerData } = formData;
-      console.log('📦 Données d\'inscription:', { ...registerData, password: '***' });
-      await register(registerData);
+      const dataToSend = {
+        ...registerData,
+        paymentMethods
+      };
+      console.log('📦 Données d\'inscription:', { ...dataToSend, password: '***' });
+      await register(dataToSend);
       console.log('✅ Inscription réussie, navigation vers dashboard');
       navigate('/creator/dashboard');
     } catch (err: any) {
@@ -599,11 +660,11 @@ function CreatorRegister() {
           </div>
         );
 
-      // Étape 5: Documents KYC
+      // Étape 5: Numéro CIN
       case 5:
         return (
           <div className="space-y-5">
-            <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-4 mb-4">
+            <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-4">
               <p className="text-blue-400 text-sm">
                 📋 Pour créer votre compte créateur, nous devons vérifier votre identité. Vos documents seront traités de manière confidentielle.
               </p>
@@ -613,22 +674,34 @@ function CreatorRegister() {
               <Label htmlFor="cin_number" className="text-foreground font-semibold">
                 Numéro de CIN <span className="text-red-500">*</span>
               </Label>
+              <p className="text-xs text-muted-foreground mb-2">
+                Numéro de votre carte d'identité nationale
+              </p>
               <Input
                 id="cin_number"
                 name="cin_number"
                 type="text"
-                placeholder="Numéro de votre carte d'identité"
+                placeholder="Ex: 101234567890"
                 value={formData.cin_number}
                 onChange={handleChange}
                 autoFocus
                 className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
             </div>
+          </div>
+        );
 
+      // Étape 6: Photo CIN Recto
+      case 6:
+        return (
+          <div className="space-y-5">
             <div className="space-y-2">
               <Label className="text-foreground font-semibold">
                 Photo CIN Recto <span className="text-red-500">*</span>
               </Label>
+              <p className="text-xs text-muted-foreground mb-2">
+                Photo claire du recto (face avant) de votre carte d'identité
+              </p>
               {cinRectoPreview ? (
                 <div className="relative">
                   <img 
@@ -657,11 +730,20 @@ function CreatorRegister() {
                 </label>
               )}
             </div>
+          </div>
+        );
 
+      // Étape 7: Photo CIN Verso
+      case 7:
+        return (
+          <div className="space-y-5">
             <div className="space-y-2">
               <Label className="text-foreground font-semibold">
                 Photo CIN Verso <span className="text-red-500">*</span>
               </Label>
+              <p className="text-xs text-muted-foreground mb-2">
+                Photo claire du verso (face arrière) de votre carte d'identité
+              </p>
               {cinVersoPreview ? (
                 <div className="relative">
                   <img 
@@ -690,24 +772,31 @@ function CreatorRegister() {
                 </label>
               )}
             </div>
+          </div>
+        );
 
+      // Étape 8: Selfie avec CIN
+      case 8:
+        return (
+          <div className="space-y-5">
             <div className="space-y-2">
               <Label className="text-foreground font-semibold">
                 Selfie avec CIN <span className="text-red-500">*</span>
               </Label>
-              <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-3 mb-2">
-                <p className="text-blue-400 text-xs">
+              <div className="bg-blue-500/10 border border-blue-500/50 rounded-lg p-3 mb-3">
+                <p className="text-blue-400 text-sm">
                   📸 Prenez un selfie en tenant votre CIN dans votre main droite, visage et CIN bien visibles
                 </p>
               </div>
               
               {showCamera ? (
                 <div className="space-y-3">
-                  <div className="relative w-full h-64 bg-secondary rounded-lg overflow-hidden">
+                  <div className="relative w-full h-64 bg-black rounded-lg overflow-hidden">
                     <video
                       ref={videoRef}
                       autoPlay
                       playsInline
+                      muted
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -731,37 +820,36 @@ function CreatorRegister() {
                   </div>
                 </div>
               ) : cinSelfiePreview ? (
-                <div className="relative">
+                <div className="relative bg-black rounded-lg overflow-hidden">
                   <img 
                     src={cinSelfiePreview} 
                     alt="Selfie avec CIN" 
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full h-64 object-contain"
                   />
                   <button
                     type="button"
                     onClick={() => removeCinImage('selfie')}
-                    className="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 rounded-full text-white transition-colors"
+                    className="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 rounded-full text-white transition-colors z-10"
                   >
                     <X className="w-4 h-4" />
                   </button>
                   <button
                     type="button"
                     onClick={startCamera}
-                    className="absolute bottom-2 right-2 px-4 py-2 bg-[#1DB954] hover:bg-[#1ed760] rounded-lg text-white text-sm font-semibold transition-colors"
+                    className="absolute bottom-2 right-2 px-4 py-2 bg-[#1DB954] hover:bg-[#1ed760] rounded-lg text-black text-sm font-semibold transition-colors z-10"
                   >
                     Reprendre
                   </button>
                 </div>
               ) : (
-                <Button
-                  type="button"
+                <div
                   onClick={startCamera}
-                  className="w-full h-64 border-2 border-dashed border-border rounded-lg hover:border-[#1DB954] transition-colors bg-secondary text-muted-foreground hover:text-foreground flex flex-col items-center justify-center gap-3"
+                  className="w-full h-64 border-2 border-dashed border-border rounded-lg hover:border-[#1DB954] transition-colors bg-secondary cursor-pointer flex flex-col items-center justify-center gap-3"
                 >
-                  <Camera className="w-10 h-10" />
-                  <span className="text-base font-semibold">Ouvrir la caméra</span>
-                  <span className="text-xs">Pour prendre votre selfie avec CIN</span>
-                </Button>
+                  <Camera className="w-10 h-10 text-muted-foreground" />
+                  <span className="text-base font-semibold text-foreground">Ouvrir la caméra</span>
+                  <span className="text-xs text-muted-foreground">Pour prendre votre selfie avec CIN</span>
+                </div>
               )}
             </div>
 
@@ -773,8 +861,106 @@ function CreatorRegister() {
           </div>
         );
 
-      // Étape 6: Informations optionnelles
-      case 6:
+      // Étape 9: Méthodes de paiement (Mobile Money)
+      case 9:
+        return (
+          <div className="space-y-5">
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-foreground">💳 Moyens de paiement</h3>
+              <p className="text-sm text-muted-foreground">
+                Ajoutez au moins un moyen de paiement pour recevoir vos revenus
+              </p>
+            </div>
+
+            {/* Liste des providers disponibles */}
+            <div className="space-y-4">
+              {providers.map((provider) => {
+                const existingMethod = paymentMethods.find(m => m.providerId === provider.id);
+                const isAdded = !!existingMethod;
+
+                return (
+                  <div key={provider.id} className="bg-secondary rounded-lg p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        {provider.logo && (
+                          <img src={provider.logo} alt={provider.name} className="w-10 h-10 object-contain" />
+                        )}
+                        <h4 className="font-semibold text-foreground">{provider.name}</h4>
+                      </div>
+                      {isAdded && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setPaymentMethods(paymentMethods.filter(m => m.providerId !== provider.id))}
+                          className="text-red-500 border-red-500 hover:bg-red-500/10"
+                        >
+                          <X className="w-4 h-4 mr-1" />
+                          Retirer
+                        </Button>
+                      )}
+                    </div>
+
+                    {!isAdded ? (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setPaymentMethods([...paymentMethods, { providerId: provider.id, phoneNumber: '', accountHolderName: '' }])}
+                        className="w-full border-border text-foreground hover:bg-[#1DB954] hover:text-black"
+                      >
+                        + Ajouter {provider.name}
+                      </Button>
+                    ) : (
+                      <div className="space-y-3">
+                        <div>
+                          <Label className="text-muted-foreground text-sm">Numéro de téléphone</Label>
+                          <Input
+                            type="tel"
+                            placeholder="034 00 000 00"
+                            value={existingMethod.phoneNumber}
+                            onChange={(e) => {
+                              const updated = paymentMethods.map(m =>
+                                m.providerId === provider.id ? { ...m, phoneNumber: e.target.value } : m
+                              );
+                              setPaymentMethods(updated);
+                            }}
+                            className="bg-card border-border text-foreground mt-1"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-muted-foreground text-sm">Nom du titulaire</Label>
+                          <Input
+                            type="text"
+                            placeholder="Nom complet du titulaire du compte"
+                            value={existingMethod.accountHolderName}
+                            onChange={(e) => {
+                              const updated = paymentMethods.map(m =>
+                                m.providerId === provider.id ? { ...m, accountHolderName: e.target.value } : m
+                              );
+                              setPaymentMethods(updated);
+                            }}
+                            className="bg-card border-border text-foreground mt-1"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {paymentMethods.length === 0 && (
+              <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-3">
+                <p className="text-yellow-400 text-sm">
+                  ⚠️ Veuillez ajouter au moins un moyen de paiement
+                </p>
+              </div>
+            )}
+          </div>
+        );
+
+      // Étape 10: Informations optionnelles
+      case 10:
         return (
           <div className="space-y-5">
             <div className="space-y-2">
@@ -841,8 +1027,16 @@ function CreatorRegister() {
       case 4:
         return "Ajoutez votre photo de profil";
       case 5:
-        return "Vérification d'identité (KYC)";
+        return "Numéro de CIN";
       case 6:
+        return "Photo CIN Recto";
+      case 7:
+        return "Photo CIN Verso";
+      case 8:
+        return "Selfie avec CIN";
+      case 9:
+        return "Moyens de paiement";
+      case 10:
         return "Complétez votre profil";
       default:
         return "";
@@ -860,8 +1054,16 @@ function CreatorRegister() {
       case 4:
         return "Ajoutez une photo pour personnaliser votre profil";
       case 5:
-        return "Documents nécessaires pour vérifier votre identité";
+        return "Numéro de votre carte d'identité nationale";
       case 6:
+        return "Photo claire du recto de votre CIN";
+      case 7:
+        return "Photo claire du verso de votre CIN";
+      case 8:
+        return "Selfie avec votre CIN pour vérifier votre identité";
+      case 9:
+        return "Ajoutez vos moyens de paiement pour recevoir vos revenus";
+      case 10:
         return "Ces informations aideront les lecteurs à mieux vous connaître";
       default:
         return "";

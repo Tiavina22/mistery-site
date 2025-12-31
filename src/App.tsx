@@ -17,6 +17,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import CreatorDashboard from "./pages/CreatorDashboard";
 import CreatorDashboardNew from "./pages/CreatorDashboardNew";
 import CreatorSettings from "./pages/CreatorSettings";
+import CreatorProfile from "./pages/CreatorProfile";
 import CreateStory from "./pages/CreateStory";
 import CreatorStories from "./pages/CreatorStories";
 import CreatorStoriesNew from "./pages/CreatorStoriesNew";
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/creator/register" element={<CreatorRegister />} />
                 <Route path="/creator/forgot-password" element={<ForgotPassword />} />
                 <Route path="/creator/dashboard" element={<CreatorDashboardNew />} />
+                <Route path="/creator/profile" element={<CreatorProfile />} />
                 <Route path="/creator/settings" element={<CreatorSettings />} />
                 <Route path="/creator/stories" element={<CreatorStoriesNew />} />
                 <Route path="/creator/story/new" element={<CreateStory />} />

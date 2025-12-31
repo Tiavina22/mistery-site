@@ -15,7 +15,8 @@ import {
   LogOut,
   Home,
   Menu,
-  X
+  X,
+  User
 } from 'lucide-react';
 
 interface CreatorLayoutProps {
@@ -33,6 +34,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
     { icon: FileText, label: 'Mes Histoires', path: '/creator/stories' },
     { icon: BarChart3, label: 'Statistiques', path: '/creator/analytics' },
     { icon: Bell, label: 'Notifications', path: '/creator/notifications' },
+    { icon: User, label: 'Mon Profil', path: '/creator/profile' },
     { icon: Settings, label: 'Paramètres', path: '/creator/settings' },
   ];
 

@@ -3,10 +3,13 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface Author {
   id: number;
   email: string;
+  pseudo?: string;
   biography?: string;
   speciality?: string;
   avatar?: string;
+  phone_number?: string;
   status: string;
+  created_at?: string;
 }
 
 interface AuthContextType {
