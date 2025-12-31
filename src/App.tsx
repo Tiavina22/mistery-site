@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AdminProvider } from "@/contexts/AdminContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
@@ -24,6 +25,11 @@ import CreatorStoriesNew from "./pages/CreatorStoriesNew";
 import ManageChapters from "./pages/ManageChapters";
 import CreatorAnalytics from "./pages/CreatorAnalytics";
 import CreatorNotifications from "./pages/CreatorNotifications";
+import AdminLogin from "./pages/AdminLogin";
+import AdminUsers from "./pages/AdminUsers";
+import AdminKYC from "./pages/AdminKYC";
+import AdminPaymentMethods from "./pages/AdminPaymentMethods";
+import AdminNotifications from "./pages/AdminNotifications";
 
 const queryClient = new QueryClient();
 
@@ -32,30 +38,41 @@ const App = () => (
     <ThemeProvider>
       <LanguageProvider>
         <AuthProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/creator/login" element={<CreatorLogin />} />
-                <Route path="/creator/register" element={<CreatorRegister />} />
-                <Route path="/creator/forgot-password" element={<ForgotPassword />} />
-                <Route path="/creator/dashboard" element={<CreatorDashboardNew />} />
-                <Route path="/creator/profile" element={<CreatorProfile />} />
-                <Route path="/creator/settings" element={<CreatorSettings />} />
-                <Route path="/creator/stories" element={<CreatorStoriesNew />} />
-                <Route path="/creator/story/new" element={<CreateStory />} />
-                <Route path="/creator/analytics" element={<CreatorAnalytics />} />
-                <Route path="/creator/notifications" element={<CreatorNotifications />} />
-                <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
+          <AdminProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/creator/login" element={<CreatorLogin />} />
+                  <Route path="/creator/register" element={<CreatorRegister />} />
+                  <Route path="/creator/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/creator/dashboard" element={<CreatorDashboardNew />} />
+                  <Route path="/creator/profile" element={<CreatorProfile />} />
+                  <Route path="/creator/settings" element={<CreatorSettings />} />
+                  <Route path="/creator/stories" element={<CreatorStoriesNew />} />
+                  <Route path="/creator/story/new" element={<CreateStory />} />
+                  <Route path="/creator/analytics" element={<CreatorAnalytics />} />
+                  <Route path="/creator/notifications" element={<CreatorNotifications />} />
+                  <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />
+                  
+                  {/* Admin Routes */}
+                  <Route path="/admin/login" element={<AdminLogin />} />
+                  <Route path="/admin/dashboard" element={<AdminUsers />} />
+                  <Route path="/admin/users" element={<AdminUsers />} />
+                  <Route path="/admin/kyc" element={<AdminKYC />} />
+                  <Route path="/admin/payment-methods" element={<AdminPaymentMethods />} />
+                  <Route path="/admin/notifications" element={<AdminNotifications />} />
+                  
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </AdminProvider>
         </AuthProvider>
       </LanguageProvider>
     </ThemeProvider>

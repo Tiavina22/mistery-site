@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import NotificationBell from '@/components/NotificationBell';
 import { cn } from '@/lib/utils';
 import {
   BookOpen,
@@ -129,7 +130,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
               <span className="font-semibold">Retour au site</span>
             </Button>
           </Link>
-          
+
           <div className="flex items-center gap-3 px-2 py-2 rounded-md bg-secondary">
             <Avatar className="w-9 h-9">
               <AvatarImage src={author?.avatar} />
@@ -141,6 +142,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
               <p className="font-semibold text-sm truncate text-foreground">{author?.email.split('@')[0]}</p>
               <p className="text-xs text-muted-foreground">Creator</p>
             </div>
+            <NotificationBell isAdmin={false} className="text-muted-foreground hover:text-foreground" />
           </div>
           
           <Button 
