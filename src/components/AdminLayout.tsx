@@ -16,7 +16,8 @@ import {
   Menu,
   X,
   Wallet,
-  Bell
+  Bell,
+  Smartphone
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -71,6 +72,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       label: 'Moyens de paiement',
       path: '/admin/payment-methods',
       permission: 'VIEW_PAYMENTS'
+    },
+    {
+      icon: Smartphone,
+      label: 'Providers Mobile Money',
+      path: '/admin/mobile-money-providers',
+      permission: 'VIEW_PROVIDERS'
     },
     {
       icon: Bell,

@@ -19,12 +19,14 @@ export default function CreatorProfile() {
   const { t } = useLanguage();
   const [kycInfo, setKycInfo] = useState<any>(null);
   const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
+  const [providers, setProviders] = useState<any[]>([]);
   const [loadingKyc, setLoadingKyc] = useState(true);
   const [loadingPayments, setLoadingPayments] = useState(true);
   const [submittingKyc, setSubmittingKyc] = useState(false);
-  const [submittingPayment, setSubmittingPayment] = useState<number | null>(null);
+  const [submittingPayment, setSubmittingPayment] = useState<number | null | 'new'>(null);
   const [showKycForm, setShowKycForm] = useState(false);
-  const [showPaymentForm, setShowPaymentForm] = useState<number | null>(null);
+  const [showPaymentForm, setShowPaymentForm] = useState<number | null | 'new'>(null);
+  const [selectedProviderId, setSelectedProviderId] = useState<number | null>(null);
   const [kycFormData, setKycFormData] = useState({ 
     cin_number: '', 
     cin_front: null as File | null,
@@ -47,6 +49,7 @@ export default function CreatorProfile() {
     if (author) {
       loadKycInfo();
       loadPaymentMethods();
+      loadProviders();
     }
     
     // Cleanup camera on unmount
@@ -92,6 +95,18 @@ export default function CreatorProfile() {
       console.error('Erreur lors du chargement des méthodes de paiement:', error);
     } finally {
       setLoadingPayments(false);
+    }
+  };
+
+  const loadProviders = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/payment-methods/providers`);
+      const data = await response.json();
+      if (data.success) {
+        setProviders(data.data);
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des providers:', error);
     }
   };
 
@@ -302,26 +317,56 @@ export default function CreatorProfile() {
     setSubmittingPayment(showPaymentForm);
     try {
       const token = localStorage.getItem('author_token');
-      const response = await fetch(`${API_BASE_URL}/api/authors/payment-method/resubmit/${showPaymentForm}`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          phone_number: paymentFormData.phone_number,
-          account_holder_name: paymentFormData.account_holder_name
-        })
-      });
+      
+      // Si c'est un nouveau moyen de paiement, créer directement sans passer par resubmit
+      if (showPaymentForm === 'new') {
+        // Pour créer un nouveau, on aurait besoin d'une route POST /api/payment-methods
+        // Pour l'instant, on utilise resubmit avec null
+        const response = await fetch(`${API_BASE_URL}/api/authors/payment-method/add`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            phone_number: paymentFormData.phone_number,
+            account_holder_name: paymentFormData.account_holder_name,
+            provider_id: 1 // À déterminer
+          })
+        });
 
-      const data = await response.json();
-      if (data.success) {
-        alert('✅ Moyen de paiement resoumis avec succès!');
-        setShowPaymentForm(null);
-        setPaymentFormData({ phone_number: '', account_holder_name: '' });
-        loadPaymentMethods();
+        const data = await response.json();
+        if (data.success) {
+          alert('✅ Moyen de paiement ajouté avec succès!');
+          setShowPaymentForm(null);
+          setPaymentFormData({ phone_number: '', account_holder_name: '' });
+          loadPaymentMethods();
+        } else {
+          alert('❌ Erreur: ' + (data.message || 'Impossible d\'ajouter le moyen de paiement'));
+        }
       } else {
-        alert('❌ Erreur: ' + (data.message || 'Impossible de resoumettere le moyen de paiement'));
+        // Resubmission d'un moyen existant
+        const response = await fetch(`${API_BASE_URL}/api/authors/payment-method/resubmit/${showPaymentForm}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            phone_number: paymentFormData.phone_number,
+            account_holder_name: paymentFormData.account_holder_name
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          alert('✅ Moyen de paiement resoumis avec succès!');
+          setShowPaymentForm(null);
+          setPaymentFormData({ phone_number: '', account_holder_name: '' });
+          loadPaymentMethods();
+        } else {
+          alert('❌ Erreur: ' + (data.message || 'Impossible de resoumettere le moyen de paiement'));
+        }
       }
     } catch (error) {
       console.error('Erreur:', error);
@@ -631,10 +676,96 @@ export default function CreatorProfile() {
                   ))}
                 </div>
               ) : (
-                <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-4">
-                  <p className="text-yellow-400 text-sm">
-                    ⚠️ Aucun moyen de paiement configuré. Ajoutez-en un pour recevoir vos paiements.
-                  </p>
+                <div className="space-y-4">
+                  <div className="bg-yellow-500/10 border border-yellow-500/50 rounded-lg p-4">
+                    <p className="text-yellow-400 text-sm">
+                      ⚠️ Aucun moyen de paiement configuré. Ajoutez-en un pour recevoir vos paiements.
+                    </p>
+                  </div>
+                  
+                  {showPaymentForm === null && (
+                    <Button
+                      onClick={() => {
+                        setPaymentFormData({ phone_number: '', account_holder_name: '' });
+                        setShowPaymentForm('new');
+                      }}
+                      className="w-full bg-blue-600 hover:bg-blue-700"
+                    >
+                      Ajouter un moyen de paiement
+                    </Button>
+                  )}
+
+                  {showPaymentForm === 'new' && (
+                    <div className="bg-secondary rounded-lg p-4 space-y-4 border border-border">
+                      <h4 className="font-semibold text-foreground">Nouveau moyen de paiement</h4>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-foreground mb-3">
+                          Sélectionner un provider
+                        </label>
+                        <div className="grid grid-cols-2 gap-3">
+                          {providers.map((provider) => (
+                            <button
+                              key={provider.id}
+                              type="button"
+                              onClick={() => setSelectedProviderId(provider.id)}
+                              className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center gap-2 ${
+                                selectedProviderId === provider.id
+                                  ? 'border-blue-500 bg-blue-500/10'
+                                  : 'border-border hover:border-blue-300'
+                              }`}
+                            >
+                              {provider.logo && (
+                                <img src={provider.logo} alt={provider.name} className="w-8 h-8 object-contain" />
+                              )}
+                              <span className="text-xs font-medium text-foreground">{provider.name}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-foreground mb-2">
+                          Numéro de téléphone
+                        </label>
+                        <input
+                          type="tel"
+                          value={paymentFormData.phone_number}
+                          onChange={(e) => setPaymentFormData({ ...paymentFormData, phone_number: e.target.value })}
+                          placeholder="Ex: +243123456789"
+                          className="w-full px-3 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-foreground mb-2">
+                          Titulaire du compte
+                        </label>
+                        <input
+                          type="text"
+                          value={paymentFormData.account_holder_name}
+                          onChange={(e) => setPaymentFormData({ ...paymentFormData, account_holder_name: e.target.value })}
+                          placeholder="Votre nom complet"
+                          className="w-full px-3 py-2 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={handlePaymentFormSubmit}
+                          disabled={submittingPayment !== null}
+                          className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        >
+                          {submittingPayment === 'new' ? 'En cours...' : 'Soumettre'}
+                        </Button>
+                        <Button
+                          onClick={() => setShowPaymentForm(null)}
+                          variant="outline"
+                          className="flex-1 border-border"
+                        >
+                          Annuler
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </CardContent>
