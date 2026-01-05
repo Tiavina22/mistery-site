@@ -65,7 +65,7 @@ interface Story {
 
 export default function CreatorStoriesNew() {
   const navigate = useNavigate();
-  const { author, isAuthenticated } = useAuth();
+  const { author, isAuthenticated, kyc_status } = useAuth();
   const { toast } = useToast();
 
   const [stories, setStories] = useState<Story[]>([]);
@@ -77,8 +77,6 @@ export default function CreatorStoriesNew() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [storyToDelete, setStoryToDelete] = useState<Story | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [kycInfo, setKycInfo] = useState<any>(null);
-  const [loadingKyc, setLoadingKyc] = useState(true);
 
   useEffect(() => {
     if (!isAuthenticated || !author) {
@@ -86,35 +84,12 @@ export default function CreatorStoriesNew() {
       return;
     }
     loadStories();
-    loadKycInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, author]);
 
   useEffect(() => {
     filterStories();
   }, [stories, searchQuery, statusFilter]);
-
-  const loadKycInfo = async () => {
-    if (!author) return;
-
-    try {
-      setLoadingKyc(true);
-      const token = localStorage.getItem('author_token');
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/authors/${author.id}/kyc`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const data = await response.json();
-      if (data.success) {
-        setKycInfo(data.data);
-      }
-    } catch (error) {
-      console.error('Erreur lors du chargement du KYC:', error);
-    } finally {
-      setLoadingKyc(false);
-    }
-  };
 
   const loadStories = async () => {
     if (!author) return;
@@ -246,7 +221,7 @@ export default function CreatorStoriesNew() {
         <div className="sticky top-0 z-10 bg-gradient-to-b from-secondary to-background border-b border-border">
           <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
             {/* KYC Validation Alert */}
-            {!loadingKyc && (!kycInfo || kycInfo.status !== 'valide') && (
+            {kyc_status !== 'valide' && (
               <div className="mb-4 bg-red-500/10 border border-red-500/50 rounded-lg p-4">
                 <p className="text-red-400 text-sm">
                   ⚠️ Votre KYC n'est pas encore validé. Vous devez compléter la vérification d'identité avant de créer des histoires.
@@ -263,7 +238,7 @@ export default function CreatorStoriesNew() {
               </div>
               <Button 
                 onClick={() => {
-                  if (kycInfo?.status === 'valide') {
+                  if (kyc_status === 'valide') {
                     setShowCreateDialog(true);
                   } else {
                     toast({
@@ -274,7 +249,7 @@ export default function CreatorStoriesNew() {
                   }
                 }} 
                 size="lg"
-                disabled={!kycInfo || kycInfo.status !== 'valide'}
+                disabled={kyc_status !== 'valide'}
                 className="bg-[#1DB954] hover:bg-[#1ed760] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base rounded-full shadow-xl hover:scale-105 transition-all w-full sm:w-auto"
               >
                 <Plus className="w-4 sm:w-5 h-4 sm:h-5 mr-2" />
@@ -326,7 +301,7 @@ export default function CreatorStoriesNew() {
               {!searchQuery && statusFilter === 'all' && (
                 <Button 
                   onClick={() => {
-                    if (kycInfo?.status === 'valide') {
+                    if (kyc_status === 'valide') {
                       setShowCreateDialog(true);
                     } else {
                       toast({
@@ -336,7 +311,7 @@ export default function CreatorStoriesNew() {
                       });
                     }
                   }}
-                  disabled={!kycInfo || kycInfo.status !== 'valide'}
+                  disabled={kyc_status !== 'valide'}
                   className="bg-[#1DB954] hover:bg-[#1ed760] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-8 py-6 text-base rounded-full"
                 >
                   <Plus className="w-5 h-5 mr-2" />

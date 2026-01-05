@@ -26,6 +26,7 @@ import CreatorStoriesNew from "./pages/CreatorStoriesNew";
 import ManageChapters from "./pages/ManageChapters";
 import CreatorAnalytics from "./pages/CreatorAnalytics";
 import CreatorNotifications from "./pages/CreatorNotifications";
+import CreatorVideos from "./pages/CreatorVideos";
 import AdminLogin from "./pages/AdminLogin";
 import AdminUsers from "./pages/AdminUsers";
 import AdminAuthors from "./pages/AdminAuthors";
@@ -60,6 +61,7 @@ const App = () => (
                   <Route path="/creator/settings" element={<CreatorSettings />} />
                   <Route path="/creator/stories" element={<CreatorStoriesNew />} />
                   <Route path="/creator/story/new" element={<CreateStory />} />
+                  <Route path="/creator/videos" element={<CreatorVideos />} />
                   <Route path="/creator/analytics" element={<CreatorAnalytics />} />
                   <Route path="/creator/notifications" element={<CreatorNotifications />} />
                   <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />

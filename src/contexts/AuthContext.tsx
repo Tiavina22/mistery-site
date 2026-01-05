@@ -9,6 +9,7 @@ interface Author {
   avatar?: string;
   phone_number?: string;
   status: string;
+  kyc_status?: string;
   created_at?: string;
 }
 
@@ -17,6 +18,7 @@ interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  kyc_status?: string;
   login: (email: string, password: string) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
@@ -45,7 +47,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     if (savedToken && savedAuthor) {
       setToken(savedToken);
-      setAuthor(JSON.parse(savedAuthor));
+      const author = JSON.parse(savedAuthor);
+      setAuthor(author);
+      
+      // Charger le KYC status depuis l'API
+      const loadKyc = async () => {
+        try {
+          const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+          const response = await fetch(`${apiUrl}/api/authors/${author.id}/kyc`, {
+            headers: {
+              'Authorization': `Bearer ${savedToken}`
+            }
+          });
+          const data = await response.json();
+          if (data.success && data.data) {
+            const updatedAuthor = { ...author, kyc_status: data.data.kyc_status };
+            setAuthor(updatedAuthor);
+            localStorage.setItem('author_data', JSON.stringify(updatedAuthor));
+          }
+        } catch (error) {
+          console.error('Erreur lors du chargement du KYC:', error);
+        }
+      };
+      loadKyc();
     }
     setIsLoading(false);
   }, []);
@@ -71,6 +95,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     localStorage.setItem('author_token', data.data.token);
     localStorage.setItem('author_data', JSON.stringify(data.data.author));
+
+    // Charger le KYC status après la connexion
+    try {
+      const kycResponse = await fetch(`${apiUrl}/api/authors/${data.data.author.id}/kyc`, {
+        headers: {
+          'Authorization': `Bearer ${data.data.token}`
+        }
+      });
+      const kycData = await kycResponse.json();
+      if (kycData.success && kycData.data) {
+        const updatedAuthor = { ...data.data.author, kyc_status: kycData.data.kyc_status };
+        setAuthor(updatedAuthor);
+        localStorage.setItem('author_data', JSON.stringify(updatedAuthor));
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement du KYC:', error);
+    }
   };
 
   const register = async (registerData: RegisterData) => {
@@ -115,6 +156,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         token,
         isAuthenticated: !!token && !!author,
         isLoading,
+        kyc_status: author?.kyc_status,
         login,
         register,
         logout,

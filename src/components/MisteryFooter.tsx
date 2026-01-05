@@ -91,9 +91,9 @@ export default function MisteryFooter() {
               <p className="text-gray-400">
                 Avez-vous une question? Contactez-nous
               </p>
-              <a href="mailto:contact@mistery.mg" className="inline-flex items-center gap-2 text-red-600 hover:text-red-500 transition-colors">
+              <a href="mailto:contact@mistery.pro" className="inline-flex items-center gap-2 text-red-600 hover:text-red-500 transition-colors">
                 <Mail className="w-4 h-4" />
-                contact@mistery.mg
+                contact@mistery.pro
               </a>
             </div>
           </div>

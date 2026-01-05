@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MisteryHeader from '@/components/MisteryHeader';
 import MisteryFooter from '@/components/MisteryFooter';
@@ -6,48 +6,35 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Users, BookOpen, Sparkles, Shield, TrendingUp, Star, MessageCircle, Heart, Play } from 'lucide-react';
+import { Users, BookOpen, Sparkles, Shield, TrendingUp, Star, MessageCircle, Heart, Play, Loader2 } from 'lucide-react';
 
 const MisteryHome = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const [videos, setVideos] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
     document.title = 'MISTERY - Tantara Sombin-tantara Malagasy';
+    loadLatestVideos();
   }, []);
 
-  const mysteryStories = [
-    {
-      id: 1,
-      title: "Ny Minonikà amin'ny Tany Mangovondrano",
-      authors: "MISTERY Team",
-      reads: "15.2K",
-      likes: "3.4K",
-      comments: "284",
-      image: "🌙",
-      status: "Favorite"
-    },
-    {
-      id: 2,
-      title: "Andrianampoinimerina - Tantara tena nisy",
-      authors: "MISTERY Team",
-      reads: "12.8K",
-      likes: "2.9K",
-      comments: "156",
-      image: "👑",
-      status: "Trending"
-    },
-    {
-      id: 3,
-      title: "Fiadanana amin'ny Fiainana Malagasy",
-      authors: "MISTERY Team",
-      reads: "9.5K",
-      likes: "2.1K",
-      comments: "98",
-      image: "🌴",
-      status: "New"
+  const loadLatestVideos = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/videos/all?limit=5&sort=recent`, {
+        method: 'GET'
+      });
+      const data = await response.json();
+      if (data.success && data.data) {
+        setVideos(data.data.slice(0, 5));
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des vidéos:', error);
+    } finally {
+      setIsLoading(false);
     }
-  ];
+  };
 
   return (
     <div className="min-h-screen bg-black">
@@ -127,7 +114,7 @@ const MisteryHome = () => {
           </div>
         </section>
 
-        {/* Featured Stories Section */}
+        {/* Featured Videos Section */}
         <section id="stories" className="py-20 px-4 md:px-6 bg-black">
           <div className="max-w-6xl mx-auto">
             <div className="mb-12">
@@ -135,45 +122,73 @@ const MisteryHome = () => {
               <p className="text-gray-400">{t('mistery.featured.desc')}</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {mysteryStories.map((story) => (
-                <Card key={story.id} className="bg-gray-900 border-gray-800 hover:border-red-600/50 transition-all hover:shadow-lg hover:shadow-red-600/20 cursor-pointer overflow-hidden group">
-                  <div className="h-40 bg-gradient-to-br from-red-900/60 to-black flex items-center justify-center text-6xl group-hover:scale-110 transition-transform relative overflow-hidden">
-                    {story.image}
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-                        <Play className="w-6 h-6 fill-white text-white ml-0.5" />
+            {isLoading ? (
+              <div className="flex items-center justify-center h-64">
+                <Loader2 className="w-8 h-8 animate-spin text-red-600" />
+              </div>
+            ) : videos.length > 0 ? (
+              <div className="grid md:grid-cols-3 gap-6">
+                {videos.map((video) => (
+                  <Card 
+                    key={video.id} 
+                    className="bg-gray-900 border-gray-800 hover:border-red-600/50 transition-all hover:shadow-lg hover:shadow-red-600/20 cursor-pointer overflow-hidden group"
+                    onClick={() => video.video_url && window.open(video.video_url, '_blank')}
+                  >
+                    <div className="h-40 bg-gradient-to-br from-red-900/60 to-black flex items-center justify-center relative overflow-hidden">
+                      {video.thumbnail_image ? (
+                        <img
+                          src={video.thumbnail_image}
+                          alt={typeof video.title === 'string' ? video.title : video.title?.fr || 'Vidéo'}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                        />
+                      ) : (
+                        <div className="text-6xl">🎬</div>
+                      )}
+                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
+                          <Play className="w-6 h-6 fill-white text-white ml-0.5" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <CardHeader>
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1">
-                        <CardTitle className="text-white text-sm">{story.title}</CardTitle>
-                        <CardDescription className="mt-2 text-gray-400 text-xs">{story.authors}</CardDescription>
+                    <CardHeader>
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <CardTitle className="text-white text-sm">
+                            {typeof video.title === 'string' ? video.title : video.title?.fr || video.title?.en || 'Sans titre'}
+                          </CardTitle>
+                          <CardDescription className="mt-2 text-gray-400 text-xs">
+                            {video.author?.pseudo || 'Créateur'}
+                          </CardDescription>
+                        </div>
+                        <Badge className="bg-red-600 text-white text-xs">
+                          {video.status === 'published' ? 'Publié' : 'Brouillon'}
+                        </Badge>
                       </div>
-                      <Badge className="bg-red-600 text-white text-xs">{story.status}</Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex gap-4 text-xs text-gray-400">
-                      <div className="flex items-center gap-1">
-                        <Play className="w-4 h-4" />
-                        <span>{story.reads}</span>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex gap-4 text-xs text-gray-400">
+                        <div className="flex items-center gap-1">
+                          <Play className="w-4 h-4" />
+                          <span>{video.view_count || 0}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Heart className="w-4 h-4" />
+                          <span>{video.reaction_count || 0}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MessageCircle className="w-4 h-4" />
+                          <span>{video.comment_count || 0}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Heart className="w-4 h-4" />
-                        <span>{story.likes}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MessageCircle className="w-4 h-4" />
-                        <span>{story.comments}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-gray-400">Aucune vidéo disponible pour le moment</p>
+              </div>
+            )}
 
             <div className="text-center mt-12">
               <Button 

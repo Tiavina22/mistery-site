@@ -438,9 +438,7 @@ export default function CreatorProfile() {
       
       // Si c'est un nouveau moyen de paiement, créer directement sans passer par resubmit
       if (showPaymentForm === 'new') {
-        // Pour créer un nouveau, on aurait besoin d'une route POST /api/payment-methods
-        // Pour l'instant, on utilise resubmit avec null
-        const response = await fetch(`${API_BASE_URL}/api/authors/payment-method/add`, {
+        const response = await fetch(`${API_BASE_URL}/api/payment-methods`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -662,7 +660,7 @@ export default function CreatorProfile() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Statut de vérification</span>
-                    {getKycStatusBadge(kycInfo.status)}
+                    {getKycStatusBadge(kycInfo.kyc_status)}
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">Numéro CIN</span>
