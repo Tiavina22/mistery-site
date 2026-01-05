@@ -62,6 +62,24 @@ export default function ManageChapters() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [chapterToDelete, setChapterToDelete] = useState<number | null>(null);
 
+  const calculateTotalCharacters = (): number => {
+    let total = 0;
+    chapters.forEach(chapter => {
+      if (chapter.content) {
+        if (typeof chapter.content === 'object') {
+          Object.values(chapter.content).forEach(content => {
+            if (typeof content === 'string') {
+              total += content.length;
+            }
+          });
+        } else if (typeof chapter.content === 'string') {
+          total += chapter.content.length;
+        }
+      }
+    });
+    return total;
+  };
+
   useEffect(() => {
     loadStoryAndChapters();
   }, [storyId]);
@@ -199,9 +217,23 @@ export default function ManageChapters() {
                 <h1 className="text-5xl font-bold mb-2 text-foreground">
                   {story ? getChapterTitle(story.title) : 'Gestion des chapitres'}
                 </h1>
-                <p className="text-muted-foreground text-lg">
+                <p className="text-muted-foreground text-lg mb-4">
                   {chapters.length} chapitre{chapters.length !== 1 ? 's' : ''}
                 </p>
+                
+                {/* Conditions pour publication */}
+                {story && story.status === 'draft' && (
+                  <div className="flex flex-col gap-2 text-sm">
+                    <div className={`flex items-center gap-2 ${chapters.length >= 6 ? 'text-green-400' : 'text-orange-400'}`}>
+                      <span>{chapters.length >= 6 ? '✓' : '○'}</span>
+                      <span>Minimum 6 épisodes ({chapters.length}/6)</span>
+                    </div>
+                    <div className={`flex items-center gap-2 ${calculateTotalCharacters() >= 3500 ? 'text-green-400' : 'text-orange-400'}`}>
+                      <span>{calculateTotalCharacters() >= 3500 ? '✓' : '○'}</span>
+                      <span>Minimum 3500 caractères ({calculateTotalCharacters()}/3500)</span>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <Button 

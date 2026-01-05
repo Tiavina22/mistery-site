@@ -160,6 +160,16 @@ export default function CreatorStoriesNew() {
   };
 
   const handlePublish = async (story: Story) => {
+    // Vérification préventive
+    if (story.chapters_count < 6) {
+      toast({
+        title: 'Impossible de publier',
+        description: `Votre histoire doit avoir au minimum 6 épisodes (actuellement ${story.chapters_count})`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
     try {
       await storyApi.publishStory(story.id);
       toast({
@@ -174,6 +184,10 @@ export default function CreatorStoriesNew() {
         variant: 'destructive',
       });
     }
+  };
+
+  const canPublish = (story: Story): boolean => {
+    return story.chapters_count >= 6;
   };
 
   const handleEditStory = (story: Story) => {
@@ -396,7 +410,9 @@ export default function CreatorStoriesNew() {
                             <>
                               <DropdownMenuItem 
                                 onClick={() => handlePublish(story)}
-                                className="focus:bg-accent focus:text-white"
+                                disabled={!canPublish(story)}
+                                className="focus:bg-accent focus:text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                                title={!canPublish(story) ? `Au minimum 6 épisodes requis (actuellement ${story.chapters_count})` : ''}
                               >
                                 <Check className="w-4 h-4 mr-2" />
                                 Publier
