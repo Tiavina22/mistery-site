@@ -33,11 +33,6 @@ export default function MisteryFooter() {
                   Accueil
                 </a>
               </li>
-              <li>
-                <a href="/appistery" className="text-gray-400 hover:text-white transition-colors">
-                  Appistery
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -46,24 +41,24 @@ export default function MisteryFooter() {
             <h4 className="text-white font-semibold">Ressources</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
                   À propos
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
                   Conditions d'utilisation
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">
                   Politique de confidentialité
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/help" className="text-gray-400 hover:text-white transition-colors">
                   Aide
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

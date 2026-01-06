@@ -10,9 +10,11 @@ import { AdminProvider } from "@/contexts/AdminContext";
 import MisteryHome from "./pages/MisteryHome";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import About from "./pages/About";
-import Terms from "./pages/Terms";
+import MisteryAbout from "./pages/MisteryAbout";
+import MisteryTerms from "./pages/MisteryTerms";
 import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import Help from "./pages/Help";
 import CreatorLogin from "./pages/CreatorLogin";
 import CreatorRegister from "./pages/CreatorRegister";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -50,9 +52,11 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<MisteryHome />} />
                   <Route path="/appistery" element={<Index />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/about" element={<MisteryAbout />} />
+                  <Route path="/terms" element={<MisteryTerms />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/help" element={<Help />} />
                   <Route path="/creator/login" element={<CreatorLogin />} />
                   <Route path="/creator/register" element={<CreatorRegister />} />
                   <Route path="/creator/forgot-password" element={<ForgotPassword />} />
