@@ -20,13 +20,7 @@ export default function MisteryFooter() {
             <div className="flex gap-4">
               <a href="https://facebook.com/Mistery.tantara" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-600 transition-colors">
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-red-600 transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-red-600 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
+              </a> 
             </div>
           </div>
 
@@ -40,18 +34,8 @@ export default function MisteryFooter() {
                 </a>
               </li>
               <li>
-                <a href="#stories" className="text-gray-400 hover:text-white transition-colors">
-                  Explore
-                </a>
-              </li>
-              <li>
-                <a href="#trending" className="text-gray-400 hover:text-white transition-colors">
-                  Tendances
-                </a>
-              </li>
-              <li>
-                <a href="/creator/login" className="text-gray-400 hover:text-white transition-colors">
-                  Mes Listes
+                <a href="/appistery" className="text-gray-400 hover:text-white transition-colors">
+                  Appistery
                 </a>
               </li>
             </ul>

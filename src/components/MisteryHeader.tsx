@@ -16,9 +16,6 @@ export default function MisteryHeader() {
   const navItems = [
     { label: 'Accueil', href: '/' },
     { label: 'Appistery', href: '/appistery' },
-    { label: 'Explore', href: '#stories' },
-    { label: 'Nouveauté', href: '#trending' },
-    { label: 'Ma Bibliothèque', href: '#library' },
   ];
 
   return (
