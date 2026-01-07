@@ -18,8 +18,19 @@ const translations = {
     'nav.download': 'Télécharger',
 
     // Hero
+    'hero.greeting': 'Hey, nous sommes',
     'hero.title': 'Plongez dans les mystères de Madagascar',
     'hero.subtitle': 'Découvrez des histoires vraies issues de la culture malgache. Mystère, paranormal, drames — vivez des vécus authentiques en streaming.',
+    'hero.problem': 'Les histoires vraies malgaches n\'avaient pas de plateforme dédiée.',
+    'hero.problemDesc': 'Des milliers de vécus authentiques perdus mystères, traditions, drames réels de Madagascar.',
+    'hero.whatIsAppistery': 'APPISTERY, c\'est :',
+    'hero.feature1': 'Streaming d\'histoires vraies',
+    'hero.feature1Desc': 'en séries et épisodes',
+    'hero.feature2': 'Culture malgache',
+    'hero.feature2Desc': 'authentique et captivante',
+    'hero.feature3': 'Soutien aux créateurs',
+    'hero.feature3Desc': 'malgaches',
+    'hero.conclusion': 'Plongez dans les mystères authentiques de Madagascar.',
     'hero.cta': 'Télécharger l\'application',
     'hero.badge': 'Disponible sur Android',
 
@@ -261,6 +272,10 @@ const translations = {
     'mistery.discover': 'Découvrez des Histoires Uniques',
     'mistery.discover.desc': 'Immergez-vous dans les histoires authentiques de Madagascar',
     'mistery.now': 'Commencer maintenant',
+    'mistery.why.title': 'Why ??',
+    'mistery.why.question': 'Pourquoi créer une maison de production dédiée aux histoires malgaches ?',
+    'mistery.why.answer1': 'Parce que Madagascar regorge de mystères, de traditions ancestrales et d\'histoires vraies qui méritent d\'être racontées de manière authentique et professionnelle.',
+    'mistery.why.answer2': 'donne aux créateurs malgaches les outils, le soutien et la plateforme pour transformer leurs histoires en contenus vidéo captivants distribués via',
   },
   en: {
     // Navigation
@@ -271,8 +286,19 @@ const translations = {
     'nav.download': 'Download',
 
     // Hero
+    'hero.greeting': 'Hey, we are',
     'hero.title': 'Dive into the mysteries of Madagascar',
     'hero.subtitle': 'Discover true stories from Malagasy culture. Mystery, paranormal, drama — experience authentic tales in streaming.',
+    'hero.problem': 'True Malagasy stories had no dedicated platform.',
+    'hero.problemDesc': 'Thousands of authentic experiences lost mysteries, traditions, real dramas from Madagascar.',
+    'hero.whatIsAppistery': 'APPISTERY is:',
+    'hero.feature1': 'True story streaming',
+    'hero.feature1Desc': 'in series and episodes',
+    'hero.feature2': 'Malagasy culture',
+    'hero.feature2Desc': 'authentic and captivating',
+    'hero.feature3': 'Support creators',
+    'hero.feature3Desc': 'from Madagascar',
+    'hero.conclusion': 'Dive into the authentic mysteries of Madagascar.',
     'hero.cta': 'Download the app',
     'hero.badge': 'Available on Android',
 
@@ -514,6 +540,10 @@ const translations = {
     'mistery.discover': 'Discover Unique Stories',
     'mistery.discover.desc': 'Immerse yourself in authentic stories from Madagascar',
     'mistery.now': 'Start now',
+    'mistery.why.title': 'Why ??',
+    'mistery.why.question': 'Why create a production house dedicated to Malagasy stories?',
+    'mistery.why.answer1': 'Because Madagascar is full of mysteries, ancestral traditions and true stories that deserve to be told authentically and professionally.',
+    'mistery.why.answer2': 'gives Malagasy creators the tools, support and platform to transform their stories into captivating video content distributed via',
   },
 };
 

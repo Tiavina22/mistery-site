@@ -44,70 +44,180 @@ const MisteryHome = () => {
         <section className="py-24 px-4 md:px-6 bg-gradient-to-b from-black via-red-950/30 to-black border-b border-red-600/20">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <Badge className="mb-4 bg-red-600/20 text-red-400 border-red-600/50">
+              {/* Left Content */}
+              <div className="space-y-6">
+                <Badge className="mb-2 bg-red-600/20 text-red-400 border-red-600/50">
                   {t('mistery.badge')}
                 </Badge>
-                <h1 className="text-6xl md:text-7xl font-black text-white mb-6 leading-tight">
-                  {t('mistery.title')}
-                </h1>
-                <h2 className="text-2xl md:text-3xl text-gray-300 mb-6">
-                  {t('mistery.subtitle')}
-                </h2>
-                <p className="text-lg text-gray-400 mb-4">
-                  {t('mistery.description')}
-                </p>
-                <p className="text-base text-gray-400 mb-8">
-                  {t('mistery.description.full')}
-                </p>
                 
-                <div className="flex gap-4 flex-wrap">
+                <h1 className="text-5xl md:text-6xl font-black text-white leading-tight">
+                  <span>Hey, nous sommes </span>
+                  <span className="text-red-500">MISTERY</span>
+                  <span className="inline-block ml-3">👋</span>
+                </h1>
+
+                <div className="space-y-4 text-base md:text-lg text-gray-400">
+                  <p>
+                    <strong className="text-white">Les créateurs malgaches n'avaient pas de maison de production dédiée</strong>. 
+                    Des milliers de talents perdus – créateurs de mystères, traditions, drames réels de Madagascar.
+                  </p>
+
+                  <div className="pl-6 border-l-4 border-red-600 space-y-3 py-2">
+                    <p className="text-white font-semibold text-lg">
+                      MISTERY, c'est :
+                    </p>
+
+                    <div className="space-y-2">
+                      <p>
+                        <span className="text-red-500 mr-2">✓</span>
+                        <strong className="text-white">Maison de production</strong> d'histoires vraies
+                      </p>
+                      <p>
+                        <span className="text-red-500 mr-2">✓</span>
+                        <strong className="text-white">Création de contenu</strong> malgache authentique
+                      </p>
+                      <p>
+                        <span className="text-red-500 mr-2">✓</span>
+                        <strong className="text-white">Distribution via APPISTERY</strong> la plateforme
+                      </p>
+                    </div>
+                  </div>
+
+                  <p>
+                    Nous produisons les mystères authentiques de Madagascar.
+                  </p>
+                </div>
+                
+                <div className="flex gap-4 flex-wrap pt-4">
                   <Button 
                     size="lg" 
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold flex items-center gap-2"
+                    className="bg-red-600 hover:bg-red-700 text-white font-bold flex items-center gap-2 rounded-full px-8 transition-all hover:scale-105"
                     onClick={() => document.getElementById('stories')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     <Play className="w-5 h-5 fill-white" />
                     {t('mistery.watch')}
                   </Button>
-                  <Button 
-                    size="lg" 
-                    className="bg-gray-700 hover:bg-gray-600 text-white font-bold"
-                    onClick={() => navigate('/creator/login')}
-                  >
-                    {t('mistery.signin')}
-                  </Button>
-                </div>
-
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-6 mt-12">
-                  <div>
-                    <div className="text-3xl font-bold text-red-500 mb-2">{t('mistery.stories')}</div>
-                    <p className="text-sm text-gray-400">{t('mistery.stories.label')}</p>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-red-500 mb-2">{t('mistery.creators')}</div>
-                    <p className="text-sm text-gray-400">{t('mistery.creators.label')}</p>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-red-500 mb-2">{t('mistery.viewers')}</div>
-                    <p className="text-sm text-gray-400">{t('mistery.viewers.label')}</p>
-                  </div>
                 </div>
               </div>
 
-              {/* Hero Image */}
-              <div className="hidden md:flex justify-center">
-                <div className="relative w-full h-96 rounded-xl overflow-hidden bg-gradient-to-br from-red-900/40 to-black border border-red-600/30 flex items-center justify-center group cursor-pointer hover:border-red-500/50 transition-all">
-                  <div className="text-center">
-                    <div className="text-8xl mb-4">🎬</div>
-                    <p className="text-gray-300 text-lg">Tantara Malgache</p>
+              {/* Right: Video Thumbnails Collage */}
+              <div className="relative h-[500px] hidden md:block">
+                <>
+                  {/* Large main image - top left */}
+                  <div 
+                    className="absolute top-0 left-0 w-64 h-64 rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                    style={{ transform: 'rotate(-3deg)' }}
+                  >
+                    <img src="/illustrations/ody.png" alt="Story" className="w-full h-full object-cover" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:bg-red-500 transition-colors">
-                      <Play className="w-8 h-8 fill-white text-white ml-1" />
-                    </div>
+
+                  {/* Medium image - top right */}
+                  <div 
+                    className="absolute top-12 right-8 w-56 h-64 rounded-2xl overflow-hidden shadow-xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                    style={{ transform: 'rotate(5deg)' }}
+                  >
+                    <img src="/illustrations/ouija.png" alt="Story" className="w-full h-full object-cover" />
                   </div>
+
+                  {/* Small image - middle left */}
+                  <div 
+                    className="absolute top-48 left-12 w-48 h-56 rounded-xl overflow-hidden shadow-lg bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                    style={{ transform: 'rotate(2deg)' }}
+                  >
+                    <img src="/illustrations/rohy.png" alt="Story" className="w-full h-full object-cover" />
+                  </div>
+
+                  {/* Large image - bottom center */}
+                  <div 
+                    className="absolute bottom-12 left-32 w-72 h-72 rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                    style={{ transform: 'rotate(-2deg)' }}
+                  >
+                    <img src="/illustrations/silampanahy.png" alt="Story" className="w-full h-full object-cover" />
+                  </div>
+
+                  {/* Medium image - bottom right */}
+                  <div 
+                    className="absolute bottom-20 right-0 w-52 h-60 rounded-xl overflow-hidden shadow-xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                    style={{ transform: 'rotate(4deg)' }}
+                  >
+                    <img src="/illustrations/stanley.png" alt="Story" className="w-full h-full object-cover" />
+                  </div>
+
+                  {/* Small image - middle right */}
+                  <div 
+                    className="absolute top-32 right-20 w-44 h-52 rounded-xl overflow-hidden shadow-lg bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                    style={{ transform: 'rotate(-4deg)' }}
+                  >
+                    <img src="/illustrations/taxi.png" alt="Story" className="w-full h-full object-cover" />
+                  </div>
+                </>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Section */}
+        <section className="py-20 px-4 md:px-6 bg-gradient-to-b from-black via-red-950/20 to-black border-y border-red-600/20">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Left: Images Collage */}
+              <div className="relative h-[500px] hidden md:block">
+                {/* Image 1 - top left */}
+                <div 
+                  className="absolute top-0 left-0 w-56 h-64 rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                  style={{ transform: 'rotate(-4deg)' }}
+                >
+                  <img src="/why/1.png" alt="MISTERY" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Image 2 - top right */}
+                <div 
+                  className="absolute top-16 right-12 w-48 h-56 rounded-xl overflow-hidden shadow-xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                  style={{ transform: 'rotate(3deg)' }}
+                >
+                  <img src="/why/2.png" alt="MISTERY" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Image 3 - middle left */}
+                <div 
+                  className="absolute top-48 left-8 w-52 h-60 rounded-xl overflow-hidden shadow-lg bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                  style={{ transform: 'rotate(2deg)' }}
+                >
+                  <img src="/why/3.png" alt="MISTERY" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Image 4 - bottom center */}
+                <div 
+                  className="absolute bottom-8 left-28 w-64 h-72 rounded-2xl overflow-hidden shadow-2xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                  style={{ transform: 'rotate(-2deg)' }}
+                >
+                  <img src="/why/4.png" alt="MISTERY" className="w-full h-full object-cover" />
+                </div>
+
+                {/* Image 5 - bottom right */}
+                <div 
+                  className="absolute bottom-16 right-0 w-44 h-52 rounded-xl overflow-hidden shadow-xl bg-gray-900 border border-red-600/30 hover:scale-105 hover:z-30 transition-all duration-300"
+                  style={{ transform: 'rotate(5deg)' }}
+                >
+                  <img src="/why/5.png" alt="MISTERY" className="w-full h-full object-cover" />
+                </div>
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="text-center md:text-left">
+                <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
+                  {t('mistery.why.title')}
+                </h2>
+                <div className="space-y-6 text-lg md:text-xl text-gray-300">
+                  <p className="leading-relaxed">
+                    {t('mistery.why.question')}
+                  </p>
+                  <p className="leading-relaxed">
+                    {t('mistery.why.answer1')}
+                  </p>
+                  <p className="leading-relaxed">
+                    <strong className="text-red-500">MISTERY</strong> {t('mistery.why.answer2')} <strong className="text-red-500">APPISTERY</strong>.
+                  </p>
                 </div>
               </div>
             </div>
