@@ -79,78 +79,152 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Illustrations Collage - Overlapping style */}
-          <div className="relative h-[500px] lg:h-[600px] animate-fade-up stagger-3">
-            {/* Large main image - top left */}
-            <div 
-              className="absolute top-0 left-0 w-64 lg:w-80 h-64 lg:h-80 rounded-2xl overflow-hidden shadow-2xl bg-card z-10 hover:scale-105 hover:z-30 transition-all duration-300"
-              style={{ transform: 'rotate(-3deg)' }}
-            >
-              <img
-                src={illustrations[0].src}
-                alt={illustrations[0].alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
+          {/* Right: Scrolling Illustrations Grid */}
+          <div className="relative h-[500px] lg:h-[600px] animate-fade-up stagger-3 overflow-hidden">
+            <style dangerouslySetInnerHTML={{ __html: `
+              @keyframes scroll-up {
+                0% {
+                  transform: translateY(0);
+                }
+                100% {
+                  transform: translateY(-50%);
+                }
+              }
+              @keyframes scroll-down {
+                0% {
+                  transform: translateY(-50%);
+                }
+                100% {
+                  transform: translateY(0);
+                }
+              }
+              .scroll-col-1 {
+                animation: scroll-up 25s linear infinite;
+              }
+              .scroll-col-2 {
+                animation: scroll-down 30s linear infinite;
+              }
+              .scroll-col-3 {
+                animation: scroll-up 28s linear infinite;
+              }
+              .scroll-col-4 {
+                animation: scroll-down 32s linear infinite;
+              }
+              .scroll-col-5 {
+                animation: scroll-up 27s linear infinite;
+              }
+            `}} />
+            
+            <div className="flex gap-2 h-full" style={{ perspective: '800px' }}>
+              {/* Column 1 */}
+              <div className="flex-1 overflow-hidden">
+                <div className="scroll-col-1 flex flex-col gap-3">
+                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
+                    <div 
+                      key={`col1-${index}`}
+                      className="flex-shrink-0 w-full h-48 lg:h-56 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
+                      style={{ 
+                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4) * 2}deg)`,
+                        transformStyle: 'preserve-3d'
+                      }}
+                    >
+                      <img
+                        src={illustration.src}
+                        alt={illustration.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-            {/* Medium image - top right */}
-            <div 
-              className="absolute top-12 right-8 w-48 lg:w-56 h-56 lg:h-64 rounded-2xl overflow-hidden shadow-xl bg-card z-20 hover:scale-105 hover:z-30 transition-all duration-300"
-              style={{ transform: 'rotate(5deg)' }}
-            >
-              <img
-                src={illustrations[1].src}
-                alt={illustrations[1].alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
+              {/* Column 2 */}
+              <div className="flex-1 overflow-hidden">
+                <div className="scroll-col-2 flex flex-col gap-3">
+                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
+                    <div 
+                      key={`col2-${index}`}
+                      className="flex-shrink-0 w-full h-52 lg:h-60 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
+                      style={{ 
+                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 1) * 2}deg)`,
+                        transformStyle: 'preserve-3d'
+                      }}
+                    >
+                      <img
+                        src={illustration.src}
+                        alt={illustration.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-            {/* Small image - middle left */}
-            <div 
-              className="absolute top-48 left-12 w-40 lg:w-48 h-48 lg:h-56 rounded-xl overflow-hidden shadow-lg bg-card z-15 hover:scale-105 hover:z-30 transition-all duration-300"
-              style={{ transform: 'rotate(2deg)' }}
-            >
-              <img
-                src={illustrations[2].src}
-                alt={illustrations[2].alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
+              {/* Column 3 */}
+              <div className="flex-1 overflow-hidden">
+                <div className="scroll-col-3 flex flex-col gap-3">
+                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
+                    <div 
+                      key={`col3-${index}`}
+                      className="flex-shrink-0 w-full h-50 lg:h-58 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
+                      style={{ 
+                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 2) * 2}deg)`,
+                        transformStyle: 'preserve-3d'
+                      }}
+                    >
+                      <img
+                        src={illustration.src}
+                        alt={illustration.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-            {/* Large image - bottom center */}
-            <div 
-              className="absolute bottom-12 left-20 lg:left-32 w-56 lg:w-72 h-56 lg:h-72 rounded-2xl overflow-hidden shadow-2xl bg-card z-25 hover:scale-105 hover:z-30 transition-all duration-300"
-              style={{ transform: 'rotate(-2deg)' }}
-            >
-              <img
-                src={illustrations[3].src}
-                alt={illustrations[3].alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
+              {/* Column 4 */}
+              <div className="flex-1 overflow-hidden">
+                <div className="scroll-col-4 flex flex-col gap-3">
+                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
+                    <div 
+                      key={`col4-${index}`}
+                      className="flex-shrink-0 w-full h-48 lg:h-56 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
+                      style={{ 
+                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 3) * 2}deg)`,
+                        transformStyle: 'preserve-3d'
+                      }}
+                    >
+                      <img
+                        src={illustration.src}
+                        alt={illustration.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-            {/* Medium image - bottom right */}
-            <div 
-              className="absolute bottom-20 right-0 w-44 lg:w-52 h-52 lg:h-60 rounded-xl overflow-hidden shadow-xl bg-card z-18 hover:scale-105 hover:z-30 transition-all duration-300"
-              style={{ transform: 'rotate(4deg)' }}
-            >
-              <img
-                src={illustrations[4].src}
-                alt={illustrations[4].alt}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Small accent image - top center */}
-            <div 
-              className="absolute top-20 left-1/2 -translate-x-1/2 w-36 lg:w-44 h-44 lg:h-52 rounded-lg overflow-hidden shadow-lg bg-card z-12 hover:scale-105 hover:z-30 transition-all duration-300"
-              style={{ transform: 'rotate(-4deg)' }}
-            >
-              <img
-                src={illustrations[5].src}
-                alt={illustrations[5].alt}
-                className="w-full h-full object-cover"
-              />
+              {/* Column 5 */}
+              <div className="flex-1 overflow-hidden">
+                <div className="scroll-col-5 flex flex-col gap-3">
+                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
+                    <div 
+                      key={`col5-${index}`}
+                      className="flex-shrink-0 w-full h-52 lg:h-60 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
+                      style={{ 
+                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 4) * 2}deg)`,
+                        transformStyle: 'preserve-3d'
+                      }}
+                    >
+                      <img
+                        src={illustration.src}
+                        alt={illustration.alt}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
