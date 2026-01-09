@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MisteryHeader from '@/components/MisteryHeader';
 import MisteryFooter from '@/components/MisteryFooter';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +12,7 @@ import { Users, BookOpen, Sparkles, Shield, TrendingUp, Star, MessageCircle, Hea
 const MisteryHome = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { theme } = useTheme();
   const [videos, setVideos] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -37,11 +39,11 @@ const MisteryHome = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-background">
       <MisteryHeader />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-24 px-4 md:px-6 bg-gradient-to-b from-black via-red-950/30 to-black border-b border-red-600/20">
+        <section className="py-24 px-4 md:px-6 bg-gradient-to-b from-background via-red-950/20 to-background border-b border-red-600/20">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/* Left Content */}
@@ -50,34 +52,34 @@ const MisteryHome = () => {
                   {t('mistery.badge')}
                 </Badge>
                 
-                <h1 className="text-5xl md:text-6xl font-black text-white leading-tight">
+                <h1 className="text-5xl md:text-6xl font-black text-foreground leading-tight">
                   <span>{t('hero.greeting')} </span>
                   <span className="text-red-500">{t('mistery.title')}</span>
                   <span className="inline-block ml-3">👋</span>
                 </h1>
 
-                <div className="space-y-4 text-base md:text-lg text-gray-400">
+                <div className="space-y-4 text-base md:text-lg text-muted-foreground">
                   <p>
-                    <strong className="text-white">{t('hero.problem')}</strong> {t('hero.problemDesc')}
+                    <strong className="text-foreground">{t('hero.problem')}</strong> {t('hero.problemDesc')}
                   </p>
 
                   <div className="pl-6 border-l-4 border-red-600 space-y-3 py-2">
-                    <p className="text-white font-semibold text-lg">
+                    <p className="text-foreground font-semibold text-lg">
                       {t('hero.whatIsAppistery')}
                     </p>
 
                     <div className="space-y-2">
                       <p>
                         <span className="text-red-500 mr-2">✓</span>
-                        <strong className="text-white">{t('hero.feature1')}</strong> {t('hero.feature1Desc')}
+                        <strong className="text-foreground">{t('hero.feature1')}</strong> {t('hero.feature1Desc')}
                       </p>
                       <p>
                         <span className="text-red-500 mr-2">✓</span>
-                        <strong className="text-white">{t('hero.feature2')}</strong> {t('hero.feature2Desc')}
+                        <strong className="text-foreground">{t('hero.feature2')}</strong> {t('hero.feature2Desc')}
                       </p>
                       <p>
                         <span className="text-red-500 mr-2">✓</span>
-                        <strong className="text-white">{t('hero.feature3')}</strong> {t('hero.feature3Desc')}
+                        <strong className="text-foreground">{t('hero.feature3')}</strong> {t('hero.feature3Desc')}
                       </p>
                     </div>
                   </div>
@@ -156,7 +158,7 @@ const MisteryHome = () => {
         </section>
 
         {/* Why Section */}
-        <section className="py-20 px-4 md:px-6 bg-gradient-to-b from-black via-red-950/20 to-black border-y border-red-600/20">
+        <section className="py-20 px-4 md:px-6 bg-gradient-to-b from-background via-red-950/10 to-background border-y border-red-600/20">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               {/* Left: Images Collage */}
@@ -204,10 +206,10 @@ const MisteryHome = () => {
 
               {/* Right: Text Content */}
               <div className="text-center md:text-left">
-                <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
+                <h2 className="text-5xl md:text-6xl font-black text-foreground mb-6">
                   {t('mistery.why.title')}
                 </h2>
-                <div className="space-y-6 text-lg md:text-xl text-gray-300">
+                <div className="space-y-6 text-lg md:text-xl text-muted-foreground">
                   <p className="leading-relaxed">
                     {t('mistery.why.question')}
                   </p>
@@ -224,11 +226,11 @@ const MisteryHome = () => {
         </section>
 
         {/* Featured Videos Section */}
-        <section id="stories" className="py-20 px-4 md:px-6 bg-black">
+        <section id="stories" className="py-20 px-4 md:px-6 bg-card">
           <div className="max-w-6xl mx-auto">
             <div className="mb-12">
-              <h2 className="text-4xl font-black text-white mb-2">{t('mistery.featured')}</h2>
-              <p className="text-gray-400">{t('mistery.featured.desc')}</p>
+              <h2 className="text-4xl font-black text-foreground mb-2">{t('mistery.featured')}</h2>
+              <p className="text-muted-foreground">{t('mistery.featured.desc')}</p>
             </div>
 
             {isLoading ? (
@@ -240,7 +242,7 @@ const MisteryHome = () => {
                 {videos.map((video) => (
                   <Card 
                     key={video.id} 
-                    className="bg-gray-900 border-gray-800 hover:border-red-600/50 transition-all hover:shadow-lg hover:shadow-red-600/20 cursor-pointer overflow-hidden group"
+                    className="bg-card border-border hover:border-red-600/50 transition-all hover:shadow-lg hover:shadow-red-600/20 cursor-pointer overflow-hidden group"
                     onClick={() => video.video_url && window.open(video.video_url, '_blank')}
                   >
                     <div className="h-40 bg-gradient-to-br from-red-900/60 to-black flex items-center justify-center relative overflow-hidden">
@@ -262,10 +264,10 @@ const MisteryHome = () => {
                     <CardHeader>
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1">
-                          <CardTitle className="text-white text-sm">
+                          <CardTitle className="text-foreground text-sm">
                             {typeof video.title === 'string' ? video.title : video.title?.fr || video.title?.en || 'Sans titre'}
                           </CardTitle>
-                          <CardDescription className="mt-2 text-gray-400 text-xs">
+                          <CardDescription className="mt-2 text-muted-foreground text-xs">
                             {video.author?.pseudo || 'Créateur'}
                           </CardDescription>
                         </div>
@@ -275,7 +277,7 @@ const MisteryHome = () => {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex gap-4 text-xs text-gray-400">
+                      <div className="flex gap-4 text-xs text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Play className="w-4 h-4" />
                           <span>{video.view_count || 0}</span>
@@ -295,7 +297,7 @@ const MisteryHome = () => {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-400">Aucune vidéo disponible pour le moment</p>
+                <p className="text-muted-foreground">Aucune vidéo disponible pour le moment</p>
               </div>
             )}
 
@@ -311,9 +313,9 @@ const MisteryHome = () => {
         </section>
 
         {/* About Section */}
-        <section className="py-20 px-4 md:px-6 bg-gray-950">
+        <section className="py-20 px-4 md:px-6 bg-secondary">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-black text-white mb-12">
+            <h2 className="text-4xl font-black text-foreground mb-12">
               {t('mistery.about.title')}
             </h2>
             
@@ -326,8 +328,8 @@ const MisteryHome = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{t('mistery.authentic')}</h3>
-                    <p className="text-gray-400">
+                    <h3 className="text-xl font-bold text-foreground mb-2">{t('mistery.authentic')}</h3>
+                    <p className="text-muted-foreground">
                       {t('mistery.authentic.desc')}
                     </p>
                   </div>
@@ -340,8 +342,8 @@ const MisteryHome = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{t('mistery.culture')}</h3>
-                    <p className="text-gray-400">
+                    <h3 className="text-xl font-bold text-foreground mb-2">{t('mistery.culture')}</h3>
+                    <p className="text-muted-foreground">
                       {t('mistery.culture.desc')}
                     </p>
                   </div>
@@ -354,8 +356,8 @@ const MisteryHome = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{t('mistery.authors')}</h3>
-                    <p className="text-gray-400">
+                    <h3 className="text-xl font-bold text-foreground mb-2">{t('mistery.authors')}</h3>
+                    <p className="text-muted-foreground">
                       {t('mistery.authors.desc')}
                     </p>
                   </div>
@@ -370,8 +372,8 @@ const MisteryHome = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{t('mistery.quality')}</h3>
-                    <p className="text-gray-400">
+                    <h3 className="text-xl font-bold text-foreground mb-2">{t('mistery.quality')}</h3>
+                    <p className="text-muted-foreground">
                       {t('mistery.quality.desc')}
                     </p>
                   </div>
@@ -384,8 +386,8 @@ const MisteryHome = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{t('mistery.safe')}</h3>
-                    <p className="text-gray-400">
+                    <h3 className="text-xl font-bold text-foreground mb-2">{t('mistery.safe')}</h3>
+                    <p className="text-muted-foreground">
                       {t('mistery.safe.desc')}
                     </p>
                   </div>
@@ -398,8 +400,8 @@ const MisteryHome = () => {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">{t('mistery.anytime')}</h3>
-                    <p className="text-gray-400">
+                    <h3 className="text-xl font-bold text-foreground mb-2">{t('mistery.anytime')}</h3>
+                    <p className="text-muted-foreground">
                       {t('mistery.anytime.desc')}
                     </p>
                   </div>
@@ -410,35 +412,35 @@ const MisteryHome = () => {
         </section>
 
         {/* Community Section */}
-        <section className="py-20 px-4 md:px-6 bg-black">
+        <section className="py-20 px-4 md:px-6 bg-background">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-black text-white mb-12 text-center">
+            <h2 className="text-4xl font-black text-foreground mb-12 text-center">
               {t('mistery.why')}
             </h2>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-gray-900 border-gray-800">
+              <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-white">{t('mistery.why.content')}</CardTitle>
-                  <CardDescription className="text-gray-400">
+                  <CardTitle className="text-foreground">{t('mistery.why.content')}</CardTitle>
+                  <CardDescription className="text-muted-foreground">
                     {t('mistery.why.content.desc')}
                   </CardDescription>
                 </CardHeader>
               </Card>
 
-              <Card className="bg-gray-900 border-gray-800">
+              <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-white">{t('mistery.why.everywhere')}</CardTitle>
-                  <CardDescription className="text-gray-400">
+                  <CardTitle className="text-foreground">{t('mistery.why.everywhere')}</CardTitle>
+                  <CardDescription className="text-muted-foreground">
                     {t('mistery.why.everywhere.desc')}
                   </CardDescription>
                 </CardHeader>
               </Card>
 
-              <Card className="bg-gray-900 border-gray-800">
+              <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="text-white">{t('mistery.why.support')}</CardTitle>
-                  <CardDescription className="text-gray-400">
+                  <CardTitle className="text-foreground">{t('mistery.why.support')}</CardTitle>
+                  <CardDescription className="text-muted-foreground">
                     {t('mistery.why.support.desc')}
                   </CardDescription>
                 </CardHeader>
@@ -448,12 +450,12 @@ const MisteryHome = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 md:px-6 bg-gradient-to-t from-red-950/40 to-black border-t border-red-600/20">
+        <section className="py-20 px-4 md:px-6 bg-gradient-to-t from-red-950/20 to-background border-t border-red-600/20">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-black text-white mb-6">
+            <h2 className="text-4xl font-black text-foreground mb-6">
               {t('mistery.discover')}
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-muted-foreground mb-8">
               {t('mistery.discover.desc')}
             </p>
             <div className="flex gap-4 justify-center flex-wrap">

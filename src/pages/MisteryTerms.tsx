@@ -1,9 +1,11 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { FileText, AlertCircle, Heart, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function MisteryTerms() {
   const { t } = useLanguage();
+  const { theme } = useTheme();
 
   return (
     <div className="min-h-screen bg-background">

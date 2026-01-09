@@ -272,7 +272,7 @@ const translations = {
     'mistery.discover': 'Découvrez des Histoires Uniques',
     'mistery.discover.desc': 'Immergez-vous dans les histoires authentiques de Madagascar',
     'mistery.now': 'Commencer maintenant',
-    'mistery.why.title': 'Why ??',
+    'mistery.why.title': 'Pourquoi ?',
     'mistery.why.question': 'Pourquoi créer une maison de production dédiée aux histoires malgaches ?',
     'mistery.why.answer1': 'Parce que Madagascar regorge de mystères, de traditions ancestrales et d\'histoires vraies qui méritent d\'être racontées de manière authentique et professionnelle.',
     'mistery.why.answer2': 'donne aux créateurs malgaches les outils, le soutien et la plateforme pour transformer leurs histoires en contenus vidéo captivants distribués via',

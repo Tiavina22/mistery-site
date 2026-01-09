@@ -5,7 +5,7 @@ export default function MisteryFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black border-t border-red-600/20">
+    <footer className="bg-background border-t border-border">
       {/* Main Footer */}
       <div className="container mx-auto px-4 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
@@ -14,11 +14,11 @@ export default function MisteryFooter() {
             <div className="text-2xl font-black bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
               MISTERY
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               La plateforme de streaming de histoires malgaches authentiques
             </p>
             <div className="flex gap-4">
-              <a href="https://facebook.com/Mistery.tantara" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-600 transition-colors">
+              <a href="https://facebook.com/Mistery.tantara" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-red-600 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a> 
             </div>
@@ -26,10 +26,10 @@ export default function MisteryFooter() {
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h4 className="text-white font-semibold">Navigation</h4>
+            <h4 className="text-foreground font-semibold">Navigation</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/" className="text-gray-400 hover:text-white transition-colors">
+                <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">
                   Accueil
                 </a>
               </li>
@@ -38,25 +38,25 @@ export default function MisteryFooter() {
 
           {/* Ressources */}
           <div className="space-y-4">
-            <h4 className="text-white font-semibold">Ressources</h4>
+            <h4 className="text-foreground font-semibold">Ressources</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                   À propos
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
                   Conditions d'utilisation
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
                   Politique de confidentialité
                 </Link>
               </li>
               <li>
-                <Link to="/help" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/help" className="text-muted-foreground hover:text-foreground transition-colors">
                   Aide
                 </Link>
               </li>
@@ -65,9 +65,9 @@ export default function MisteryFooter() {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h4 className="text-white font-semibold">Contact</h4>
+            <h4 className="text-foreground font-semibold">Contact</h4>
             <div className="space-y-3 text-sm">
-              <p className="text-gray-400">
+              <p className="text-muted-foreground">
                 Avez-vous une question? Contactez-nous
               </p>
               <a href="mailto:contact@mistery.pro" className="inline-flex items-center gap-2 text-red-600 hover:text-red-500 transition-colors">
@@ -79,15 +79,15 @@ export default function MisteryFooter() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-800"></div>
+        <div className="border-t border-border"></div>
 
         {/* Bottom Footer */}
         <div className="mt-8 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-gray-500 text-sm text-center md:text-left">
+            <p className="text-muted-foreground text-sm text-center md:text-left">
               © {currentYear} Lyrify. Tous les droits réservés.
             </p>
-            <p className="text-gray-500 text-xs">
+            <p className="text-muted-foreground text-xs">
               With ❤️ in Madagascar
             </p>
           </div>
