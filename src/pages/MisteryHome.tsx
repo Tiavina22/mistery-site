@@ -51,40 +51,39 @@ const MisteryHome = () => {
                 </Badge>
                 
                 <h1 className="text-5xl md:text-6xl font-black text-white leading-tight">
-                  <span>Hey, nous sommes </span>
-                  <span className="text-red-500">MISTERY</span>
+                  <span>{t('hero.greeting')} </span>
+                  <span className="text-red-500">{t('mistery.title')}</span>
                   <span className="inline-block ml-3">👋</span>
                 </h1>
 
                 <div className="space-y-4 text-base md:text-lg text-gray-400">
                   <p>
-                    <strong className="text-white">Les créateurs malgaches n'avaient pas de maison de production dédiée</strong>. 
-                    Des milliers de talents perdus – créateurs de mystères, traditions, drames réels de Madagascar.
+                    <strong className="text-white">{t('hero.problem')}</strong> {t('hero.problemDesc')}
                   </p>
 
                   <div className="pl-6 border-l-4 border-red-600 space-y-3 py-2">
                     <p className="text-white font-semibold text-lg">
-                      MISTERY, c'est :
+                      {t('hero.whatIsAppistery')}
                     </p>
 
                     <div className="space-y-2">
                       <p>
                         <span className="text-red-500 mr-2">✓</span>
-                        <strong className="text-white">Maison de production</strong> d'histoires vraies
+                        <strong className="text-white">{t('hero.feature1')}</strong> {t('hero.feature1Desc')}
                       </p>
                       <p>
                         <span className="text-red-500 mr-2">✓</span>
-                        <strong className="text-white">Création de contenu</strong> malgache authentique
+                        <strong className="text-white">{t('hero.feature2')}</strong> {t('hero.feature2Desc')}
                       </p>
                       <p>
                         <span className="text-red-500 mr-2">✓</span>
-                        <strong className="text-white">Distribution via APPISTERY</strong> la plateforme
+                        <strong className="text-white">{t('hero.feature3')}</strong> {t('hero.feature3Desc')}
                       </p>
                     </div>
                   </div>
 
                   <p>
-                    Nous produisons les mystères authentiques de Madagascar.
+                    {t('hero.conclusion')}
                   </p>
                 </div>
                 
