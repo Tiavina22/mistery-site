@@ -17,7 +17,8 @@ import {
   X,
   Wallet,
   Bell,
-  Smartphone
+  Smartphone,
+  PackageCheck
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -83,6 +84,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       icon: Bell,
       label: 'Notifications',
       path: '/admin/notifications',
+      permission: null
+    },
+    {
+      icon: PackageCheck,
+      label: 'Versions App',
+      path: '/admin/app-versions',
       permission: null
     },
     {

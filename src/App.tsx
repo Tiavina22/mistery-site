@@ -36,6 +36,7 @@ import AdminKYC from "./pages/AdminKYC";
 import AdminPaymentMethods from "./pages/AdminPaymentMethods";
 import AdminMobileMoneyProviders from "./pages/AdminMobileMoneyProviders";
 import AdminNotifications from "./pages/AdminNotifications";
+import AdminAppVersions from "./pages/AdminAppVersions";
 
 const queryClient = new QueryClient();
 
@@ -79,6 +80,7 @@ const App = () => (
                   <Route path="/admin/payment-methods" element={<AdminPaymentMethods />} />
                   <Route path="/admin/mobile-money-providers" element={<AdminMobileMoneyProviders />} />
                   <Route path="/admin/notifications" element={<AdminNotifications />} />
+                  <Route path="/admin/app-versions" element={<AdminAppVersions />} />
                   
                   <Route path="*" element={<NotFound />} />
                 </Routes>
