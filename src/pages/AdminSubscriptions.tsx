@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAdmin } from '@/contexts/AdminContext';
 import AdminLayout from '@/components/AdminLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -80,13 +81,13 @@ export default function AdminSubscriptions() {
   const [revokeDialogOpen, setRevokeDialogOpen] = useState(false);
   const [grantDays, setGrantDays] = useState('30');
   const { toast } = useToast();
+  const { token } = useAdmin();
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500';
 
   const fetchSubscriptions = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('adminToken');
       
       const params = new URLSearchParams({
         page: page.toString(),
@@ -136,7 +137,6 @@ export default function AdminSubscriptions() {
     if (!selectedUser) return;
 
     try {
-      const token = localStorage.getItem('adminToken');
       const response = await fetch(`${API_URL}/api/admin/subscriptions/${selectedUser.id}/grant-premium`, {
         method: 'POST',
         headers: {
@@ -174,7 +174,6 @@ export default function AdminSubscriptions() {
     if (!selectedUser) return;
 
     try {
-      const token = localStorage.getItem('adminToken');
       const response = await fetch(`${API_URL}/api/admin/subscriptions/${selectedUser.id}/revoke`, {
         method: 'POST',
         headers: {
