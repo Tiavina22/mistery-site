@@ -39,6 +39,7 @@ import AdminNotifications from "./pages/AdminNotifications";
 import AdminAppVersions from "./pages/AdminAppVersions";
 import AdminSubscriptionOffers from "./pages/AdminSubscriptionOffers";
 import AdminSubscriptions from "./pages/AdminSubscriptions";
+import AdminPayments from "./pages/AdminPayments";
 
 const queryClient = new QueryClient();
 
@@ -85,6 +86,7 @@ const App = () => (
                   <Route path="/admin/app-versions" element={<AdminAppVersions />} />
                   <Route path="/admin/subscription-offers" element={<AdminSubscriptionOffers />} />
                   <Route path="/admin/subscriptions" element={<AdminSubscriptions />} />
+                  <Route path="/admin/payments" element={<AdminPayments />} />
                   
                   <Route path="*" element={<NotFound />} />
                 </Routes>

@@ -20,7 +20,8 @@ import {
   Smartphone,
   PackageCheck,
   Crown,
-  CreditCard
+  CreditCard,
+  Banknote
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -86,6 +87,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       icon: CreditCard,
       label: 'Souscriptions',
       path: '/admin/subscriptions',
+      permission: null
+    },
+    {
+      icon: Banknote,
+      label: 'Paiements',
+      path: '/admin/payments',
       permission: null
     },
     {
