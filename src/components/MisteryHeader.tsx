@@ -19,7 +19,7 @@ export default function MisteryHeader() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black via-black/90 to-transparent backdrop-blur-md border-b border-red-600/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
@@ -37,7 +37,7 @@ export default function MisteryHeader() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-gray-300 hover:text-white transition-colors font-medium text-sm"
+                className="text-muted-foreground hover:text-foreground transition-colors font-medium text-sm"
               >
                 {item.label}
               </a>
@@ -49,7 +49,7 @@ export default function MisteryHeader() {
             {/* Language Toggle */}
             <button
               onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-900/50 hover:bg-gray-800 transition-colors text-xs font-medium text-gray-300 hidden sm:flex"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary hover:bg-secondary/80 transition-colors text-xs font-medium text-foreground hidden sm:flex"
               aria-label="Toggle language"
             >
               <Globe className="w-4 h-4" />
@@ -59,13 +59,15 @@ export default function MisteryHeader() {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-900/50 hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
+              {theme === 'light' ? (
                 <Sun className="w-5 h-5 text-yellow-400" />
+              ) : theme === 'dark' ? (
+                <Moon className="w-5 h-5 text-muted-foreground" />
               ) : (
-                <Moon className="w-5 h-5 text-gray-300" />
+                <Sun className="w-5 h-5 text-yellow-400" />
               )}
             </button>
 
@@ -84,7 +86,7 @@ export default function MisteryHeader() {
               <>
                 <Button 
                   variant="ghost" 
-                  className="hidden lg:flex text-gray-300 hover:text-white"
+                  className="hidden lg:flex text-muted-foreground hover:text-foreground"
                   onClick={() => navigate('/creator/dashboard')}
                 >
                   <User className="w-4 h-4 mr-2" />
@@ -92,7 +94,7 @@ export default function MisteryHeader() {
                 </Button>
                 <Button 
                   variant="ghost" 
-                  className="text-gray-300 hover:text-white"
+                  className="text-muted-foreground hover:text-foreground"
                   onClick={() => {
                     logout();
                     navigate('/');
@@ -106,13 +108,13 @@ export default function MisteryHeader() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <X className="w-6 h-6 text-white" />
+                <X className="w-6 h-6 text-foreground" />
               ) : (
-                <Menu className="w-6 h-6 text-white" />
+                <Menu className="w-6 h-6 text-foreground" />
               )}
             </button>
           </div>
@@ -120,12 +122,12 @@ export default function MisteryHeader() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <nav className="lg:hidden py-4 space-y-2 border-t border-gray-700">
+          <nav className="lg:hidden py-4 space-y-2 border-t border-border">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-900 rounded transition-colors"
+                className="block px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.label}
@@ -134,7 +136,7 @@ export default function MisteryHeader() {
             {!isAuthenticated && (
               <>
                 <button
-                  className="w-full text-left px-4 py-2 text-red-400 hover:bg-gray-900 rounded transition-colors"
+                  className="w-full text-left px-4 py-2 text-red-600 hover:bg-secondary rounded transition-colors"
                   onClick={() => {
                     navigate('/creator/login');
                     setIsMenuOpen(false);
