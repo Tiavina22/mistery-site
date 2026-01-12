@@ -86,6 +86,8 @@ export default function AdminSubscriptions() {
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500';
 
   const fetchSubscriptions = async () => {
+    if (!token) return;
+    
     try {
       setLoading(true);
       
@@ -126,7 +128,7 @@ export default function AdminSubscriptions() {
 
   useEffect(() => {
     fetchSubscriptions();
-  }, [page, statusFilter]);
+  }, [token, page, statusFilter]);
 
   const handleSearch = () => {
     setPage(1);
