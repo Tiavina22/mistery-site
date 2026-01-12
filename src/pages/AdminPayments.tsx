@@ -46,7 +46,8 @@ interface Payment {
   id: number;
   reference: string;
   reference_vpi: string | null;
-  montant: number;
+  amount: number;
+  currency: string;
   etat: string;
   panier: string | null;
   initiateur: string | null;
@@ -376,7 +377,7 @@ export default function AdminPayments() {
                       )}
                     </TableCell>
                     <TableCell className="font-medium text-foreground">
-                      {formatCurrency(payment.montant)}
+                      {formatCurrency(payment.amount)}
                     </TableCell>
                     <TableCell>{getStatusBadge(payment.etat)}</TableCell>
                     <TableCell className="text-muted-foreground text-sm">
@@ -449,7 +450,7 @@ export default function AdminPayments() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label className="text-muted-foreground">Montant</Label>
-                    <p className="text-xl font-bold text-primary">{formatCurrency(selectedPayment.montant)}</p>
+                    <p className="text-xl font-bold text-primary">{formatCurrency(selectedPayment.amount)}</p>
                   </div>
                   <div>
                     <Label className="text-muted-foreground">Offre</Label>
