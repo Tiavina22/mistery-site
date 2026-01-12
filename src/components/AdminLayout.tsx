@@ -18,7 +18,8 @@ import {
   Wallet,
   Bell,
   Smartphone,
-  PackageCheck
+  PackageCheck,
+  Crown
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -73,6 +74,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       label: 'Moyens de paiement',
       path: '/admin/payment-methods',
       permission: 'VIEW_PAYMENTS'
+    },
+    {
+      icon: Crown,
+      label: 'Offres Premium',
+      path: '/admin/subscription-offers',
+      permission: null
     },
     {
       icon: Smartphone,
