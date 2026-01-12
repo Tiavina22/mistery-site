@@ -59,8 +59,6 @@ interface Payment {
   username: string;
   email: string;
   avatar: string | null;
-  offer_name: string | null;
-  duration_months: number | null;
 }
 
 interface Stats {
@@ -323,7 +321,7 @@ export default function AdminPayments() {
               <TableRow className="border-border hover:bg-transparent">
                 <TableHead className="text-muted-foreground">Utilisateur</TableHead>
                 <TableHead className="text-muted-foreground">Référence</TableHead>
-                <TableHead className="text-muted-foreground">Offre</TableHead>
+                <TableHead className="text-muted-foreground">Panier</TableHead>
                 <TableHead className="text-muted-foreground">Montant</TableHead>
                 <TableHead className="text-muted-foreground">Statut</TableHead>
                 <TableHead className="text-muted-foreground">Date</TableHead>
@@ -369,12 +367,7 @@ export default function AdminPayments() {
                       </code>
                     </TableCell>
                     <TableCell className="text-foreground">
-                      {payment.offer_name || '-'}
-                      {payment.duration_months && (
-                        <span className="text-xs text-muted-foreground ml-1">
-                          ({payment.duration_months} mois)
-                        </span>
-                      )}
+                      {payment.panier || '-'}
                     </TableCell>
                     <TableCell className="font-medium text-foreground">
                       {formatCurrency(payment.amount)}
@@ -453,8 +446,8 @@ export default function AdminPayments() {
                     <p className="text-xl font-bold text-primary">{formatCurrency(selectedPayment.amount)}</p>
                   </div>
                   <div>
-                    <Label className="text-muted-foreground">Offre</Label>
-                    <p className="font-medium">{selectedPayment.offer_name || 'Non spécifiée'}</p>
+                    <Label className="text-muted-foreground">Panier</Label>
+                    <p className="font-medium">{selectedPayment.panier || '-'}</p>
                   </div>
                 </div>
 
