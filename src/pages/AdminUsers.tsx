@@ -12,7 +12,9 @@ interface User {
   username: string;
   email: string;
   telephone?: string;
-  premium: boolean;
+  is_premium: boolean;
+  subscription_status?: string;
+  subscription_expires_at?: string;
   date_creation: string;
   language: string;
 }
@@ -89,7 +91,7 @@ export default function AdminUsers() {
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-foreground">
-                {users.filter(u => u.premium).length}
+                {users.filter(u => u.is_premium).length}
               </p>
             </CardContent>
           </Card>
@@ -100,7 +102,7 @@ export default function AdminUsers() {
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-foreground">
-                {users.filter(u => !u.premium).length}
+                {users.filter(u => !u.is_premium).length}
               </p>
             </CardContent>
           </Card>
@@ -195,7 +197,7 @@ export default function AdminUsers() {
                           </div>
                         </td>
                         <td className="px-4 py-3">
-                          {user.premium ? (
+                          {user.is_premium ? (
                             <Badge className="bg-yellow-500">
                               <Crown className="w-3 h-3 mr-1" />
                               Premium
