@@ -19,7 +19,8 @@ import {
   Bell,
   Smartphone,
   PackageCheck,
-  Crown
+  Crown,
+  CreditCard
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -79,6 +80,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       icon: Crown,
       label: 'Offres Premium',
       path: '/admin/subscription-offers',
+      permission: null
+    },
+    {
+      icon: CreditCard,
+      label: 'Souscriptions',
+      path: '/admin/subscriptions',
       permission: null
     },
     {

@@ -38,6 +38,7 @@ import AdminMobileMoneyProviders from "./pages/AdminMobileMoneyProviders";
 import AdminNotifications from "./pages/AdminNotifications";
 import AdminAppVersions from "./pages/AdminAppVersions";
 import AdminSubscriptionOffers from "./pages/AdminSubscriptionOffers";
+import AdminSubscriptions from "./pages/AdminSubscriptions";
 
 const queryClient = new QueryClient();
 
@@ -83,6 +84,7 @@ const App = () => (
                   <Route path="/admin/notifications" element={<AdminNotifications />} />
                   <Route path="/admin/app-versions" element={<AdminAppVersions />} />
                   <Route path="/admin/subscription-offers" element={<AdminSubscriptionOffers />} />
+                  <Route path="/admin/subscriptions" element={<AdminSubscriptions />} />
                   
                   <Route path="*" element={<NotFound />} />
                 </Routes>
