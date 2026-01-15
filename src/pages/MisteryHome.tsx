@@ -90,14 +90,15 @@ const MisteryHome = () => {
                 </div>
                 
                 <div className="flex gap-4 flex-wrap pt-4">
-                  <Button 
-                    size="lg" 
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold flex items-center gap-2 rounded-full px-8 transition-all hover:scale-105"
-                    onClick={() => document.getElementById('stories')?.scrollIntoView({ behavior: 'smooth' })}
-                  >
-                    <Play className="w-5 h-5 fill-white" />
-                    {t('mistery.watch')}
-                  </Button>
+                  <a href="/apk/appistery-beta.apk" download>
+                    <Button 
+                      size="lg" 
+                      className="bg-red-600 hover:bg-red-700 text-white font-bold flex items-center gap-2 rounded-full px-8 transition-all hover:scale-105"
+                    >
+                      <Play className="w-5 h-5 fill-white" />
+                      {t('mistery.watch')}
+                    </Button>
+                  </a>
                 </div>
               </div>
 
