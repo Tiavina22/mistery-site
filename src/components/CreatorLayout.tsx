@@ -34,7 +34,6 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
   const sidebarItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/creator/dashboard' },
     { icon: FileText, label: 'Mes Histoires', path: '/creator/stories' },
-    { icon: Video, label: 'Mes Vidéos', path: '/creator/videos' },
     { icon: BarChart3, label: 'Statistiques', path: '/creator/analytics' },
     { icon: Bell, label: 'Notifications', path: '/creator/notifications' },
     { icon: User, label: 'Mon Profil', path: '/creator/profile' },
