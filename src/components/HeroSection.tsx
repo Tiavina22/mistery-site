@@ -58,13 +58,15 @@ export default function HeroSection() {
 
             {/* CTA Button */}
             <div className="flex gap-4 animate-fade-up stagger-2 pt-4">
-              <Button 
-              size="lg" 
-              className="gap-2 text-base bg-[#1DB954] hover:bg-[#1ed760] text-white font-bold rounded-full px-8 transition-all hover:scale-105"
-              >
-              <Download className="w-5 h-5" />
-              {t('hero.cta')}
-              </Button>
+              <a href="/apk/appistery-beta.apk" download>
+                <Button 
+                size="lg" 
+                className="gap-2 text-base bg-[#1DB954] hover:bg-[#1ed760] text-white font-bold rounded-full px-8 transition-all hover:scale-105"
+                >
+                <Download className="w-5 h-5" />
+                {t('hero.cta')}
+                </Button>
+              </a>
             </div>
           </div>
 
