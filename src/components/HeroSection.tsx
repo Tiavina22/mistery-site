@@ -2,17 +2,6 @@ import { Download } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 
-const illustrations = [
-  { src: '/illustrations/ody.png', alt: 'Ody' },
-  { src: '/illustrations/ouija.png', alt: 'Ouija' },
-  { src: '/illustrations/rohy.png', alt: 'Rohy' },
-  { src: '/illustrations/sahala.PNG', alt: 'Sahala' },
-  { src: '/illustrations/silampanahy.png', alt: 'Silampanahy' },
-  { src: '/illustrations/stanley.png', alt: 'Stanley' },
-  { src: '/illustrations/taxi.png', alt: 'Taxi' },
-  { src: '/illustrations/vadydevoly.png', alt: 'Vadydevoly' },
-];
-
 export default function HeroSection() {
   const { t } = useLanguage();
 
@@ -79,152 +68,54 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Scrolling Illustrations Grid */}
-          <div className="relative h-[500px] lg:h-[600px] animate-fade-up stagger-3 overflow-hidden">
-            <style dangerouslySetInnerHTML={{ __html: `
-              @keyframes scroll-up {
-                0% {
-                  transform: translateY(0);
-                }
-                100% {
-                  transform: translateY(-50%);
-                }
-              }
-              @keyframes scroll-down {
-                0% {
-                  transform: translateY(-50%);
-                }
-                100% {
-                  transform: translateY(0);
-                }
-              }
-              .scroll-col-1 {
-                animation: scroll-up 25s linear infinite;
-              }
-              .scroll-col-2 {
-                animation: scroll-down 30s linear infinite;
-              }
-              .scroll-col-3 {
-                animation: scroll-up 28s linear infinite;
-              }
-              .scroll-col-4 {
-                animation: scroll-down 32s linear infinite;
-              }
-              .scroll-col-5 {
-                animation: scroll-up 27s linear infinite;
-              }
-            `}} />
-            
-            <div className="flex gap-2 h-full" style={{ perspective: '800px' }}>
-              {/* Column 1 */}
-              <div className="flex-1 overflow-hidden">
-                <div className="scroll-col-1 flex flex-col gap-3">
-                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
-                    <div 
-                      key={`col1-${index}`}
-                      className="flex-shrink-0 w-full h-48 lg:h-56 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
-                      style={{ 
-                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4) * 2}deg)`,
-                        transformStyle: 'preserve-3d'
-                      }}
-                    >
-                      <img
-                        src={illustration.src}
-                        alt={illustration.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+          {/* Right: Image Collage */}
+          <div className="relative h-[500px] hidden lg:block animate-fade-up stagger-3">
+            {/* Large main image - top left */}
+            <div 
+              className="absolute top-0 left-0 w-64 h-64 rounded-2xl overflow-hidden shadow-2xl bg-card border border-[#1DB954]/30 hover:scale-105 hover:z-30 transition-all duration-300"
+              style={{ transform: 'rotate(-3deg)' }}
+            >
+              <img src="/illustrations/ody.png" alt="Story" className="w-full h-full object-cover" />
+            </div>
 
-              {/* Column 2 */}
-              <div className="flex-1 overflow-hidden">
-                <div className="scroll-col-2 flex flex-col gap-3">
-                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
-                    <div 
-                      key={`col2-${index}`}
-                      className="flex-shrink-0 w-full h-52 lg:h-60 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
-                      style={{ 
-                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 1) * 2}deg)`,
-                        transformStyle: 'preserve-3d'
-                      }}
-                    >
-                      <img
-                        src={illustration.src}
-                        alt={illustration.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Medium image - top right */}
+            <div 
+              className="absolute top-12 right-8 w-56 h-64 rounded-2xl overflow-hidden shadow-xl bg-card border border-[#1DB954]/30 hover:scale-105 hover:z-30 transition-all duration-300"
+              style={{ transform: 'rotate(5deg)' }}
+            >
+              <img src="/illustrations/ouija.png" alt="Story" className="w-full h-full object-cover" />
+            </div>
 
-              {/* Column 3 */}
-              <div className="flex-1 overflow-hidden">
-                <div className="scroll-col-3 flex flex-col gap-3">
-                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
-                    <div 
-                      key={`col3-${index}`}
-                      className="flex-shrink-0 w-full h-50 lg:h-58 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
-                      style={{ 
-                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 2) * 2}deg)`,
-                        transformStyle: 'preserve-3d'
-                      }}
-                    >
-                      <img
-                        src={illustration.src}
-                        alt={illustration.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Small image - middle left */}
+            <div 
+              className="absolute top-48 left-12 w-48 h-56 rounded-xl overflow-hidden shadow-lg bg-card border border-[#1DB954]/30 hover:scale-105 hover:z-30 transition-all duration-300"
+              style={{ transform: 'rotate(2deg)' }}
+            >
+              <img src="/illustrations/rohy.png" alt="Story" className="w-full h-full object-cover" />
+            </div>
 
-              {/* Column 4 */}
-              <div className="flex-1 overflow-hidden">
-                <div className="scroll-col-4 flex flex-col gap-3">
-                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
-                    <div 
-                      key={`col4-${index}`}
-                      className="flex-shrink-0 w-full h-48 lg:h-56 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
-                      style={{ 
-                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 3) * 2}deg)`,
-                        transformStyle: 'preserve-3d'
-                      }}
-                    >
-                      <img
-                        src={illustration.src}
-                        alt={illustration.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Large image - bottom center */}
+            <div 
+              className="absolute bottom-12 left-32 w-72 h-72 rounded-2xl overflow-hidden shadow-2xl bg-card border border-[#1DB954]/30 hover:scale-105 hover:z-30 transition-all duration-300"
+              style={{ transform: 'rotate(-2deg)' }}
+            >
+              <img src="/illustrations/silampanahy.png" alt="Story" className="w-full h-full object-cover" />
+            </div>
 
-              {/* Column 5 */}
-              <div className="flex-1 overflow-hidden">
-                <div className="scroll-col-5 flex flex-col gap-3">
-                  {illustrations.slice(0, 5).concat(illustrations.slice(0, 5)).map((illustration, index) => (
-                    <div 
-                      key={`col5-${index}`}
-                      className="flex-shrink-0 w-full h-52 lg:h-60 rounded-lg overflow-hidden shadow-xl bg-card hover:scale-105 transition-all duration-300"
-                      style={{ 
-                        transform: `rotateY(-8deg) rotateX(${Math.sin(index * 0.4 + 4) * 2}deg)`,
-                        transformStyle: 'preserve-3d'
-                      }}
-                    >
-                      <img
-                        src={illustration.src}
-                        alt={illustration.alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Medium image - bottom right */}
+            <div 
+              className="absolute bottom-20 right-0 w-52 h-60 rounded-xl overflow-hidden shadow-xl bg-card border border-[#1DB954]/30 hover:scale-105 hover:z-30 transition-all duration-300"
+              style={{ transform: 'rotate(4deg)' }}
+            >
+              <img src="/illustrations/stanley.png" alt="Story" className="w-full h-full object-cover" />
+            </div>
+
+            {/* Small image - middle right */}
+            <div 
+              className="absolute top-32 right-20 w-44 h-52 rounded-xl overflow-hidden shadow-lg bg-card border border-[#1DB954]/30 hover:scale-105 hover:z-30 transition-all duration-300"
+              style={{ transform: 'rotate(-4deg)' }}
+            >
+              <img src="/illustrations/taxi.png" alt="Story" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
