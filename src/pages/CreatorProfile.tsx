@@ -1378,7 +1378,7 @@ export default function CreatorProfile() {
                 {followers.map(f => (
                   <li key={f.id} className="flex items-center gap-3 py-3">
                     {f.avatar ? (
-                      <img src={getAvatarSrc(f.avatar)} alt={f.pseudo} className="w-10 h-10 rounded-full object-cover border" />
+                      <img src={f.avatar} alt={f.pseudo} className="w-10 h-10 rounded-full object-cover border" />
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold border">
                         <User className="h-5 w-5" />
