@@ -73,6 +73,101 @@ const getText = (value: { fr?: string; en?: string; gasy?: string } | string | u
 };
 
 export default function AdminContentApproval() {
+  // Dialogs
+  const [selectedStory, setSelectedStory] = useState<StoryItem | null>(null);
+  const [selectedChapter, setSelectedChapter] = useState<PendingChapter | null>(null);
+
+  // Edition story
+  const [editStoryMode, setEditStoryMode] = useState(false);
+  const [editStoryTitle, setEditStoryTitle] = useState('');
+  const [editStorySynopsis, setEditStorySynopsis] = useState('');
+  const [editStoryGenreId, setEditStoryGenreId] = useState<number | undefined>(undefined);
+  const [editStoryIsPremium, setEditStoryIsPremium] = useState(false);
+  useEffect(() => {
+    if (selectedStory && editStoryMode) {
+      setEditStoryTitle(getText(selectedStory.title));
+      setEditStorySynopsis(getText(selectedStory.synopsis));
+      setEditStoryGenreId(selectedStory.genre?.id);
+      setEditStoryIsPremium(selectedStory.is_premium);
+    }
+  }, [selectedStory, editStoryMode]);
+
+  const handleSaveStoryEdit = async () => {
+    if (!selectedStory) return;
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/content/stories/${selectedStory.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: { fr: editStoryTitle },
+            synopsis: { fr: editStorySynopsis },
+            genre_id: editStoryGenreId,
+            is_premium: editStoryIsPremium
+          })
+        }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setSelectedStory(data.data);
+        setEditStoryMode(false);
+        loadPendingStories();
+      } else {
+        alert(data.message || 'Erreur lors de la modification');
+      }
+    } catch (error) {
+      alert('Erreur lors de la modification');
+    }
+    setIsSubmitting(false);
+  };
+
+  // Edition chapitre
+  const [editChapterMode, setEditChapterMode] = useState(false);
+  const [editChapterTitle, setEditChapterTitle] = useState('');
+  const [editChapterContent, setEditChapterContent] = useState('');
+  useEffect(() => {
+    if (selectedChapter && editChapterMode) {
+      setEditChapterTitle(getText(selectedChapter.title));
+      setEditChapterContent(getText(selectedChapter.content));
+    }
+  }, [selectedChapter, editChapterMode]);
+
+  const handleSaveChapterEdit = async () => {
+    if (!selectedChapter) return;
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/content/chapters/${selectedChapter.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            title: { fr: editChapterTitle },
+            content: { fr: editChapterContent }
+          })
+        }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setSelectedChapter(data.data);
+        setEditChapterMode(false);
+        loadPendingChapters();
+      } else {
+        alert(data.message || 'Erreur lors de la modification');
+      }
+    } catch (error) {
+      alert('Erreur lors de la modification');
+    }
+    setIsSubmitting(false);
+  };
   const { token } = useAdmin();
   const [activeTab, setActiveTab] = useState('stories');
   
@@ -87,8 +182,7 @@ export default function AdminContentApproval() {
   const [chaptersPagination, setChaptersPagination] = useState({ page: 1, limit: 10, total: 0, totalPages: 0 });
   
   // Dialogs
-  const [selectedStory, setSelectedStory] = useState<StoryItem | null>(null);
-  const [selectedChapter, setSelectedChapter] = useState<PendingChapter | null>(null);
+  // ...existing code...
   const [showStoryDialog, setShowStoryDialog] = useState(false);
   const [showChapterDialog, setShowChapterDialog] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
@@ -618,17 +712,58 @@ export default function AdminContentApproval() {
                     />
                   )}
                   <div className="flex-1 space-y-2">
-                    <h2 className="text-xl font-bold">{getText(selectedStory.title)}</h2>
-                    <p className="text-muted-foreground">{getText(selectedStory.synopsis)}</p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge>{getText(selectedStory.genre?.title)}</Badge>
-                      {selectedStory.is_premium && <Badge variant="secondary">Premium</Badge>}
-                      <Badge variant="outline">{selectedStory.chapters_count} chapitres</Badge>
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      <p><strong>Auteur:</strong> {selectedStory.author?.pseudo} ({selectedStory.author?.email})</p>
-                      <p><strong>Soumis le:</strong> {selectedStory.submitted_at ? formatDate(selectedStory.submitted_at) : 'N/A'}</p>
-                    </div>
+                    {editStoryMode ? (
+                      <>
+                        <Label htmlFor="editStoryTitle">Titre</Label>
+                        <Input
+                          id="editStoryTitle"
+                          value={editStoryTitle}
+                          onChange={e => setEditStoryTitle(e.target.value)}
+                          className="mb-2"
+                        />
+                        <Label htmlFor="editStorySynopsis">Synopsis</Label>
+                        <Textarea
+                          id="editStorySynopsis"
+                          value={editStorySynopsis}
+                          onChange={e => setEditStorySynopsis(e.target.value)}
+                          className="mb-2"
+                        />
+                        <div className="flex gap-2 mb-2 items-center">
+                          <Label htmlFor="editStoryGenreId">Genre</Label>
+                          <Input
+                            id="editStoryGenreId"
+                            type="number"
+                            value={editStoryGenreId ?? ''}
+                            onChange={e => setEditStoryGenreId(Number(e.target.value))}
+                            className="w-24"
+                          />
+                          <Label htmlFor="editStoryIsPremium">Premium</Label>
+                          <input
+                            id="editStoryIsPremium"
+                            type="checkbox"
+                            checked={editStoryIsPremium}
+                            onChange={e => setEditStoryIsPremium(e.target.checked)}
+                          />
+                        </div>
+                        <Button size="sm" variant="default" onClick={handleSaveStoryEdit} disabled={isSubmitting} className="mr-2">Sauvegarder</Button>
+                        <Button size="sm" variant="outline" onClick={() => setEditStoryMode(false)}>Annuler</Button>
+                      </>
+                    ) : (
+                      <>
+                        <h2 className="text-xl font-bold">{getText(selectedStory.title)}</h2>
+                        <p className="text-muted-foreground">{getText(selectedStory.synopsis)}</p>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge>{getText(selectedStory.genre?.title)}</Badge>
+                          {selectedStory.is_premium && <Badge variant="secondary">Premium</Badge>}
+                          <Badge variant="outline">{selectedStory.chapters_count} chapitres</Badge>
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          <p><strong>Auteur:</strong> {selectedStory.author?.pseudo} ({selectedStory.author?.email})</p>
+                          <p><strong>Soumis le:</strong> {selectedStory.submitted_at ? formatDate(selectedStory.submitted_at) : 'N/A'}</p>
+                        </div>
+                        <Button size="sm" variant="outline" onClick={() => setEditStoryMode(true)} className="mt-2"><Edit className="h-4 w-4 mr-1" /> Modifier</Button>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -701,24 +836,51 @@ export default function AdminContentApproval() {
               <div className="space-y-4">
                 <div>
                   <Badge variant="secondary" className="mb-2">Chapitre {selectedChapter.chapter_number}</Badge>
-                  <h2 className="text-xl font-bold">{getText(selectedChapter.title)}</h2>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Story: {getText(selectedChapter.story?.title)}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Auteur: {selectedChapter.story?.author?.pseudo}
-                  </p>
+                  {editChapterMode ? (
+                    <>
+                      <Label htmlFor="editChapterTitle">Titre</Label>
+                      <Input
+                        id="editChapterTitle"
+                        value={editChapterTitle}
+                        onChange={e => setEditChapterTitle(e.target.value)}
+                        className="mb-2"
+                      />
+                      <Label htmlFor="editChapterContent">Contenu</Label>
+                      <Textarea
+                        id="editChapterContent"
+                        value={editChapterContent}
+                        onChange={e => setEditChapterContent(e.target.value)}
+                        rows={6}
+                        className="mb-2"
+                      />
+                      <Button size="sm" variant="default" onClick={handleSaveChapterEdit} disabled={isSubmitting} className="mr-2">Sauvegarder</Button>
+                      <Button size="sm" variant="outline" onClick={() => setEditChapterMode(false)}>Annuler</Button>
+                    </>
+                  ) : (
+                    <>
+                      <h2 className="text-xl font-bold">{getText(selectedChapter.title)}</h2>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Story: {getText(selectedChapter.story?.title)}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Auteur: {selectedChapter.story?.author?.pseudo}
+                      </p>
+                      <Button size="sm" variant="outline" onClick={() => setEditChapterMode(true)} className="mt-2"><Edit className="h-4 w-4 mr-1" /> Modifier</Button>
+                    </>
+                  )}
                 </div>
 
                 <div>
                   <h3 className="font-semibold mb-2">Contenu</h3>
-                  <Card>
-                    <CardContent className="p-4">
-                      <div className="prose prose-sm max-w-none whitespace-pre-wrap">
-                        {getText(selectedChapter.content)}
-                      </div>
-                    </CardContent>
-                  </Card>
+                  {!editChapterMode && (
+                    <Card>
+                      <CardContent className="p-4">
+                        <div className="prose prose-sm max-w-none whitespace-pre-wrap">
+                          {getText(selectedChapter.content)}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
                 </div>
               </div>
             </ScrollArea>
