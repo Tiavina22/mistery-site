@@ -38,11 +38,13 @@ interface Earning {
 interface EarningsHistoryDialogProps {
   open: boolean;
   onClose: () => void;
+  token: string;
 }
 
 export default function EarningsHistoryDialog({
   open,
   onClose,
+  token,
 }: EarningsHistoryDialogProps) {
   const [earnings, setEarnings] = useState<Earning[]>([]);
   const [withdrawals, setWithdrawals] = useState<any[]>([]);
@@ -57,7 +59,6 @@ export default function EarningsHistoryDialog({
   const fetchData = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('authorToken');
 
       // Fetch earnings
       const earningsResponse = await fetch(`${API_BASE_URL}/api/wallet/earnings`, {

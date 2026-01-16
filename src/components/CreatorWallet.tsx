@@ -73,10 +73,10 @@ export default function CreatorWallet() {
   };
 
   useEffect(() => {
-    if (author) {
+    if (author && token) {
       fetchWallet();
     }
-  }, [author]);
+  }, [author, token]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('mg-MG', {
@@ -322,11 +322,13 @@ export default function CreatorWallet() {
         onClose={() => setWithdrawDialogOpen(false)}
         currentBalance={wallet.currentBalance}
         onSuccess={fetchWallet}
+        token={token || ''}
       />
 
       <EarningsHistoryDialog
         open={historyDialogOpen}
         onClose={() => setHistoryDialogOpen(false)}
+        token={token || ''}
       />
     </div>
   );

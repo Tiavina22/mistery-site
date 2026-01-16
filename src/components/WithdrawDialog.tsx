@@ -21,6 +21,7 @@ interface WithdrawDialogProps {
   onClose: () => void;
   currentBalance: number;
   onSuccess: () => void;
+  token: string;
 }
 
 export default function WithdrawDialog({
@@ -28,6 +29,7 @@ export default function WithdrawDialog({
   onClose,
   currentBalance,
   onSuccess,
+  token,
 }: WithdrawDialogProps) {
   const [amount, setAmount] = useState('');
   const [method, setMethod] = useState('mvola');
@@ -71,7 +73,7 @@ export default function WithdrawDialog({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('authorToken')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           amount: amountNum,
