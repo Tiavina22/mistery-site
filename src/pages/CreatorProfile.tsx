@@ -26,10 +26,10 @@ interface Follower {
 const getAvatarSrc = (avatar?: string): string | undefined => {
   if (!avatar) return undefined;
   // Si l'avatar commence déjà par data: ou http, le retourner tel quel
-  if (avatar.startsWith('data:') || avatar.startsWith('http')) {
+  if (avatar.startsWith('data:') || avatar.startsWith('http://') || avatar.startsWith('https://')) {
     return avatar;
   }
-  // Sinon, ajouter le préfixe data URI pour base64
+  // Sinon, c'est du base64 pur, ajouter le préfixe data URI
   return `data:image/jpeg;base64,${avatar}`;
 };
 
