@@ -33,7 +33,8 @@ interface Chapter {
     en?: string;
   };
   chapter_number: number;
-  status: 'draft' | 'published' | 'archived';
+  status: 'draft' | 'pending_approval' | 'published' | 'rejected' | 'archived';
+  rejection_reason?: string;
   created_at: string;
   updated_at: string;
 }
@@ -151,16 +152,16 @@ export default function ManageChapters() {
       await chapterApi.publishChapter(chapterId);
       
       toast({
-        title: 'Succès',
-        description: 'Chapitre publié avec succès',
+        title: 'Soumis pour validation',
+        description: 'Le chapitre a été soumis pour validation. Vous serez notifié dès qu\'il sera approuvé.',
       });
       
       loadStoryAndChapters();
     } catch (error: any) {
-      console.error('Erreur lors de la publication:', error);
+      console.error('Erreur lors de la soumission:', error);
       toast({
         title: 'Erreur',
-        description: error.response?.data?.message || 'Impossible de publier le chapitre',
+        description: error.response?.data?.message || 'Impossible de soumettre le chapitre',
         variant: 'destructive',
       });
     }
@@ -172,6 +173,10 @@ export default function ManageChapters() {
         return <Badge className="bg-green-500">Publié</Badge>;
       case 'draft':
         return <Badge variant="secondary">Brouillon</Badge>;
+      case 'pending_approval':
+        return <Badge className="bg-yellow-500 text-black">⏳ En attente</Badge>;
+      case 'rejected':
+        return <Badge className="bg-red-500">❌ Rejeté</Badge>;
       case 'archived':
         return <Badge variant="outline">Archivé</Badge>;
       default:
@@ -289,7 +294,16 @@ export default function ManageChapters() {
                           {chapter.chapter_number}
                         </TableCell>
                         <TableCell className="text-foreground">
-                          {getChapterTitle(chapter.title)}
+                          <div>
+                            {getChapterTitle(chapter.title)}
+                            {chapter.status === 'rejected' && chapter.rejection_reason && (
+                              <p className="text-xs text-red-400 mt-1" title={chapter.rejection_reason}>
+                                Raison: {chapter.rejection_reason.length > 50 
+                                  ? chapter.rejection_reason.substring(0, 50) + '...' 
+                                  : chapter.rejection_reason}
+                              </p>
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell>
                           {getStatusBadge(chapter.status)}
@@ -306,12 +320,12 @@ export default function ManageChapters() {
                               <Pencil className="h-4 w-4" />
                             </Button>
                             
-                            {chapter.status === 'draft' && (
+                            {(chapter.status === 'draft' || chapter.status === 'rejected') && (
                               <Button
                                 variant="ghost"
                                 size="icon"
                                 onClick={() => handlePublishChapter(chapter.id)}
-                                title="Publier"
+                                title={chapter.status === 'rejected' ? 'Resoumettre' : 'Soumettre pour validation'}
                                 className="text-muted-foreground hover:text-[#1DB954] hover:bg-secondary"
                               >
                                 <Eye className="h-4 w-4" />

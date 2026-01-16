@@ -173,14 +173,14 @@ export default function CreatorStoriesNew() {
     try {
       await storyApi.publishStory(story.id);
       toast({
-        title: 'Succès',
-        description: 'Histoire publiée avec succès',
+        title: 'Soumis pour validation',
+        description: 'Votre histoire a été soumise pour validation. Vous serez notifié dès qu\'elle sera approuvée.',
       });
       loadStories();
     } catch (error: any) {
       toast({
         title: 'Erreur',
-        description: error.response?.data?.message || 'Impossible de publier',
+        description: error.response?.data?.message || 'Impossible de soumettre',
         variant: 'destructive',
       });
     }
@@ -201,6 +201,10 @@ export default function CreatorStoriesNew() {
         return 'bg-green-500/10 text-green-700 dark:text-green-400 border-green-500/20';
       case 'draft':
         return 'bg-orange-500/10 text-orange-700 dark:text-orange-400 border-orange-500/20';
+      case 'pending_approval':
+        return 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20';
+      case 'rejected':
+        return 'bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20';
       case 'archived':
         return 'bg-gray-500/10 text-gray-700 dark:text-gray-400 border-gray-500/20';
       default:
@@ -212,6 +216,8 @@ export default function CreatorStoriesNew() {
     switch (status) {
       case 'published': return 'Publié';
       case 'draft': return 'Brouillon';
+      case 'pending_approval': return '⏳ En attente de validation';
+      case 'rejected': return '❌ Rejeté';
       case 'archived': return 'Archivé';
       default: return status;
     }
@@ -406,7 +412,7 @@ export default function CreatorStoriesNew() {
                             Voir
                           </DropdownMenuItem>
                           <DropdownMenuSeparator className="bg-white/10" />
-                          {story.status === 'draft' && (
+                          {(story.status === 'draft' || story.status === 'rejected') && (
                             <>
                               <DropdownMenuItem 
                                 onClick={() => handlePublish(story)}
@@ -415,7 +421,19 @@ export default function CreatorStoriesNew() {
                                 title={!canPublish(story) ? `Au minimum 6 épisodes requis (actuellement ${story.chapters_count})` : ''}
                               >
                                 <Check className="w-4 h-4 mr-2" />
-                                Publier
+                                {story.status === 'rejected' ? 'Resoumettre' : 'Soumettre pour validation'}
+                              </DropdownMenuItem>
+                              <DropdownMenuSeparator className="bg-white/10" />
+                            </>
+                          )}
+                          {story.status === 'pending_approval' && (
+                            <>
+                              <DropdownMenuItem 
+                                disabled
+                                className="opacity-50 cursor-not-allowed"
+                              >
+                                <Clock className="w-4 h-4 mr-2" />
+                                En attente de validation...
                               </DropdownMenuItem>
                               <DropdownMenuSeparator className="bg-white/10" />
                             </>

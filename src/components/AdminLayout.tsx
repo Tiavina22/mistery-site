@@ -21,7 +21,8 @@ import {
   PackageCheck,
   Crown,
   CreditCard,
-  Banknote
+  Banknote,
+  BookCheck
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -70,6 +71,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       label: 'Validation KYC',
       path: '/admin/kyc',
       permission: 'VIEW_KYC'
+    },
+    {
+      icon: BookCheck,
+      label: 'Validation Contenu',
+      path: '/admin/content-approval',
+      permission: 'MODERATE_CONTENT'
     },
     {
       icon: Wallet,

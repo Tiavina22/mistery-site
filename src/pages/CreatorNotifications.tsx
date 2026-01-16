@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import CreatorLayout from '@/components/CreatorLayout';
 import { Card, CardContent } from '@/components/ui/card';
-import { Bell, X, Check, AlertCircle, CheckCircle2, XCircle } from 'lucide-react';
+import { Bell, X, Check, AlertCircle, CheckCircle2, XCircle, Clock, BookOpen, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500';
@@ -26,6 +26,12 @@ const notificationTypeIcons: { [key: string]: React.ReactNode } = {
   'payment_pending': <AlertCircle className="w-6 h-6 text-yellow-500" />,
   'payment_approved': <CheckCircle2 className="w-6 h-6 text-green-500" />,
   'payment_rejected': <XCircle className="w-6 h-6 text-red-500" />,
+  'story_pending': <Clock className="w-6 h-6 text-yellow-500" />,
+  'story_approved': <BookOpen className="w-6 h-6 text-green-500" />,
+  'story_rejected': <BookOpen className="w-6 h-6 text-red-500" />,
+  'chapter_pending': <Clock className="w-6 h-6 text-yellow-500" />,
+  'chapter_approved': <FileText className="w-6 h-6 text-green-500" />,
+  'chapter_rejected': <FileText className="w-6 h-6 text-red-500" />,
 };
 
 const notificationTypeColors: { [key: string]: string } = {
@@ -36,6 +42,12 @@ const notificationTypeColors: { [key: string]: string } = {
   'payment_pending': 'bg-yellow-500/20',
   'payment_approved': 'bg-green-500/20',
   'payment_rejected': 'bg-red-500/20',
+  'story_pending': 'bg-yellow-500/20',
+  'story_approved': 'bg-green-500/20',
+  'story_rejected': 'bg-red-500/20',
+  'chapter_pending': 'bg-yellow-500/20',
+  'chapter_approved': 'bg-green-500/20',
+  'chapter_rejected': 'bg-red-500/20',
 };
 
 export default function CreatorNotifications() {
