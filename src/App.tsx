@@ -41,6 +41,7 @@ import AdminSubscriptions from "./pages/AdminSubscriptions";
 import AdminPayments from "./pages/AdminPayments";
 import AdminContentApproval from "./pages/AdminContentApproval";
 import AdminWithdrawals from "./pages/AdminWithdrawals";
+import AdminPlatformFees from "./pages/AdminPlatformFees";
 import CreatorWalletPage from "./pages/CreatorWalletPage";
 
 const queryClient = new QueryClient();
@@ -93,6 +94,7 @@ const App = () => (
                   <Route path="/admin/payments" element={<AdminPayments />} />
                   <Route path="/admin/content-approval" element={<AdminContentApproval />} />
                   <Route path="/admin/withdrawals" element={<AdminWithdrawals />} />
+                  <Route path="/admin/platform-fees" element={<AdminPlatformFees />} />
                   
                   <Route path="*" element={<NotFound />} />
                 </Routes>

@@ -109,6 +109,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       permission: 'VIEW_PAYMENTS'
     },
     {
+      icon: Settings,
+      label: 'Frais & Répartition',
+      path: '/admin/platform-fees',
+      permission: 'VIEW_PAYMENTS'
+    },
+    {
       icon: Smartphone,
       label: 'Providers Mobile Money',
       path: '/admin/mobile-money-providers',

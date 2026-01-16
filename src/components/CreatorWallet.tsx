@@ -31,17 +31,17 @@ interface WalletData {
     lastWithdrawalDate: string | null;
     canWithdraw: boolean;
   };
-  recentEarnings: Array<{
-    month: number;
-    year: number;
-    totalViews: number;
-    viewPercentage: number;
+  realtimeEarnings: {
+    completions: number;
+    totalCompletions: number;
+    completionPercentage: number;
     grossEarning: number;
-    totalEarning: number;
-    paidAmount: number;
-    carriedForward: number;
-    status: string;
-  }>;
+    platform: {
+      grossRevenue: number;
+      netRevenue: number;
+      totalCreatorPool: number;
+    };
+  };
   pendingWithdrawals: number;
 }
 
@@ -124,7 +124,7 @@ export default function CreatorWallet() {
     );
   }
 
-  const { wallet, recentEarnings, pendingWithdrawals } = walletData;
+  const { wallet, realtimeEarnings, pendingWithdrawals } = walletData;
 
   return (
     <div className="p-8 space-y-6">
@@ -133,9 +133,60 @@ export default function CreatorWallet() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Mon Portefeuille</h2>
           <p className="text-muted-foreground">
-            Gérez vos gains et demandes de retrait
+            Gains en temps réel basés sur les lectures complètes
           </p>
         </div>
+      </div>
+
+      {/* Stats en temps réel */}
+      <div className="grid gap-4 md:grid-cols-4">
+        <Card className="bg-gradient-to-br from-blue-500 to-blue-700 text-white border-none">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-white/90">Lectures complètes</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">{realtimeEarnings.completions}</div>
+            <p className="text-xs text-white/70 mt-1">
+              {realtimeEarnings.completionPercentage.toFixed(2)}% du total
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-green-500 to-green-700 text-white border-none">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-white/90">Gains temps réel</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">{formatCurrency(realtimeEarnings.grossEarning)}</div>
+            <p className="text-xs text-white/70 mt-1">
+              Basé sur lectures complètes
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-purple-500 to-purple-700 text-white border-none">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-white/90">Pool créateurs</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{formatCurrency(realtimeEarnings.platform.totalCreatorPool)}</div>
+            <p className="text-xs text-white/70 mt-1">
+              Total disponible
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-orange-500 to-orange-700 text-white border-none">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-white/90">Revenu plateforme</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{formatCurrency(realtimeEarnings.platform.netRevenue)}</div>
+            <p className="text-xs text-white/70 mt-1">
+              Revenu net total
+            </p>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Balance principale */}
@@ -256,65 +307,6 @@ export default function CreatorWallet() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Gains récents */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Gains récents</CardTitle>
-          <CardDescription>
-            Vos 3 derniers mois de rémunération
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {recentEarnings.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              <Calendar className="w-12 h-12 mx-auto mb-2 opacity-20" />
-              <p>Aucun gain enregistré pour le moment</p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {recentEarnings.map((earning, index) => (
-                <div key={index}>
-                  {index > 0 && <Separator className="my-4" />}
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">
-                          {getMonthName(earning.month)} {earning.year}
-                        </span>
-                        {getStatusBadge(earning.status)}
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Eye className="w-3 h-3" />
-                          {earning.totalViews} vues
-                        </span>
-                        <span>
-                          {earning.viewPercentage.toFixed(2)}% du total
-                        </span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-lg font-bold">
-                        {formatCurrency(earning.totalEarning)}
-                      </div>
-                      {earning.paidAmount > 0 ? (
-                        <div className="text-sm text-green-600">
-                          Payé: {formatCurrency(earning.paidAmount)}
-                        </div>
-                      ) : (
-                        <div className="text-sm text-orange-600">
-                          Reporté: {formatCurrency(earning.carriedForward)}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
 
       {/* Dialogs */}
       <WithdrawDialog
