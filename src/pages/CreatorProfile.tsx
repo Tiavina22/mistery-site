@@ -1,41 +1,3 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
-interface Follower {
-  id: number;
-  pseudo: string;
-  email: string;
-  avatar?: string;
-}
-  // Followers state
-  const [followers, setFollowers] = useState<Follower[]>([]);
-  const [followersLoading, setFollowersLoading] = useState(false);
-  const [showFollowersDialog, setShowFollowersDialog] = useState(false);
-  // Load followers on mount
-  useEffect(() => {
-    if (author?.id) {
-      fetchFollowers(author.id);
-    }
-  }, [author?.id]);
-
-  const fetchFollowers = async (authorId: number) => {
-    setFollowersLoading(true);
-    try {
-      const token = localStorage.getItem('author_token');
-      const response = await fetch(`${API_BASE_URL}/api/authors/${authorId}/followers`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      const data = await response.json();
-      if (data.success) {
-        setFollowers(data.data.followers || []);
-      } else {
-        setFollowers([]);
-      }
-    } catch (error) {
-      setFollowers([]);
-    } finally {
-      setFollowersLoading(false);
-    }
-  };
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -45,11 +7,20 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import CreatorLayout from '@/components/CreatorLayout';
 import { Mail, User, Phone, BookOpen, FileText, CheckCircle, Clock, XCircle, CreditCard, Wallet, Shield, Upload, X, Camera } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500';
+
+interface Follower {
+  id: number;
+  pseudo: string;
+  email: string;
+  avatar?: string;
+}
 
 export default function CreatorProfile() {
   const navigate = useNavigate();
@@ -92,6 +63,11 @@ export default function CreatorProfile() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
+  // Followers state
+  const [followers, setFollowers] = useState<Follower[]>([]);
+  const [followersLoading, setFollowersLoading] = useState(false);
+  const [showFollowersDialog, setShowFollowersDialog] = useState(false);
+
   useEffect(() => {
     if (author) {
       loadKycInfo();
@@ -106,6 +82,33 @@ export default function CreatorProfile() {
       }
     };
   }, [author]);
+
+  // Load followers on mount
+  useEffect(() => {
+    if (author?.id) {
+      fetchFollowers(author.id);
+    }
+  }, [author?.id]);
+
+  const fetchFollowers = async (authorId: number) => {
+    setFollowersLoading(true);
+    try {
+      const token = localStorage.getItem('author_token');
+      const response = await fetch(`${API_BASE_URL}/api/authors/${authorId}/followers`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      if (data.success) {
+        setFollowers(data.data.followers || []);
+      } else {
+        setFollowers([]);
+      }
+    } catch (error) {
+      setFollowers([]);
+    } finally {
+      setFollowersLoading(false);
+    }
+  };
 
   const loadKycInfo = async () => {
     try {
