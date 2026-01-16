@@ -46,7 +46,7 @@ interface WalletData {
 }
 
 export default function CreatorWallet() {
-  const { author } = useAuth();
+  const { author, token } = useAuth();
   const [walletData, setWalletData] = useState<WalletData | null>(null);
   const [loading, setLoading] = useState(true);
   const [withdrawDialogOpen, setWithdrawDialogOpen] = useState(false);
@@ -57,7 +57,7 @@ export default function CreatorWallet() {
       setLoading(true);
       const response = await fetch(`${API_BASE_URL}/api/wallet`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('authorToken')}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
