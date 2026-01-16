@@ -110,11 +110,17 @@ export default function CreatorProfile() {
       });
       const data = await response.json();
       if (data.success) {
-        setFollowers(data.data.followers || []);
+        // S'assurer que les avatars sont correctement formatés
+        const formattedFollowers = (data.data.followers || []).map((f: Follower) => ({
+          ...f,
+          avatar: f.avatar ? (f.avatar.startsWith('data:') || f.avatar.startsWith('http') ? f.avatar : `data:image/jpeg;base64,${f.avatar}`) : undefined
+        }));
+        setFollowers(formattedFollowers);
       } else {
         setFollowers([]);
       }
     } catch (error) {
+      console.error('Erreur fetchFollowers:', error);
       setFollowers([]);
     } finally {
       setFollowersLoading(false);
