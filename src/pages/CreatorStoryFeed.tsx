@@ -26,9 +26,15 @@ interface Comment {
   id: number;
   comment_text: string;
   created_at: string;
-  user: {
+  user?: {
     id: number;
     username: string;
+    email: string;
+    avatar?: string;
+  };
+  author?: {
+    id: number;
+    pseudo: string;
     email: string;
     avatar?: string;
   };
@@ -339,8 +345,8 @@ export default function CreatorStoryFeed() {
                                 {/* Main Comment */}
                                 <div className="flex items-start gap-3">
                                   <Avatar className="w-8 h-8 shrink-0">
-                                    {comment.user.avatar ? (
-                                      <AvatarImage src={getAvatarSrc(comment.user.avatar)} alt={comment.user.username} />
+                                    {(comment.user?.avatar || comment.author?.avatar) ? (
+                                      <AvatarImage src={getAvatarSrc(comment.user?.avatar || comment.author?.avatar || '')} alt={comment.user?.username || comment.author?.pseudo} />
                                     ) : (
                                       <AvatarFallback>
                                         <User className="w-4 h-4" />
@@ -349,12 +355,13 @@ export default function CreatorStoryFeed() {
                                   </Avatar>
                                   <div className="flex-1 bg-secondary rounded-lg p-3">
                                     <div className="flex items-center gap-2 mb-1">
-                                      <span className="font-semibold text-sm text-foreground">{comment.user.username}</span>
+                                      <span className="font-semibold text-sm text-foreground">{comment.user?.username || comment.author?.pseudo}</span>
+                                      {comment.author && <Badge variant="secondary" className="text-xs">Créateur</Badge>}
                                       <span className="text-xs text-muted-foreground">{formatDate(comment.created_at)}</span>
                                     </div>
                                     <p className="text-sm text-foreground whitespace-pre-wrap">{comment.comment_text}</p>
                                     <button
-                                      onClick={() => setReplyTo({ storyId: story.id, commentId: comment.id, username: comment.user.username })}
+                                      onClick={() => setReplyTo({ storyId: story.id, commentId: comment.id, username: comment.user?.username || comment.author?.pseudo || 'Utilisateur' })}
                                       className="text-xs text-[#1DB954] hover:underline mt-2"
                                     >
                                       Répondre
@@ -368,8 +375,8 @@ export default function CreatorStoryFeed() {
                                     {comment.replies.map((reply) => (
                                       <div key={reply.id} className="flex items-start gap-3">
                                         <Avatar className="w-8 h-8 shrink-0">
-                                          {reply.user.avatar ? (
-                                            <AvatarImage src={getAvatarSrc(reply.user.avatar)} alt={reply.user.username} />
+                                          {(reply.user?.avatar || reply.author?.avatar) ? (
+                                            <AvatarImage src={getAvatarSrc(reply.user?.avatar || reply.author?.avatar || '')} alt={reply.user?.username || reply.author?.pseudo} />
                                           ) : (
                                             <AvatarFallback>
                                               <User className="w-4 h-4" />
@@ -378,7 +385,8 @@ export default function CreatorStoryFeed() {
                                         </Avatar>
                                         <div className="flex-1 bg-secondary/50 rounded-lg p-3">
                                           <div className="flex items-center gap-2 mb-1">
-                                            <span className="font-semibold text-sm text-foreground">{reply.user.username}</span>
+                                            <span className="font-semibold text-sm text-foreground">{reply.user?.username || reply.author?.pseudo}</span>
+                                            {reply.author && <Badge variant="secondary" className="text-xs">Créateur</Badge>}
                                             <span className="text-xs text-muted-foreground">{formatDate(reply.created_at)}</span>
                                           </div>
                                           <p className="text-sm text-foreground whitespace-pre-wrap">{reply.comment_text}</p>
