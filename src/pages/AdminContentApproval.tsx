@@ -1,4 +1,11 @@
 import { useState, useEffect } from 'react';
+// Follower type
+interface Follower {
+  id: number;
+  pseudo: string;
+  email: string;
+  avatar?: string;
+}
 import { useAdmin } from '@/contexts/AdminContext';
 import AdminLayout from '@/components/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -76,6 +83,11 @@ export default function AdminContentApproval() {
   // Dialogs
   const [selectedStory, setSelectedStory] = useState<StoryItem | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<PendingChapter | null>(null);
+
+  // Followers Dialog
+  const [showFollowersDialog, setShowFollowersDialog] = useState(false);
+  const [followers, setFollowers] = useState<Follower[]>([]);
+  const [followersLoading, setFollowersLoading] = useState(false);
 
   // Edition story
   const [editStoryMode, setEditStoryMode] = useState(false);
@@ -291,9 +303,36 @@ export default function AdminContentApproval() {
       if (data.success) {
         setSelectedStory(data.data);
         setShowStoryDialog(true);
+        // Preload followers for the author
+        if (data.data.author?.id) {
+          fetchFollowers(data.data.author.id);
+        } else {
+          setFollowers([]);
+        }
       }
     } catch (error) {
       console.error('Erreur lors du chargement de la story:', error);
+    }
+  };
+
+  // Fetch followers for an author
+  const fetchFollowers = async (authorId: number) => {
+    setFollowersLoading(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/authors/${authorId}/followers`,
+        { headers: { 'Authorization': `Bearer ${token}` } }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setFollowers(data.data.followers || []);
+      } else {
+        setFollowers([]);
+      }
+    } catch (error) {
+      setFollowers([]);
+    } finally {
+      setFollowersLoading(false);
     }
   };
 
@@ -758,8 +797,67 @@ export default function AdminContentApproval() {
                           <Badge variant="outline">{selectedStory.chapters_count} chapitres</Badge>
                         </div>
                         <div className="text-sm text-muted-foreground">
-                          <p><strong>Auteur:</strong> {selectedStory.author?.pseudo} ({selectedStory.author?.email})</p>
+                          <div className="flex items-center gap-2">
+                            <span><strong>Auteur:</strong> {selectedStory.author?.pseudo} ({selectedStory.author?.email})</span>
+                            {typeof followers.length === 'number' && selectedStory.author?.id && (
+                              <>
+                                <span className="mx-2">·</span>
+                                <button
+                                  className="text-blue-600 hover:underline font-medium text-sm flex items-center gap-1"
+                                  onClick={() => setShowFollowersDialog(true)}
+                                  type="button"
+                                >
+                                  <User className="h-4 w-4" />
+                                  {followers.length} follower{followers.length !== 1 ? 's' : ''}
+                                </button>
+                              </>
+                            )}
+                          </div>
                           <p><strong>Soumis le:</strong> {selectedStory.submitted_at ? formatDate(selectedStory.submitted_at) : 'N/A'}</p>
+                              {/* Followers Dialog */}
+                              <Dialog open={showFollowersDialog} onOpenChange={setShowFollowersDialog}>
+                                <DialogContent className="max-w-lg">
+                                  <DialogHeader>
+                                    <DialogTitle className="flex items-center gap-2">
+                                      <User className="h-5 w-5" />
+                                      Liste des followers
+                                    </DialogTitle>
+                                    <DialogDescription>
+                                      Voici la liste des followers de ce créateur.
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="max-h-96 overflow-y-auto mt-2">
+                                    {followersLoading ? (
+                                      <div className="text-center py-8">Chargement...</div>
+                                    ) : followers.length === 0 ? (
+                                      <div className="text-center text-muted-foreground py-8">Aucun follower</div>
+                                    ) : (
+                                      <ul className="divide-y divide-gray-200">
+                                        {followers.map(f => (
+                                          <li key={f.id} className="flex items-center gap-3 py-3">
+                                            {f.avatar ? (
+                                              <img src={f.avatar} alt={f.pseudo} className="w-10 h-10 rounded-full object-cover border" />
+                                            ) : (
+                                              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold border">
+                                                <User className="h-5 w-5" />
+                                              </div>
+                                            )}
+                                            <div className="flex-1 min-w-0">
+                                              <div className="font-medium truncate">{f.pseudo}</div>
+                                              <div className="text-xs text-muted-foreground truncate">{f.email}</div>
+                                            </div>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </div>
+                                  <DialogFooter>
+                                    <Button variant="outline" onClick={() => setShowFollowersDialog(false)}>
+                                      Fermer
+                                    </Button>
+                                  </DialogFooter>
+                                </DialogContent>
+                              </Dialog>
                         </div>
                         <Button size="sm" variant="outline" onClick={() => setEditStoryMode(true)} className="mt-2"><Edit className="h-4 w-4 mr-1" /> Modifier</Button>
                       </>
