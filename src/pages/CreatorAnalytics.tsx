@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { authorApi } from '@/lib/api';
 import CreatorLayout from '@/components/CreatorLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { BarChart3, TrendingUp, Users, Eye, Heart, BookOpen, MessageCircle } from 'lucide-react';
+import { BarChart3, TrendingUp, Users, Eye, Heart, BookOpen, MessageCircle, CheckCircle } from 'lucide-react';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5500';
 
@@ -15,6 +15,7 @@ interface Stats {
   total_views: number;
   total_likes: number;
   total_comments: number;
+  total_completions?: number;
 }
 
 interface Story {
@@ -32,6 +33,7 @@ export default function CreatorAnalytics() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [topStories, setTopStories] = useState<Story[]>([]);
   const [followersCount, setFollowersCount] = useState(0);
+  const [completionsCount, setCompletionsCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -54,13 +56,16 @@ export default function CreatorAnalytics() {
     try {
       setIsLoading(true);
       
-      // Charger stats, stories et followers en parallèle
-      const [statsRes, storiesRes, followersRes] = await Promise.all([
+      // Charger stats, stories, followers et completions en parallèle
+      const [statsRes, storiesRes, followersRes, completionsRes] = await Promise.all([
         authorApi.getStats(author.id),
         authorApi.getStories(author.id),
         fetch(`${API_BASE_URL}/api/authors/${author.id}/followers`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('author_token')}` }
-        }).then(r => r.json())
+        }).then(r => r.json()),
+        fetch(`${API_BASE_URL}/api/authors/${author.id}/completions`, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('author_token')}` }
+        }).then(r => r.json()).catch(() => ({ count: 0 }))
       ]);
 
       setStats(statsRes.data.data);
@@ -73,6 +78,8 @@ export default function CreatorAnalytics() {
       if (followersRes.success) {
         setFollowersCount(followersRes.count || 0);
       }
+
+      setCompletionsCount(completionsRes.count || 0);
     } catch (error) {
       console.error('Erreur lors du chargement des analytics:', error);
     } finally {
@@ -117,7 +124,7 @@ export default function CreatorAnalytics() {
         {/* Content */}
         <div className="px-8 py-8 space-y-6">
           {/* Overview Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             <Card className="bg-card border-none">
               <CardHeader className="pb-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total Vues</CardTitle>
@@ -130,6 +137,26 @@ export default function CreatorAnalytics() {
                   <div>
                     <p className="text-3xl font-bold text-foreground">{(stats?.total_views || 0).toLocaleString()}</p>
                     <p className="text-xs text-muted-foreground">Total</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card border-none border-2 border-green-500/30">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                  Lectures complètes
+                  <span className="text-xs bg-green-500/20 text-green-600 px-2 py-0.5 rounded">💰 Revenus</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                    <CheckCircle className="w-6 h-6 text-green-500" />
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold text-foreground">{completionsCount.toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground">Base rémunération</p>
                   </div>
                 </div>
               </CardContent>
