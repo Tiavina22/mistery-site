@@ -1,3 +1,41 @@
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+interface Follower {
+  id: number;
+  pseudo: string;
+  email: string;
+  avatar?: string;
+}
+  // Followers state
+  const [followers, setFollowers] = useState<Follower[]>([]);
+  const [followersLoading, setFollowersLoading] = useState(false);
+  const [showFollowersDialog, setShowFollowersDialog] = useState(false);
+  // Load followers on mount
+  useEffect(() => {
+    if (author?.id) {
+      fetchFollowers(author.id);
+    }
+  }, [author?.id]);
+
+  const fetchFollowers = async (authorId: number) => {
+    setFollowersLoading(true);
+    try {
+      const token = localStorage.getItem('author_token');
+      const response = await fetch(`${API_BASE_URL}/api/authors/${authorId}/followers`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      if (data.success) {
+        setFollowers(data.data.followers || []);
+      } else {
+        setFollowers([]);
+      }
+    } catch (error) {
+      setFollowers([]);
+    } finally {
+      setFollowersLoading(false);
+    }
+  };
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -558,10 +596,62 @@ export default function CreatorProfile() {
                 </Avatar>
                 
                 <div className="flex-1 space-y-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-wrap">
                     <h2 className="text-2xl font-bold text-foreground">{author.pseudo}</h2>
                     {getStatusBadge()}
+                    <button
+                      type="button"
+                      className="text-blue-600 hover:underline font-medium text-base flex items-center gap-1 ml-2"
+                      onClick={() => setShowFollowersDialog(true)}
+                    >
+                      <User className="h-5 w-5" />
+                      {followers.length} follower{followers.length !== 1 ? 's' : ''}
+                    </button>
                   </div>
+                        {/* Followers Dialog */}
+                        <Dialog open={showFollowersDialog} onOpenChange={setShowFollowersDialog}>
+                          <DialogContent className="max-w-lg">
+                            <DialogHeader>
+                              <DialogTitle className="flex items-center gap-2">
+                                <User className="h-5 w-5" />
+                                Liste des followers
+                              </DialogTitle>
+                              <DialogDescription>
+                                Voici la liste de vos followers.
+                              </DialogDescription>
+                            </DialogHeader>
+                            <ScrollArea className="max-h-96 mt-2 pr-2">
+                              {followersLoading ? (
+                                <div className="text-center py-8">Chargement...</div>
+                              ) : followers.length === 0 ? (
+                                <div className="text-center text-muted-foreground py-8">Aucun follower</div>
+                              ) : (
+                                <ul className="divide-y divide-gray-200">
+                                  {followers.map(f => (
+                                    <li key={f.id} className="flex items-center gap-3 py-3">
+                                      {f.avatar ? (
+                                        <img src={f.avatar} alt={f.pseudo} className="w-10 h-10 rounded-full object-cover border" />
+                                      ) : (
+                                        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold border">
+                                          <User className="h-5 w-5" />
+                                        </div>
+                                      )}
+                                      <div className="flex-1 min-w-0">
+                                        <div className="font-medium truncate">{f.pseudo}</div>
+                                        <div className="text-xs text-muted-foreground truncate">{f.email}</div>
+                                      </div>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </ScrollArea>
+                            <DialogFooter>
+                              <Button variant="outline" onClick={() => setShowFollowersDialog(false)}>
+                                Fermer
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="flex items-center gap-2 text-muted-foreground">
