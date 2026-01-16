@@ -55,7 +55,6 @@ export default function AdminPlatformFees() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('admin_token');
 
       // Récupérer config active
       const feesRes = await fetch(`${API_BASE_URL}/api/admin/platform-fees/active`, {
@@ -92,7 +91,6 @@ export default function AdminPlatformFees() {
 
   const handleCreateFees = async () => {
     try {
-      const token = localStorage.getItem('admin_token');
       const response = await fetch(`${API_BASE_URL}/api/admin/platform-fees`, {
         method: 'POST',
         headers: {
@@ -121,14 +119,17 @@ export default function AdminPlatformFees() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
+      <AdminLayout>
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        </div>
+      </AdminLayout>
     );
   }
 
   return (
-    <div className="p-8 space-y-6">
+    <AdminLayout>
+      <div className="p-8 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -424,5 +425,6 @@ export default function AdminPlatformFees() {
         </DialogContent>
       </Dialog>
     </div>
+    </AdminLayout>
   );
 }
