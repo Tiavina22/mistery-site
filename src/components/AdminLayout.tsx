@@ -103,6 +103,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       permission: null
     },
     {
+      icon: Wallet,
+      label: 'Demandes de retrait',
+      path: '/admin/withdrawals',
+      permission: 'VIEW_PAYMENTS'
+    },
+    {
       icon: Smartphone,
       label: 'Providers Mobile Money',
       path: '/admin/mobile-money-providers',

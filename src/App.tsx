@@ -40,6 +40,8 @@ import AdminSubscriptionOffers from "./pages/AdminSubscriptionOffers";
 import AdminSubscriptions from "./pages/AdminSubscriptions";
 import AdminPayments from "./pages/AdminPayments";
 import AdminContentApproval from "./pages/AdminContentApproval";
+import AdminWithdrawals from "./pages/AdminWithdrawals";
+import CreatorWalletPage from "./pages/CreatorWalletPage";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +74,7 @@ const App = () => (
                   
                   <Route path="/creator/analytics" element={<CreatorAnalytics />} />
                   <Route path="/creator/feed" element={<CreatorStoryFeed />} />
+                  <Route path="/creator/wallet" element={<CreatorWalletPage />} />
                   <Route path="/creator/notifications" element={<CreatorNotifications />} />
                   <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />
                   
@@ -89,6 +92,7 @@ const App = () => (
                   <Route path="/admin/subscriptions" element={<AdminSubscriptions />} />
                   <Route path="/admin/payments" element={<AdminPayments />} />
                   <Route path="/admin/content-approval" element={<AdminContentApproval />} />
+                  <Route path="/admin/withdrawals" element={<AdminWithdrawals />} />
                   
                   <Route path="*" element={<NotFound />} />
                 </Routes>
