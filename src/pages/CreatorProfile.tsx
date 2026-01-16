@@ -22,6 +22,17 @@ interface Follower {
   avatar?: string;
 }
 
+// Helper pour gérer les avatars base64
+const getAvatarSrc = (avatar?: string): string | undefined => {
+  if (!avatar) return undefined;
+  // Si l'avatar commence déjà par data: ou http, le retourner tel quel
+  if (avatar.startsWith('data:') || avatar.startsWith('http')) {
+    return avatar;
+  }
+  // Sinon, ajouter le préfixe data URI pour base64
+  return `data:image/jpeg;base64,${avatar}`;
+};
+
 export default function CreatorProfile() {
   const navigate = useNavigate();
   const { author, updateProfile } = useAuth();
@@ -1361,7 +1372,7 @@ export default function CreatorProfile() {
                 {followers.map(f => (
                   <li key={f.id} className="flex items-center gap-3 py-3">
                     {f.avatar ? (
-                      <img src={f.avatar} alt={f.pseudo} className="w-10 h-10 rounded-full object-cover border" />
+                      <img src={getAvatarSrc(f.avatar)} alt={f.pseudo} className="w-10 h-10 rounded-full object-cover border" />
                     ) : (
                       <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold border">
                         <User className="h-5 w-5" />
