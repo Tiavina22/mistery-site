@@ -18,7 +18,8 @@ import {
   Menu,
   X,
   User,
-  Video
+  Video,
+  MessageCircle
 } from 'lucide-react';
 
 interface CreatorLayoutProps {
@@ -34,6 +35,7 @@ export default function CreatorLayout({ children }: CreatorLayoutProps) {
   const sidebarItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/creator/dashboard' },
     { icon: FileText, label: 'Mes Histoires', path: '/creator/stories' },
+    { icon: MessageCircle, label: 'Publications', path: '/creator/feed' },
     { icon: BarChart3, label: 'Statistiques', path: '/creator/analytics' },
     { icon: Bell, label: 'Notifications', path: '/creator/notifications' },
     { icon: User, label: 'Mon Profil', path: '/creator/profile' },

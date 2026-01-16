@@ -25,6 +25,7 @@ import CreateStory from "./pages/CreateStory";
 import CreatorStoriesNew from "./pages/CreatorStoriesNew";
 import ManageChapters from "./pages/ManageChapters";
 import CreatorAnalytics from "./pages/CreatorAnalytics";
+import CreatorStoryFeed from "./pages/CreatorStoryFeed";
 import CreatorNotifications from "./pages/CreatorNotifications";
 import CreatorVideos from "./pages/CreatorVideos";
 import AdminLogin from "./pages/AdminLogin";
@@ -70,6 +71,7 @@ const App = () => (
                   <Route path="/creator/story/new" element={<CreateStory />} />
                   
                   <Route path="/creator/analytics" element={<CreatorAnalytics />} />
+                  <Route path="/creator/feed" element={<CreatorStoryFeed />} />
                   <Route path="/creator/notifications" element={<CreatorNotifications />} />
                   <Route path="/creator/stories/:storyId/chapters" element={<ManageChapters />} />
                   
