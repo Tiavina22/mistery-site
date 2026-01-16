@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useAdmin } from '@/contexts/AdminContext';
+import AdminLayout from '@/components/AdminLayout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -31,6 +33,7 @@ import {
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://mistery.pro';
 
 export default function AdminPlatformFees() {
+  const { token } = useAdmin();
   const [activeFees, setActiveFees] = useState<any>(null);
   const [stats, setStats] = useState<any>(null);
   const [history, setHistory] = useState<any[]>([]);
