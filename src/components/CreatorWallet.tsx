@@ -5,8 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import WithdrawDialog from './WithdrawDialog';
-import EarningsHistoryDialog from './EarningsHistoryDialog';
 import {
   Wallet as WalletIcon,
   TrendingUp,
@@ -19,6 +17,8 @@ import {
   DollarSign,
   Loader2,
 } from 'lucide-react';
+import WithdrawDialog from './WithdrawDialog';
+import EarningsHistoryDialog from './EarningsHistoryDialog';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://mistery.pro';
 
