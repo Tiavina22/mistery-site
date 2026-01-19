@@ -7,28 +7,28 @@ export default function MisteryHelp() {
 
   const faqs = [
     {
-      question: "Comment puis-je créer un compte?",
-      answer: "Visitez la page d'inscription et remplissez le formulaire avec vos informations. Vérifiez votre email et vous serez prêt à commencer!"
+      question: t('help.faq.q1'),
+      answer: t('help.faq.a1')
     },
     {
-      question: "Comment puis-je me désabonner?",
-      answer: "Accédez à vos paramètres de compte, allez à la section abonnement et cliquez sur 'Annuler l'abonnement'."
+      question: t('help.faq.q2'),
+      answer: t('help.faq.a2')
     },
     {
-      question: "Quels sont les modes de paiement acceptés?",
-      answer: "Nous acceptons les cartes de crédit/débit, les portefeuilles mobiles et d'autres méthodes de paiement locales."
+      question: t('help.faq.q3'),
+      answer: t('help.faq.a3')
     },
     {
-      question: "Comment puis-je signaler un problème?",
-      answer: "Vous pouvez utiliser le formulaire de contact ou nous envoyer un email à contact@mistery.pro avec les détails du problème."
+      question: t('help.faq.q4'),
+      answer: t('help.faq.a4')
     },
     {
-      question: "Ma lecture est-elle synchronisée entre appareils?",
-      answer: "Oui, votre historique de lecture est synchronisé automatiquement sur tous vos appareils connectés."
+      question: t('help.faq.q5'),
+      answer: t('help.faq.a5')
     },
     {
-      question: "Puis-je télécharger des histoires pour lire hors ligne?",
-      answer: "Cette fonctionnalité est actuellement en développement. Elle sera bientôt disponible pour les abonnés."
+      question: t('help.faq.q6'),
+      answer: t('help.faq.a6')
     }
   ];
 
@@ -38,7 +38,7 @@ export default function MisteryHelp() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4 lg:px-8 py-4">
           <Link to="/" className="flex items-center gap-2 text-foreground hover:text-red-600 transition-colors">
-            ← {t('common.back') || 'Retour'}
+            ← {t('common.back')}
           </Link>
         </div>
       </header>
@@ -51,10 +51,10 @@ export default function MisteryHelp() {
               <HelpCircle className="w-12 h-12 text-red-600" />
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground">
-              {t('help.title') || 'Centre d\'Aide'}
+              {t('help.title')}
             </h1>
             <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t('help.subtitle') || 'Trouvez des réponses à vos questions'}
+              {t('help.subtitle')}
             </p>
           </div>
 
@@ -63,32 +63,32 @@ export default function MisteryHelp() {
             <a href="mailto:contact@mistery.pro" className="bg-card rounded-2xl p-8 hover:border-red-600 transition-colors border border-border">
               <div className="flex items-center gap-4 mb-4">
                 <MessageCircle className="w-8 h-8 text-red-600" />
-                <h3 className="text-lg font-bold text-foreground">Email</h3>
+                <h3 className="text-lg font-bold text-foreground">{t('help.email.title')}</h3>
               </div>
-              <p className="text-muted-foreground text-sm">Contactez-nous à contact@mistery.pro</p>
+              <p className="text-muted-foreground text-sm">{t('help.email.desc')}</p>
             </a>
 
             <Link to="/contact" className="bg-card rounded-2xl p-8 hover:border-red-600 transition-colors border border-border">
               <div className="flex items-center gap-4 mb-4">
                 <LifeBuoy className="w-8 h-8 text-red-600" />
-                <h3 className="text-lg font-bold text-foreground">Support</h3>
+                <h3 className="text-lg font-bold text-foreground">{t('help.support.title')}</h3>
               </div>
-              <p className="text-muted-foreground text-sm">Remplissez le formulaire de contact</p>
+              <p className="text-muted-foreground text-sm">{t('help.support.desc')}</p>
             </Link>
 
             <div className="bg-card rounded-2xl p-8 hover:border-red-600 transition-colors border border-border">
               <div className="flex items-center gap-4 mb-4">
                 <Book className="w-8 h-8 text-red-600" />
-                <h3 className="text-lg font-bold text-foreground">FAQ</h3>
+                <h3 className="text-lg font-bold text-foreground">{t('help.faq.title')}</h3>
               </div>
-              <p className="text-muted-foreground text-sm">Consultez nos questions fréquentes</p>
+              <p className="text-muted-foreground text-sm">{t('help.faq.desc')}</p>
             </div>
           </div>
 
           {/* FAQ Section */}
           <section className="mb-16">
             <h2 className="text-3xl font-heading font-bold mb-8 text-foreground">
-              Questions Fréquemment Posées
+              {t('help.faq.section')}
             </h2>
 
             <div className="space-y-4">
@@ -116,16 +116,16 @@ export default function MisteryHelp() {
           {/* Still need help */}
           <section className="bg-card rounded-2xl p-8 lg:p-12 border border-red-600/20">
             <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-              Vous n'avez pas trouvé votre réponse?
+              {t('help.contact.title')}
             </h2>
             <p className="text-muted-foreground text-lg mb-6">
-              Notre équipe de support est là pour vous aider. N'hésitez pas à nous contacter directement.
+              {t('help.contact.desc')}
             </p>
             <a
               href="mailto:contact@mistery.pro"
               className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
             >
-              Contacter le Support
+              {t('help.contact.button')}
             </a>
           </section>
         </div>

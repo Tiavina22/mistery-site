@@ -13,7 +13,7 @@ export default function MisteryTerms() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4 lg:px-8 py-4">
           <Link to="/" className="flex items-center gap-2 text-foreground hover:text-red-600 transition-colors">
-            ← {t('common.back') || 'Retour'}
+            ← {t('common.back')}
           </Link>
         </div>
       </header>
@@ -28,10 +28,10 @@ export default function MisteryTerms() {
               </div>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground">
-              {t('terms.title') || 'Conditions Générales d\'Utilisation'}
+              {t('terms.title')}
             </h1>
             <p className="text-lg text-muted-foreground">
-              MISTERY - Plateforme de Streaming d'Histoires
+              {t('terms.subtitle')}
             </p>
           </div>
 
@@ -39,13 +39,13 @@ export default function MisteryTerms() {
           <div className="grid md:grid-cols-2 gap-4 mb-12">
             <a href="#acceptance" className="bg-card rounded-xl p-4 hover:border-red-600 border border-border transition-colors">
               <AlertCircle className="w-6 h-6 text-red-600 mb-2" />
-              <h3 className="text-foreground font-semibold mb-1">Acceptation</h3>
-              <p className="text-sm text-muted-foreground">Conditions d'utilisation</p>
+              <h3 className="text-foreground font-semibold mb-1">{t('terms.quickLinks.acceptance')}</h3>
+              <p className="text-sm text-muted-foreground">{t('terms.quickLinks.acceptance.desc')}</p>
             </a>
             <a href="#users" className="bg-card rounded-xl p-4 hover:border-red-600 border border-border transition-colors">
               <Lock className="w-6 h-6 text-red-600 mb-2" />
-              <h3 className="text-foreground font-semibold mb-1">Utilisateurs</h3>
-              <p className="text-sm text-muted-foreground">Droits et obligations</p>
+              <h3 className="text-foreground font-semibold mb-1">{t('terms.quickLinks.users')}</h3>
+              <p className="text-sm text-muted-foreground">{t('terms.quickLinks.users.desc')}</p>
             </a>
           </div>
 
@@ -54,17 +54,17 @@ export default function MisteryTerms() {
             {/* Section 1 */}
             <section id="acceptance" className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                1. Acceptation des Conditions
+                {t('terms.section1.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  En accédant et en utilisant MISTERY, vous acceptez d'être lié par ces Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre plateforme.
+                  {t('terms.section1.text1')}
                 </p>
                 <p>
-                  MISTERY se réserve le droit de modifier ces conditions à tout moment. Les modifications entrent en vigueur dès leur publication sur la plateforme.
+                  {t('terms.section1.text2')}
                 </p>
                 <p>
-                  Ces conditions s'appliquent à tous les utilisateurs de MISTERY, y compris les lecteurs, spectateurs et contributeurs.
+                  {t('terms.section1.text3')}
                 </p>
               </div>
             </section>
@@ -72,20 +72,20 @@ export default function MisteryTerms() {
             {/* Section 2 */}
             <section id="users" className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                2. Compte Utilisateur
+                {t('terms.section2.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Pour accéder à certaines fonctionnalités, vous devez créer un compte. Vous êtes responsable de :
+                  {t('terms.section2.text1')}
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>La confidentialité de vos identifiants de connexion</li>
-                  <li>Toutes les activités effectuées via votre compte</li>
-                  <li>La mise à jour de vos informations personnelles</li>
-                  <li>La notification immédiate en cas d'utilisation non autorisée</li>
+                  <li>{t('terms.section2.item1')}</li>
+                  <li>{t('terms.section2.item2')}</li>
+                  <li>{t('terms.section2.item3')}</li>
+                  <li>{t('terms.section2.item4')}</li>
                 </ul>
                 <p>
-                  Vous devez avoir au moins 13 ans pour créer un compte. Les mineurs doivent obtenir le consentement parental.
+                  {t('terms.section2.text2')}
                 </p>
               </div>
             </section>
@@ -93,23 +93,23 @@ export default function MisteryTerms() {
             {/* Section 3 */}
             <section className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                3. Contenu et Propriété Intellectuelle
+                {t('terms.section3.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
-                <h3 className="text-lg font-semibold text-foreground">3.1 Contenu sur MISTERY</h3>
+                <h3 className="text-lg font-semibold text-foreground">{t('terms.section3.subtitle1')}</h3>
                 <p>
-                  Tout le contenu sur MISTERY (histoires, vidéos, images) est fourni à titre divertissant et informatif. MISTERY s'engage à respecter les droits d'auteur et la propriété intellectuelle.
+                  {t('terms.section3.text1')}
                 </p>
                 
-                <h3 className="text-lg font-semibold text-foreground">3.2 Utilisation Personnelle</h3>
+                <h3 className="text-lg font-semibold text-foreground">{t('terms.section3.subtitle2')}</h3>
                 <p>
-                  Vous pouvez voir, lire et regarder le contenu à titre personnel. Il est interdit de :
+                  {t('terms.section3.text2')}
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Reproduire ou copier le contenu sans autorisation</li>
-                  <li>Distribuer ou partager le contenu sur d'autres plateformes</li>
-                  <li>Modifier ou créer des œuvres dérivées</li>
-                  <li>Utiliser le contenu à des fins commerciales</li>
+                  <li>{t('terms.section3.item1')}</li>
+                  <li>{t('terms.section3.item2')}</li>
+                  <li>{t('terms.section3.item3')}</li>
+                  <li>{t('terms.section3.item4')}</li>
                 </ul>
               </div>
             </section>
@@ -117,21 +117,21 @@ export default function MisteryTerms() {
             {/* Section 4 */}
             <section className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                4. Conduite des Utilisateurs
+                {t('terms.section4.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Vous acceptez de ne pas :
+                  {t('terms.section4.text1')}
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>Harceler, menacer ou intimider d'autres utilisateurs</li>
-                  <li>Publier du contenu offensant ou discriminatoire</li>
-                  <li>Spam ou contenu malveillant</li>
-                  <li>Violer les lois applicables</li>
-                  <li>Contourner les mesures de sécurité</li>
+                  <li>{t('terms.section4.item1')}</li>
+                  <li>{t('terms.section4.item2')}</li>
+                  <li>{t('terms.section4.item3')}</li>
+                  <li>{t('terms.section4.item4')}</li>
+                  <li>{t('terms.section4.item5')}</li>
                 </ul>
                 <p>
-                  MISTERY se réserve le droit de supprimer tout contenu ou de suspendre les utilisateurs qui violent ces conditions.
+                  {t('terms.section4.text2')}
                 </p>
               </div>
             </section>
@@ -139,17 +139,17 @@ export default function MisteryTerms() {
             {/* Section 5 */}
             <section className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                5. Abonnement et Paiement
+                {t('terms.section5.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  MISTERY offre du contenu gratuit et premium. L'accès au contenu premium nécessite un abonnement payant.
+                  {t('terms.section5.text1')}
                 </p>
                 <p>
-                  Les paiements sont traités de manière sécurisée. Les abonnements se renouvellent automatiquement sauf annulation.
+                  {t('terms.section5.text2')}
                 </p>
                 <p>
-                  Vous pouvez annuler votre abonnement à tout moment. L'annulation prend effet à la fin de la période en cours.
+                  {t('terms.section5.text3')}
                 </p>
               </div>
             </section>
@@ -157,19 +157,19 @@ export default function MisteryTerms() {
             {/* Section 6 */}
             <section className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                6. Limitation de Responsabilité
+                {t('terms.section6.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  MISTERY fournit la plateforme "telle quelle". Nous ne garantissons pas :
+                  {t('terms.section6.text1')}
                 </p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
-                  <li>La disponibilité ininterrompue du service</li>
-                  <li>L'absence d'erreurs ou de bugs</li>
-                  <li>La véracité de certains contenus créatifs</li>
+                  <li>{t('terms.section6.item1')}</li>
+                  <li>{t('terms.section6.item2')}</li>
+                  <li>{t('terms.section6.item3')}</li>
                 </ul>
                 <p>
-                  MISTERY ne pourra être tenue responsable des dommages directs ou indirects résultant de l'utilisation de la plateforme.
+                  {t('terms.section6.text2')}
                 </p>
               </div>
             </section>
@@ -177,11 +177,11 @@ export default function MisteryTerms() {
             {/* Section 7 */}
             <section className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                7. Modification du Service
+                {t('terms.section7.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  MISTERY se réserve le droit de modifier, suspendre ou discontinuer le service à tout moment. Nous notifierons les utilisateurs des changements majeurs.
+                  {t('terms.section7.text')}
                 </p>
               </div>
             </section>
@@ -189,11 +189,11 @@ export default function MisteryTerms() {
             {/* Section 8 */}
             <section className="bg-card rounded-2xl p-8 border border-border">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                8. Droit Applicable
+                {t('terms.section8.title')}
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Ces conditions sont régies par les lois de Madagascar. Tout litige sera résolu devant les tribunaux compétents.
+                  {t('terms.section8.text')}
                 </p>
               </div>
             </section>
@@ -201,10 +201,10 @@ export default function MisteryTerms() {
             {/* Contact Section */}
             <section className="bg-red-600/10 rounded-2xl p-8 border border-red-600/20">
               <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-                Questions?
+                {t('terms.contact.title')}
               </h2>
               <p className="text-muted-foreground mb-4">
-                Si vous avez des questions sur ces conditions, veuillez nous contacter :
+                {t('terms.contact.text')}
               </p>
               <a href="mailto:contact@mistery.pro" className="text-red-600 hover:text-red-500 transition-colors">
                 contact@mistery.pro
@@ -213,7 +213,7 @@ export default function MisteryTerms() {
 
             {/* Last Updated */}
             <p className="text-center text-muted-foreground text-sm">
-              Dernière mise à jour: janvier 2026
+              {t('terms.lastUpdated')}
             </p>
           </div>
         </div>
