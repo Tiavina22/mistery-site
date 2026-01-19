@@ -23,7 +23,7 @@ export default function PaymentMethodsSection() {
           {paymentMethods.map((method) => (
             <div
               key={method.alt}
-              className="grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              className="opacity-80 hover:opacity-100 transition-opacity duration-300"
             >
               <img
                 src={method.src}
