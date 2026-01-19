@@ -36,37 +36,37 @@ export default function MisteryPrivacy() {
             {/* Introduction */}
             <section className="bg-card rounded-2xl p-8 lg:p-12">
               <h2 className="text-2xl font-heading font-bold mb-6 text-foreground">
-                {t('privacy.introduction') || 'Introduction'}
+                {t('privacy.introduction')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-              <p>MISTERY (plateforme de streaming d'histoires) s'engage à protéger votre vie privée. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations personnelles.</p>
+                {t('privacy.introduction.text')}
               </p>
             </section>
 
             {/* Data Collection */}
             <section className="bg-card rounded-2xl p-8 lg:p-12">
               <h2 className="text-2xl font-heading font-bold mb-6 text-foreground">
-                {t('privacy.dataCollection') || 'Collecte de Données'}
+                {t('privacy.dataCollection')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-                Nous collectons les informations suivantes:
+                {t('privacy.dataCollection.intro')}
               </p>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Informations d'identification (nom, email, adresse)</span>
+                  <span>{t('privacy.dataCollection.item1')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Données de compte (nom d'utilisateur, mot de passe chiffré)</span>
+                  <span>{t('privacy.dataCollection.item2')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Informations de paiement (traitées de manière sécurisée)</span>
+                  <span>{t('privacy.dataCollection.item3')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Données d'utilisation (pages visitées, historique de lecture)</span>
+                  <span>{t('privacy.dataCollection.item4')}</span>
                 </li>
               </ul>
             </section>
@@ -74,27 +74,27 @@ export default function MisteryPrivacy() {
             {/* Data Usage */}
             <section className="bg-card rounded-2xl p-8 lg:p-12">
               <h2 className="text-2xl font-heading font-bold mb-6 text-foreground">
-                {t('privacy.dataUsage') || 'Utilisation des Données'}
+                {t('privacy.dataUsage')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-                Nous utilisons vos données pour:
+                {t('privacy.dataUsage.intro')}
               </p>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Fournir et améliorer nos services</span>
+                  <span>{t('privacy.dataUsage.item1')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Gérer votre compte et traiter les paiements</span>
+                  <span>{t('privacy.dataUsage.item2')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Vous envoyer des mises à jour et notifications</span>
+                  <span>{t('privacy.dataUsage.item3')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Sécuriser notre plateforme contre les fraudes</span>
+                  <span>{t('privacy.dataUsage.item4')}</span>
                 </li>
               </ul>
             </section>
@@ -102,37 +102,37 @@ export default function MisteryPrivacy() {
             {/* Security */}
             <section className="bg-card rounded-2xl p-8 lg:p-12">
               <h2 className="text-2xl font-heading font-bold mb-6 text-foreground">
-                {t('privacy.security') || 'Sécurité des Données'}
+                {t('privacy.security')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                Nous utilisons le chiffrement SSL/TLS pour protéger vos données en transit. Vos mots de passe sont chiffrés et jamais stockés en clair. Nous maintenons des mesures de sécurité strictes pour prévenir l'accès non autorisé.
+                {t('privacy.security.text')}
               </p>
             </section>
 
             {/* Rights */}
             <section className="bg-card rounded-2xl p-8 lg:p-12">
               <h2 className="text-2xl font-heading font-bold mb-6 text-foreground">
-                {t('privacy.rights') || 'Vos Droits'}
+                {t('privacy.rights')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-                Vous avez le droit de:
+                {t('privacy.rights.intro')}
               </p>
               <ul className="space-y-3 text-muted-foreground">
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Accéder à vos données personnelles</span>
+                  <span>{t('privacy.rights.item1')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Demander la correction de vos données</span>
+                  <span>{t('privacy.rights.item2')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Demander la suppression de votre compte</span>
+                  <span>{t('privacy.rights.item3')}</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-red-600 font-bold">•</span>
-                  <span>Vous retirer de nos communications marketing</span>
+                  <span>{t('privacy.rights.item4')}</span>
                 </li>
               </ul>
             </section>
@@ -140,20 +140,20 @@ export default function MisteryPrivacy() {
             {/* Contact */}
             <section className="bg-card rounded-2xl p-8 lg:p-12">
               <h2 className="text-2xl font-heading font-bold mb-6 text-foreground">
-                {t('privacy.contact') || 'Nous Contacter'}
+                {t('privacy.contact')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-                Pour toute question concernant cette politique de confidentialité, veuillez nous contacter:
+                {t('privacy.contact.intro')}
               </p>
               <div className="space-y-2 text-muted-foreground">
-                <p>Email: <a href="mailto:contact@mistery.pro" className="text-red-600 hover:text-red-500 transition-colors">contact@mistery.pro</a></p>
-                <p>Adresse: Madagascar</p>
+                <p>{t('privacy.contact.email')} <a href="mailto:contact@mistery.pro" className="text-red-600 hover:text-red-500 transition-colors">contact@mistery.pro</a></p>
+                <p>{t('privacy.contact.address')}</p>
               </div>
             </section>
 
             {/* Last Updated */}
             <p className="text-center text-muted-foreground text-sm">
-              {t('privacy.lastUpdated') || 'Dernière mise à jour: janvier 2026'}
+              {t('privacy.lastUpdated')}
             </p>
           </div>
         </div>
