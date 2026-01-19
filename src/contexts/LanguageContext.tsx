@@ -140,6 +140,17 @@ const translations = {
     'common.back': 'Retour',
     'common.loading': 'Chargement...',
 
+    // Privacy Page
+    'privacy.title': 'Politique de Confidentialité',
+    'privacy.subtitle': 'Votre vie privée est importante pour nous',
+    'privacy.introduction': 'Introduction',
+    'privacy.dataCollection': 'Collecte de Données',
+    'privacy.dataUsage': 'Utilisation des Données',
+    'privacy.security': 'Sécurité des Données',
+    'privacy.rights': 'Vos Droits',
+    'privacy.contact': 'Nous Contacter',
+    'privacy.lastUpdated': 'Dernière mise à jour: janvier 2026',
+
     // About Page
     'about.title': 'À propos d\'APPISTERY',
     'about.subtitle': 'La plateforme de streaming d\'histoires vraies de Madagascar',
@@ -407,6 +418,17 @@ const translations = {
     // Common
     'common.back': 'Back',
     'common.loading': 'Loading...',
+
+    // Privacy Page
+    'privacy.title': 'Privacy Policy',
+    'privacy.subtitle': 'Your privacy matters to us',
+    'privacy.introduction': 'Introduction',
+    'privacy.dataCollection': 'Data Collection',
+    'privacy.dataUsage': 'Data Usage',
+    'privacy.security': 'Data Security',
+    'privacy.rights': 'Your Rights',
+    'privacy.contact': 'Contact Us',
+    'privacy.lastUpdated': 'Last updated: January 2026',
 
     // About Page
     'about.title': 'About APPISTERY',
