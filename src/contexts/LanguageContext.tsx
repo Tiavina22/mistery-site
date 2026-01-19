@@ -110,6 +110,7 @@ const translations = {
     'access.support.desc': 'Votre abonnement contribue directement à rémunérer les auteurs.',
     'access.secure': 'Paiement sécurisé',
     'access.secure.desc': 'Transactions protégées et données confidentielles.',
+    'access.payment.title': 'Moyens de paiement acceptés',
 
     // Creators
     'creators.title': 'Créateurs de contenu',
@@ -525,6 +526,7 @@ const translations = {
     'access.support.desc': 'Your subscription directly helps compensate authors.',
     'access.secure': 'Secure payment',
     'access.secure.desc': 'Protected transactions and confidential data.',
+    'access.payment.title': 'Accepted payment methods',
 
     // Creators
     'creators.title': 'Content Creators',
