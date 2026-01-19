@@ -66,7 +66,7 @@ export default function AccessSection() {
         </div>
 
         {/* Additional info */}
-        <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
+        <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
           <div className="flex items-start gap-4 p-4 rounded-xl bg-card border-none">
             <div className="w-10 h-10 rounded-lg bg-[#1DB954]/10 flex items-center justify-center flex-shrink-0">
               <Heart className="w-5 h-5 text-[#1DB954]" />
@@ -84,19 +84,6 @@ export default function AccessSection() {
               <h4 className="font-heading font-semibold mb-1 text-foreground">{t('access.secure')}</h4>
               <p className="text-sm text-muted-foreground">{t('access.secure.desc')}</p>
             </div>
-          </div>
-        </div>
-
-        {/* Payment Methods */}
-        <div className="text-center max-w-3xl mx-auto">
-          <h3 className="text-xl font-heading font-semibold mb-6 text-foreground">{t('access.payment.title')}</h3>
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
-            <img src="/paiement/logovisa.svg" alt="Visa" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
-            <img src="/paiement/logomastercard.svg" alt="Mastercard" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
-            <img src="/paiement/logopaypal.svg" alt="PayPal" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
-            <img src="/paiement/logomvola.svg" alt="MVola" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
-            <img src="/paiement/logoorange.svg" alt="Orange Money" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
-            <img src="/paiement/logoairtel.svg" alt="Airtel Money" className="h-8 md:h-10 w-auto opacity-70 hover:opacity-100 transition-opacity" />
           </div>
         </div>
       </div>
