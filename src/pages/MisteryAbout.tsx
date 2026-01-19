@@ -13,7 +13,7 @@ export default function MisteryAbout() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="container mx-auto px-4 lg:px-8 py-4">
           <Link to="/" className="flex items-center gap-2 text-foreground hover:text-red-600 transition-colors">
-            ← {t('common.back') || 'Retour'}
+            ← {t('common.back')}
           </Link>
         </div>
       </header>
@@ -28,10 +28,10 @@ export default function MisteryAbout() {
               </div>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground">
-              {t('about.title') || 'À propos de MISTERY'}
+              {t('about.title')}
             </h1>
             <p className="text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t('about.subtitle') || 'La plateforme de streaming d\'histoires mystérieuses et authentiques de Madagascar'}
+              {t('about.subtitle')}
             </p>
           </div>
 
@@ -39,13 +39,13 @@ export default function MisteryAbout() {
           <div className="mb-16">
             <div className="bg-card rounded-2xl p-8 lg:p-12 border border-red-600/10">
               <h2 className="text-2xl lg:text-3xl font-heading font-bold mb-6 text-foreground">
-                {t('about.mission') || 'Notre Mission'}
+                {t('about.mission')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-                MISTERY est né d'une passion pour les histoires mystérieuses, les témoignages paranormaux et les récits captivants de Madagascar. Notre mission est de donner une voix aux expériences vécues qui frappent l'imagination et qui incarnent la richesse culturelle et spirituelle de notre île.
+                {t('about.mission.text1')}
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                Nous croyons que chaque histoire mérite d'être entendue. À travers notre plateforme de streaming, nous connectons les conteurs passionnés avec une audience assoiffée de mystère, d'authenticité et d'frissons.
+                {t('about.mission.text2')}
               </p>
             </div>
           </div>
@@ -57,10 +57,10 @@ export default function MisteryAbout() {
                 <BookOpen className="w-6 h-6 text-red-600" />
               </div>
               <h3 className="text-xl font-heading font-semibold mb-3 text-foreground">
-                Histoires Authentiques
+                {t('about.authenticity.title')}
               </h3>
               <p className="text-muted-foreground">
-                Nous valorisons les récits vrais, les expériences vécues et les témoignages sincères. Chaque histoire sur MISTERY est un voyage dans le mystère et l'insolite.
+                {t('about.authenticity.desc')}
               </p>
             </div>
 
@@ -69,10 +69,10 @@ export default function MisteryAbout() {
                 <Users className="w-6 h-6 text-red-600" />
               </div>
               <h3 className="text-xl font-heading font-semibold mb-3 text-foreground">
-                Communauté Engagée
+                {t('about.community.title')}
               </h3>
               <p className="text-muted-foreground">
-                Nous construisons une communauté où les conteurs et les auditeurs partagent leur fascination pour les histoires qui défient l'explication rationnelle.
+                {t('about.community.desc')}
               </p>
             </div>
 
@@ -81,10 +81,10 @@ export default function MisteryAbout() {
                 <Zap className="w-6 h-6 text-red-600" />
               </div>
               <h3 className="text-xl font-heading font-semibold mb-3 text-foreground">
-                Expérience Immersive
+                {t('about.immersive.title')}
               </h3>
               <p className="text-muted-foreground">
-                Notre plateforme offre une expérience audio et vidéo captivante qui vous plonge au cœur de chaque mystère et intrigue.
+                {t('about.immersive.desc')}
               </p>
             </div>
 
@@ -93,10 +93,10 @@ export default function MisteryAbout() {
                 <Heart className="w-6 h-6 text-red-600" />
               </div>
               <h3 className="text-xl font-heading font-semibold mb-3 text-foreground">
-                Respect Culturel
+                {t('about.cultural.title')}
               </h3>
               <p className="text-muted-foreground">
-                Nous célébrons et préservons le patrimoine cultural malgache en mettant en avant ses histoires les plus captivantes et significatives.
+                {t('about.cultural.desc')}
               </p>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function MisteryAbout() {
           {/* Why MISTERY Section */}
           <div className="mb-16">
             <h2 className="text-3xl font-heading font-bold mb-8 text-foreground text-center">
-              Pourquoi Choisir MISTERY?
+              {t('about.whyChoose')}
             </h2>
             <div className="space-y-4">
               <div className="flex gap-4 bg-card rounded-xl p-6 border border-border">
@@ -112,8 +112,8 @@ export default function MisteryAbout() {
                   ✓
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Contenu Exclusif</h3>
-                  <p className="text-muted-foreground text-sm">Des histoires que vous ne trouverez nulle part ailleurs, racontées par les créateurs eux-mêmes</p>
+                  <h3 className="font-semibold text-foreground mb-1">{t('about.exclusive.title')}</h3>
+                  <p className="text-muted-foreground text-sm">{t('about.exclusive.desc')}</p>
                 </div>
               </div>
               <div className="flex gap-4 bg-card rounded-xl p-6 border border-border">
@@ -121,8 +121,8 @@ export default function MisteryAbout() {
                   ✓
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Plateforme Sécurisée</h3>
-                  <p className="text-muted-foreground text-sm">Vos données et votre expérience sont protégées avec nos mesures de sécurité avancées</p>
+                  <h3 className="font-semibold text-foreground mb-1">{t('about.secure.title')}</h3>
+                  <p className="text-muted-foreground text-sm">{t('about.secure.desc')}</p>
                 </div>
               </div>
               <div className="flex gap-4 bg-card rounded-xl p-6 border border-border">
@@ -130,8 +130,8 @@ export default function MisteryAbout() {
                   ✓
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Accès Sans Limites</h3>
-                  <p className="text-muted-foreground text-sm">Écoutez et regardez les histoires quand vous voulez, sur tous vos appareils</p>
+                  <h3 className="font-semibold text-foreground mb-1">{t('about.unlimited.title')}</h3>
+                  <p className="text-muted-foreground text-sm">{t('about.unlimited.desc')}</p>
                 </div>
               </div>
               <div className="flex gap-4 bg-card rounded-xl p-6 border border-border">
@@ -139,8 +139,8 @@ export default function MisteryAbout() {
                   ✓
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Nouveau Contenu Régulier</h3>
-                  <p className="text-muted-foreground text-sm">Des nouvelles histoires ajoutées chaque semaine pour vous tenir en haleine</p>
+                  <h3 className="font-semibold text-foreground mb-1">{t('about.regular.title')}</h3>
+                  <p className="text-muted-foreground text-sm">{t('about.regular.desc')}</p>
                 </div>
               </div>
             </div>
@@ -150,10 +150,10 @@ export default function MisteryAbout() {
           <div className="mb-16">
             <div className="bg-red-600/10 rounded-2xl p-8 lg:p-12 border border-red-600/20">
               <h2 className="text-2xl lg:text-3xl font-heading font-bold mb-6 text-foreground text-center">
-                Notre Équipe
+                {t('about.team.title')}
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed text-center">
-                MISTERY est dirigée par une équipe passionnée de Madagascar qui croit au pouvoir des histoires pour divertir, inspirer et rapprocher les gens. Chaque membre de notre équipe apporte sa propre expérience et son amour pour les mystères et les récits captivants.
+                {t('about.team.desc')}
               </p>
             </div>
           </div>
@@ -161,16 +161,16 @@ export default function MisteryAbout() {
           {/* CTA Section */}
           <div className="text-center">
             <h2 className="text-2xl font-heading font-bold mb-4 text-foreground">
-              Prêt à explorer le mystère?
+              {t('about.cta.title')}
             </h2>
             <p className="text-muted-foreground mb-8">
-              Rejoignez des milliers de passionnés qui découvrent les histoires les plus captivantes de Madagascar
+              {t('about.cta.desc')}
             </p>
             <Link 
               to="/" 
               className="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
             >
-              Retour à l'Accueil
+              {t('about.cta.button')}
             </Link>
           </div>
         </div>
