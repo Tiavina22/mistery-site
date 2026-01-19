@@ -1,6 +1,7 @@
 import { PenTool, TrendingUp, Users } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const creatorBenefits = [
   {
@@ -69,10 +70,12 @@ export default function CreatorsSection() {
               })}
             </div>
 
-            <Button size="lg" variant="outline" className="gap-2 border-border text-foreground hover:bg-[#1DB954] hover:text-black hover:border-[#1DB954] font-bold">
-              <PenTool className="w-5 h-5" />
-              {t('creators.cta')}
-            </Button>
+            <Link to="/creator/register">
+              <Button size="lg" variant="outline" className="gap-2 border-border text-foreground hover:bg-[#1DB954] hover:text-black hover:border-[#1DB954] font-bold">
+                <PenTool className="w-5 h-5" />
+                {t('creators.cta')}
+              </Button>
+            </Link>
           </div>
 
           {/* Illustration */}

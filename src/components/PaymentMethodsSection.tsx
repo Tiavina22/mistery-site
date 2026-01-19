@@ -7,7 +7,6 @@ export default function PaymentMethodsSection() {
     { src: '/paiement/logovisa.svg', alt: 'Visa' },
     { src: '/paiement/logomastercard.svg', alt: 'Mastercard' },
     { src: '/paiement/logopaypal.svg', alt: 'PayPal' },
-    { src: '/paiement/logovanillapay.png', alt: 'VanillaPay' },
     { src: '/paiement/logomvola.svg', alt: 'MVola' },
     { src: '/paiement/logoorange.svg', alt: 'Orange Money' },
     { src: '/paiement/logoairtel.svg', alt: 'Airtel Money' },

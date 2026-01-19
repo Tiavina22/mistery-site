@@ -37,10 +37,12 @@ export default function CTASection() {
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="group gap-2 text-base px-8 bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold rounded-full transition-all hover:scale-105">
-              <Download className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
-              {t('cta.button')}
-            </Button>
+            <a href="/apk/appistery-beta.apk" download="appistery-beta.apk">
+              <Button size="lg" className="group gap-2 text-base px-8 bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold rounded-full transition-all hover:scale-105">
+                <Download className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+                {t('cta.button')}
+              </Button>
+            </a>
             <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-secondary/50 border border-border">
               <Smartphone className="w-5 h-5 text-muted-foreground" />
               <span className="text-sm font-medium text-muted-foreground">{t('cta.android')}</span>
