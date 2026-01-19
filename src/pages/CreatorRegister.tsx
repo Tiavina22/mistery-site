@@ -73,9 +73,23 @@ function CreatorRegister() {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    
+    // Validation spéciale pour le numéro CIN : maximum 14 chiffres
+    if (name === 'cin_number') {
+      const onlyNumbers = value.replace(/\D/g, '');
+      if (onlyNumbers.length <= 14) {
+        setFormData({
+          ...formData,
+          [name]: onlyNumbers,
+        });
+      }
+      return;
+    }
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -675,7 +689,7 @@ function CreatorRegister() {
                 Numéro de CIN <span className="text-red-500">*</span>
               </Label>
               <p className="text-xs text-muted-foreground mb-2">
-                Numéro de votre carte d'identité nationale
+                Numéro de votre carte d'identité nationale (14 chiffres maximum)
               </p>
               <Input
                 id="cin_number"
@@ -684,9 +698,13 @@ function CreatorRegister() {
                 placeholder="Ex: 101234567890"
                 value={formData.cin_number}
                 onChange={handleChange}
+                maxLength={14}
                 autoFocus
                 className="bg-secondary border-none text-foreground placeholder:text-muted-foreground h-12 focus-visible:ring-2 focus-visible:ring-[#1DB954]"
               />
+              <p className="text-xs text-muted-foreground">
+                {formData.cin_number.length}/14 chiffres
+              </p>
             </div>
           </div>
         );
