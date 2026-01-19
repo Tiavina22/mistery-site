@@ -174,6 +174,14 @@ export default function AdminPayments() {
     }).format(amount) + ' Ar';
   };
 
+  const getAvatarSrc = (avatar?: string | null): string | undefined => {
+    if (!avatar) return undefined;
+    if (avatar.startsWith('data:') || avatar.startsWith('http://') || avatar.startsWith('https://')) {
+      return avatar;
+    }
+    return `data:image/jpeg;base64,${avatar}`;
+  };
+
   const openDetails = (payment: Payment) => {
     setSelectedPayment(payment);
     setDetailsDialogOpen(true);
@@ -348,7 +356,11 @@ export default function AdminPayments() {
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
                           {payment.avatar ? (
-                            <img src={payment.avatar} alt="" className="w-full h-full object-cover" />
+                            <img 
+                              src={getAvatarSrc(payment.avatar)} 
+                              alt="" 
+                              className="w-full h-full object-cover" 
+                            />
                           ) : (
                             <span className="text-xs font-medium text-primary">
                               {payment.username?.charAt(0).toUpperCase()}
