@@ -128,17 +128,32 @@ const translations = {
     'cta.button': 'Télécharger Appistery',
     'cta.android': 'Disponible sur Android',
 
-    // Footer
-    'footer.description': 'La plateforme de streaming d\'histoires vraies issues de la culture malgache.',
-    'footer.about': 'À propos',
-    'footer.terms': 'CGU',
-    'footer.contact': 'Contact',
-    'footer.made': 'Fait à Madagascar',
-    'footer.rights': '© Appistery – Tous droits réservés',
-
     // Common
     'common.back': 'Retour',
     'common.loading': 'Chargement...',
+
+    // Header
+    'header.home': 'Accueil',
+    'header.appistery': 'Appistery',
+    'header.login': 'Se Connecter',
+    'header.profile': 'Profil',
+    'header.logout': 'Déconnexion',
+
+    // Footer
+    'footer.description': 'La plateforme de streaming d\'histoires vraies issues de la culture malgache.',
+    'footer.description.mistery': 'La plateforme de streaming de histoires malgaches authentiques',
+    'footer.navigation': 'Navigation',
+    'footer.home': 'Accueil',
+    'footer.resources': 'Ressources',
+    'footer.about': 'À propos',
+    'footer.terms': 'Conditions d\'utilisation',
+    'footer.privacy': 'Politique de confidentialité',
+    'footer.help': 'Aide',
+    'footer.contact': 'Contact',
+    'footer.contact.question': 'Avez-vous une question? Contactez-nous',
+    'footer.rights': 'Tous les droits réservés',
+    'footer.made': 'Fait à Madagascar',
+    'footer.madeWith': 'With ❤️ in Madagascar',
 
     // Privacy Page
     'privacy.title': 'Politique de Confidentialité',
@@ -306,7 +321,7 @@ const translations = {
     'mistery.why.title': 'Pourquoi ?',
     'mistery.why.question': 'Pourquoi créer une maison de production dédiée aux histoires malgaches ?',
     'mistery.why.answer1': 'Parce que Madagascar regorge de mystères, de traditions ancestrales et d\'histoires vraies qui méritent d\'être racontées de manière authentique et professionnelle.',
-    'mistery.why.answer2': 'donne aux créateurs malgaches les outils, le soutien et la plateforme pour transformer leurs histoires en contenus vidéo captivants distribués via',
+    'mistery.why.answer2': 'MISTERY donne aux créateurs malgaches les outils, le soutien et la plateforme pour transformer leurs histoires en contenus vidéo captivants distribués via APPISTERY.',
   },
   en: {
     // Navigation
@@ -427,17 +442,32 @@ const translations = {
     'cta.button': 'Download Appistery',
     'cta.android': 'Available on Android',
 
-    // Footer
-    'footer.description': 'The streaming platform for true stories from Malagasy culture.',
-    'footer.about': 'About',
-    'footer.terms': 'Terms',
-    'footer.contact': 'Contact',
-    'footer.made': 'Made in Madagascar',
-    'footer.rights': '© Appistery – All rights reserved',
-
     // Common
     'common.back': 'Back',
     'common.loading': 'Loading...',
+
+    // Header
+    'header.home': 'Home',
+    'header.appistery': 'Appistery',
+    'header.login': 'Login',
+    'header.profile': 'Profile',
+    'header.logout': 'Logout',
+
+    // Footer
+    'footer.description': 'The streaming platform for true stories from Malagasy culture.',
+    'footer.description.mistery': 'The streaming platform for authentic Malagasy stories',
+    'footer.navigation': 'Navigation',
+    'footer.home': 'Home',
+    'footer.resources': 'Resources',
+    'footer.about': 'About',
+    'footer.terms': 'Terms of Service',
+    'footer.privacy': 'Privacy Policy',
+    'footer.help': 'Help',
+    'footer.contact': 'Contact',
+    'footer.contact.question': 'Have a question? Contact us',
+    'footer.rights': 'All rights reserved',
+    'footer.made': 'Made in Madagascar',
+    'footer.madeWith': 'With ❤️ in Madagascar',
 
     // Privacy Page
     'privacy.title': 'Privacy Policy',
@@ -605,7 +635,7 @@ const translations = {
     'mistery.why.title': 'Why ??',
     'mistery.why.question': 'Why create a production house dedicated to Malagasy stories?',
     'mistery.why.answer1': 'Because Madagascar is full of mysteries, ancestral traditions and true stories that deserve to be told authentically and professionally.',
-    'mistery.why.answer2': 'gives Malagasy creators the tools, support and platform to transform their stories into captivating video content distributed via',
+    'mistery.why.answer2': 'MISTERY gives Malagasy creators the tools, support and platform to transform their stories into captivating video content distributed via APPISTERY.',
   },
 };
 

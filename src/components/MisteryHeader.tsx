@@ -8,14 +8,14 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function MisteryHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   const navItems = [
-    { label: 'Accueil', href: '/' },
-    { label: 'Appistery', href: '/appistery' },
+    { label: t('header.home'), href: '/' },
+    { label: t('header.appistery'), href: '/appistery' },
   ];
 
   return (
@@ -79,7 +79,7 @@ export default function MisteryHeader() {
                   onClick={() => navigate('/creator/login')}
                 >
                   <LogIn className="w-4 h-4 mr-2" />
-                  Se Connecter
+                  {t('header.login')}
                 </Button>
               </>
             ) : (
@@ -90,7 +90,7 @@ export default function MisteryHeader() {
                   onClick={() => navigate('/creator/dashboard')}
                 >
                   <User className="w-4 h-4 mr-2" />
-                  Profil
+                  {t('header.profile')}
                 </Button>
                 <Button 
                   variant="ghost" 
@@ -100,7 +100,7 @@ export default function MisteryHeader() {
                     navigate('/');
                   }}
                 >
-                  Déconnexion
+                  {t('header.logout')}
                 </Button>
               </>
             )}
@@ -142,7 +142,7 @@ export default function MisteryHeader() {
                     setIsMenuOpen(false);
                   }}
                 >
-                  Se Connecter
+                  {t('header.login')}
                 </button>
               </>
             )}

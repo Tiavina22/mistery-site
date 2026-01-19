@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Mail } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function MisteryFooter() {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="bg-background border-t border-border">
@@ -15,7 +17,7 @@ export default function MisteryFooter() {
               MISTERY
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              La plateforme de streaming de histoires malgaches authentiques
+              {t('footer.description.mistery')}
             </p>
             <div className="flex gap-4">
               <a href="https://facebook.com/Mistery.tantara" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-red-600 transition-colors">
@@ -26,11 +28,11 @@ export default function MisteryFooter() {
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h4 className="text-foreground font-semibold">Navigation</h4>
+            <h4 className="text-foreground font-semibold">{t('footer.navigation')}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Accueil
+                  {t('footer.home')}
                 </a>
               </li>
             </ul>
@@ -38,26 +40,26 @@ export default function MisteryFooter() {
 
           {/* Ressources */}
           <div className="space-y-4">
-            <h4 className="text-foreground font-semibold">Ressources</h4>
+            <h4 className="text-foreground font-semibold">{t('footer.resources')}</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  À propos
+                  {t('footer.about')}
                 </Link>
               </li>
               <li>
                 <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Conditions d'utilisation
+                  {t('footer.terms')}
                 </Link>
               </li>
               <li>
                 <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Politique de confidentialité
+                  {t('footer.privacy')}
                 </Link>
               </li>
               <li>
                 <Link to="/help" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Aide
+                  {t('footer.help')}
                 </Link>
               </li>
             </ul>
@@ -65,10 +67,10 @@ export default function MisteryFooter() {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h4 className="text-foreground font-semibold">Contact</h4>
+            <h4 className="text-foreground font-semibold">{t('footer.contact')}</h4>
             <div className="space-y-3 text-sm">
               <p className="text-muted-foreground">
-                Avez-vous une question? Contactez-nous
+                {t('footer.contact.question')}
               </p>
               <a href="mailto:contact@mistery.pro" className="inline-flex items-center gap-2 text-red-600 hover:text-red-500 transition-colors">
                 <Mail className="w-4 h-4" />
@@ -85,10 +87,10 @@ export default function MisteryFooter() {
         <div className="mt-8 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-muted-foreground text-sm text-center md:text-left">
-              © {currentYear} Lyrify. Tous les droits réservés.
+              © {currentYear} Lyrify. {t('footer.rights')}
             </p>
             <p className="text-muted-foreground text-xs">
-              With ❤️ in Madagascar
+              {t('footer.madeWith')}
             </p>
           </div>
         </div>
