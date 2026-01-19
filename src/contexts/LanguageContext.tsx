@@ -135,6 +135,7 @@ const translations = {
     // Header
     'header.home': 'Accueil',
     'header.appistery': 'Appistery',
+    'header.why': 'Pourquoi',
     'header.login': 'Se Connecter',
     'header.profile': 'Profil',
     'header.logout': 'Déconnexion',
@@ -449,6 +450,7 @@ const translations = {
     // Header
     'header.home': 'Home',
     'header.appistery': 'Appistery',
+    'header.why': 'Why',
     'header.login': 'Login',
     'header.profile': 'Profile',
     'header.logout': 'Logout',

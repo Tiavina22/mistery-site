@@ -15,6 +15,7 @@ export default function MisteryHeader() {
 
   const navItems = [
     { label: t('header.home'), href: '/' },
+    { label: t('header.why'), href: '/#why' },
     { label: t('header.appistery'), href: '/appistery' },
   ];
 
