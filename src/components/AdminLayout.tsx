@@ -22,7 +22,8 @@ import {
   Crown,
   CreditCard,
   Banknote,
-  BookCheck
+  BookCheck,
+  FileText
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -130,6 +131,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       icon: PackageCheck,
       label: 'Versions App',
       path: '/admin/app-versions',
+      permission: null
+    },
+    {
+      icon: FileText,
+      label: 'CGU',
+      path: '/admin/cgu',
       permission: null
     },
     {
